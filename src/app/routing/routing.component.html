@@ -1,0 +1,61 @@
+<h1>Routing</h1>
+To handle the navigation from one view to the next, you use Angular router. The router enables navigation by
+  interpreting a browser URL as an instruction to change the view. "ng new" creates a new workspace and project with an
+  AppRoutingMoudule, which is an NgModule.
+<br> 
+<br>
+<strong>base href</strong>
+<br>
+Make sure &lt;base href="/"> exists in the&lt;head> of your index.html file. This assumes that the "app" folder is the
+application root, and uses "/"
+<br>
+<br>
+<strong>AppRoutingModule</strong>
+<br>
+AppRoutingModule should be imported in the AppModule to exist in the imports array.
+<br>
+<br>
+<strong>Template with routerLink and router-outlet</strong>
+<br>
+This nav gives you links to click, which tells the router which route to use (defined in the routes constant in
+AppRoutingModule)
+<br>
+<code>
+  &lt;nav> <br>
+  &nbsp;&nbsp;&lt;ul> <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&lt;li>&lt;a routerLink="/first-component" routerLinkActive="active">First Component&lt;/a>&lt;/li> <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&lt;li>&lt;a routerLink="/second-component" routerLinkActive="active">Second Component&lt;/a>&lt;/li> <br>
+  &nbsp;&nbsp;&lt;/ul> <br>
+  &lt;/nav> <br>
+</code>
+<br>
+The routed views render in the &lt;router-outlet>.
+<br>
+<code>
+  &lt;router-outlet>&lt;/router-outlet>
+</code>
+<br>
+<br>
+<strong>Route Order</strong>
+<br>
+The order of routes is important because the Router uses a first-match wins strategy when matching routes, so more specific routes should be placed above less specific routes.
+<br>
+<br>
+<strong>Route Guard</strong>
+<br>
+The following command will generate a route guard and a test file (login.guard.ts and login.guard.spec.ts).
+<br>
+<code>
+  ng g guard login
+</code>
+<br>
+<br>
+The following are different types of the route guard. These are the interfaces that can be implemented in the guard.
+<ol>
+  <li>CanActivate</li>
+  <li>CanActivateChild</li>
+  <li>CanDeactivate</li>
+  <li>Resolve</li>
+  <li>CanLoad</li>
+</ol>
+<br>

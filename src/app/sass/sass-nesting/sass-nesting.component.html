@@ -1,0 +1,82 @@
+<h1>Nesting</h1>
+<p> This deals with nesting in Sass.</p>
+<br>
+<br>
+<h2>Nesting</h2>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3 border"><b>Sass</b></div>
+    <div class="col-3 border"><b>CSS</b></div>
+  </div>
+  <div class="row">
+    <div class="col-3 border">
+      <code>
+                nav {{'{'}} <br>
+                    &nbsp;&nbsp;ul {{'{'}} <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;margin: 0; <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;pading:0; <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;list-style: none: <br>
+                        &nbsp;&nbsp;} <br>
+                <br>
+                    &nbsp;&nbsp;li {{'{'}} display: inline-block; }
+                <br>
+                <br>
+                    &nbsp;&nbsp;a {{'{'}} <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;display: block; <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;padding: 6px 12px; <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;text-decoration: none; <br>
+                        &nbsp;&nbsp;} <br>
+            } 
+            </code>
+    </div>
+    <div class="col-3 border">
+      <code>
+                nav ul {{'{'}} <br>
+                    &nbsp;&nbsp;ul {{'{'}} <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;margin: 0; <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;pading:0; <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;list-style: none: <br>
+                        &nbsp;&nbsp;} <br>
+                <br>
+                    nav li {{'{'}} display: inline-block; }
+                <br>
+                <br>
+                    nav a {{'{'}} <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;display: block; <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;padding: 6px 12px; <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;text-decoration: none; <br>
+                        &nbsp;&nbsp;} <br>
+            } 
+            </code>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 border"><b>& (Ampersand)</b> places the parent selector in the child
+      selector.</div>
+  </div>
+  <div class="row">
+    <div class="col-3 border">
+      <code>
+                .some-class {{'{'}} <br>
+                    &nbsp;&nbsp;color: black; <br>
+                    <br>
+                    &nbsp;&nbsp;&.another-class {{'{'}} <br>
+                        &nbsp;&nbsp;&nbsp;background-color: grey; <br>
+                    &nbsp;&nbsp;} <br>
+                } <br>
+            </code>
+    </div>
+    <div class="col-3 border">
+      <code>
+            .some-class {{'{'}} <br>
+               &nbsp;&nbsp; color: black; <br>
+            } 
+            <br>
+            <br>
+            .some-class.another-class {{'{'}} <br>
+                &nbsp;&nbsp;background-color: grey <br>
+            } <br>
+            </code>
+    </div>
+  </div>
+</div>

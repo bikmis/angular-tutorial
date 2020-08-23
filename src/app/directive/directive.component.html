@@ -1,0 +1,138 @@
+<h1>Directive</h1>
+<br>
+
+<a id="ngfor-id" routerLink="/angular/directive" fragment="ngfor"
+  [class.focus]="selectedFragment === 'ngfor'">*ngFor</a>
+<a id="ngif-id"  routerLink="/angular/directive" fragment="ngif"
+  [class.focus]="selectedFragment === 'ngif'">*ngIf</a>
+<a id="ngswitch-id" routerLink="/angular/directive" fragment="ngswitch"
+  [class.focus]="selectedFragment === 'ngswitch'">*ngSwitch</a>
+<br>
+<br>
+<h2 id="ngfor">*ngFor</h2>
+*ngFor is a for loop in Angular. It is a structural directive attribute. It changes the DOM's structure by adding,
+removing, or manipulating elements. A structural directive attribute begins with an asterisk(*).
+<br>
+<br>
+The following array is coded in the component class.
+<br>
+<code>public programingLanguage = ['c', 'c++', 'c#'];</code>
+<br>
+<br>
+The following *ngFor is coded in the template.
+<br>
+<code>
+  &lt;ul> <br>
+    &nbsp;&nbsp;&lt;li *ngFor="let language of programingLanguage; let i=index; let isOdd=odd; let isEven=even" 
+    &nbsp;&nbsp;&nbsp;&nbsp;class="list-group-item" [class.odd]="isOdd" [class.even]="isEven"> <br>
+       &nbsp;&nbsp;&nbsp;&nbsp;({{'{{'}}i+1}}) {{'{{'}}language}}<br>
+       &nbsp;&nbsp;&lt;/li> <br>
+  &lt;/ul> <br> <br>
+</code>
+
+The Result:
+<br>
+The following is a list of programing languages.
+<ul class="list-group">
+  <li *ngFor="let language of programingLanguage; let i=index; let isOdd=odd; let isEven=even" class="list-group-item"
+    [class.odd]="isOdd" [class.even]="isEven">
+    ({{i+1}})&nbsp;&nbsp;&nbsp;&nbsp;{{language}} ----- isOdd is {{isOdd}} & isEven {{isEven}}. ".odd" class is appplied
+    where isOdd is true & ".even" is applied where isEven is true.
+  </li>
+</ul>
+<br>
+<h3 id="ngif">*ngIf</h3>
+When you click the button, it toggles between visible and hidden by setting isVisible to true or false. *ngIf is set to
+isVisible.
+<br>
+<br>
+The following is the function coded inside the component class.
+<br>
+<code>
+  public toggleText(event) {{'{'}} <br>
+  if (this.isVisible) {{'{'}} <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;this.isVisible = false; <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;event.target.innerHTML = 'Show Text'; <br>
+  &nbsp;&nbsp;} <br>
+  else {{'{'}} <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;this.isVisible = true; <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;event.target.innerHTML = 'Hide Text'; <br>
+  &nbsp;&nbsp;} <br>
+}
+</code>
+<br>
+<br>
+The following is the html code in the template.
+<br>
+<br>
+<code>
+&lt;a class="btn btn-sm btn-outline-secondary mr-2" (click)="toggleText($event)">Hide Text&lt;/a>
+&lt;div class="d-inline" *ngIf="isVisible">This text toggles between visible and hidden.&lt;/div>
+</code>
+<br>
+<br>
+<a class="btn btn-sm btn-outline-secondary mr-2" (click)="toggleText($event)">Hide Text</a>
+<div class="d-inline" *ngIf="isVisible">This toggles between visible and hidden.</div>
+<br>
+<br>
+<h3 id="ngswitch">*ngSwitch</h3>
+Write the following code in the component.
+<br>
+<code>
+    public programingLanguage = ['c', 'c++', 'c#', 'Java', 'JavaScript', 'Python']; <br>
+    public selectedLanguage: string = "Select a Language";
+  </code>
+<br>
+<br>
+
+Write the following code in the template for the dropdown.
+<br>
+<code>
+  &lt;select [(ngModel)]="selectedLanguage"> <br>
+  &nbsp;&nbsp;&lt;option value="Select a Language">Select a Language&lt;/option> <br>
+  &nbsp;&nbsp;&lt;option *ngFor="let language of programingLanguage"> <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;{{'{{'}}language}} <br>
+  &nbsp;&nbsp;&lt;/option> <br>
+  &lt;/select>
+</code>
+<br>
+<br>
+Write the following code in the template for the ngSwitch.
+<br>
+<code>
+  &lt;div [ngSwitch]="selectedLanguage"> <br>
+  &nbsp;&nbsp;&lt;a *ngSwitchCase="'c'" target="_blank" href="https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html">Learn c&lt;/a> <br>
+  &nbsp;&nbsp;&lt;a *ngSwitchCase="'c#'" target="_blank" href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/">Learn
+      c#&lt;/a> <br>
+      &nbsp;&nbsp;&lt;a *ngSwitchCase="'JavaScript'" target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">Learn
+      JavaScript&lt;/a> <br>
+      &nbsp;&nbsp;&lt;span *ngSwitchDefault> <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;div *ngIf="selectedLanguage && !(selectedLanguage === 'Select a Language')">This course is not currently available.
+      &lt;/div> <br>
+      &nbsp;&nbsp;&lt;/span> <br>
+  &lt;/div>
+</code>
+<br>
+<br>
+
+Example: <br>
+<select [(ngModel)]="selectedLanguage">
+  <option value="Select a Language">Select a Language</option>
+  <option *ngFor="let language of programingLanguage">
+    {{language}}
+  </option>
+</select>
+
+<div [ngSwitch]="selectedLanguage">
+  <a *ngSwitchCase="'c'" target="_blank" href="https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html">Learn c</a>
+  <a *ngSwitchCase="'c#'" target="_blank" href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/">Learn
+    c#</a>
+  <a *ngSwitchCase="'JavaScript'" target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">Learn
+    JavaScript</a>
+  <span *ngSwitchDefault>
+    <div *ngIf="selectedLanguage && !(selectedLanguage === 'Select a Language')">This course is not currently available.
+    </div>
+  </span>
+</div>
+<br>
+<br>

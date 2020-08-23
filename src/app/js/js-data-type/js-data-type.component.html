@@ -1,0 +1,155 @@
+<h1>Data Type</h1>
+<br>
+This page discusses data types.
+<br>
+<br>
+<h2 id="primitive">Primitive</h2>
+A primitive value or primitive data type is data that is not an object and has no methods. There
+are 6 primitive data types: <br>
+<ol>
+  <li>string</li>
+  <li>number</li>
+  <li>bigint</li>
+  <li>boolean</li>
+  <li>undefined</li>
+  <li>symbol</li>
+</ol>
+null looks like primitive, but is a special case for every object. Primitives are immutable, i.e
+they cannot be changed. Don't confuse primitive itself with a variable assigned a primitive
+value. The variable maybe reassigned a new value, but the existing value can not be changed in
+the ways that objects, arrays, and functions can be altered. A primitive (value) can be replaced
+but not directly altered.
+<br>
+<br>
+In JavaScript, data are dynamically-typed. <br>
+<br>
+<code>
+    let x = 3; typeof(x); //number <br>
+    x = "Jack"; typeof(x); //string <br>
+    x = true; typeof(x); //boolean <br>
+    x = 12n; typeof(x); //bigint. bigints are integers with n.<br>
+    var y; typeof(y); //undefined <br>
+    let z = new Date(); typeof(z);  //object
+</code>
+<br>
+<br>
+<h2 id="object">Object</h2>
+An object is a collection of properties, and a property is an association between a name (or
+key) and a value. A property's value can be a function, in which the property is know as a
+method. objectName.propertyName gives the value of the property.
+<br>
+<br>
+<code>
+    <ul>
+        <li>
+            let myCar = new Object(); <br>
+            myCar.make = "Honda"; <br>
+            console.log(myCar.make); //Honda <br>
+        </li>
+        <br>
+        <li>
+            let myCar = {{'{'}} make: "Honda"}; <br>
+            console.log(myCar.make); //Honda <br>
+            myCar.color = "Red"; <br>
+            console.log(myCar.color); //red <br>
+            console.log(myCar["color"]); //red <br>
+            myCar["price"] = "$30,000"; <br>
+            console.log(myCar.price); //$30,000
+        </li>
+        <br>
+        <li>
+            let student = {{'{'}} <br>
+                &nbsp;&nbsp;name: "Jack", <br>
+                &nbsp;&nbsp;age: 22, <br>
+                &nbsp;&nbsp;isFunny: function(){{'{'}} <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if(this.age > 20) {{'{'}} <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return true; <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} else {{'{'}} <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false; <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} <br>
+                &nbsp;&nbsp;} <br>
+            } <br>
+            <br>
+            let isFunny = student.isFunny(); <br>
+            console.log(isFunny);
+        </li>
+        <br>
+        <li>
+            let now = new Date(); <br>
+            console.log(now, typeof(now)); //typeof(now) is object
+        </li>
+        <br>
+        <li>
+            let grades = [10, 30, 40, 60]; <br>
+            console.log(grades[0], typeof(grades)); //typeof(grades) is object
+        </li>
+    </ul>
+</code>
+<br>
+<h2 id="object-property">Object's Properties</h2>
+The following code reads the property name and values and prints them in the Console. <br>
+<code>
+    let myCar = {{'{'}} <br>
+        &nbsp;&nbsp;model: "crv", <br>
+        &nbsp;&nbsp;make: "Honda" <br>
+    } <br>
+    <br>
+    var showProps = function (obj){{'{'}} <br>
+        &nbsp;&nbsp;for (var i in obj){{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;console.log(i + ": " + obj[i]);<br>
+        &nbsp;&nbsp;} <br>
+    } <br>
+    <br>
+    showProps(myCar);
+</code>
+<br>
+<br>
+<h2 id="this">this (Object Reference)</h2>
+"this" can be used within a method to refer to the current object. A method is a variable in an
+object that is set to a function. In other words, a method is a function which is a property of
+an object.
+<br>
+<code>
+    const Manager = {{'{'}} <br>
+        &nbsp;&nbsp;name: "Jack", <br>
+        &nbsp;&nbsp;job: "Store Manager" <br>
+    } <br>
+    <br>
+    const Intern = {{'{'}} <br>
+        &nbsp;&nbsp;name: "Michael", <br>
+        &nbsp;&nbsp;job: "Paralegal Intern" <br>
+    } <br>
+    <br>
+    var sayHello = function(){{'{'}} <br>
+        &nbsp;&nbsp;console.log(this.name + " says hello."); <br>
+    }; <br>
+    <br>
+    Manager.sayHello = sayHello; <br>
+    Intern.sayHello = sayHello; <br>
+    <br>
+    console.log(Manager.sayHello()); // Jack says hello. <br>
+    console.log(Intern.sayHello());  // Michael says hello.
+</code>
+<br>
+<br>
+<h2 id="getter-setter">getter and setter Properties</h2>
+getter and setter properties get and set the values of a specific property.
+<br>
+<code>
+    let student = {{'{'}} <br>
+        &nbsp;&nbsp;name: "Jack", <br>
+        <br>
+        &nbsp;&nbsp;get getName(){{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;return this.name; <br>
+        &nbsp;&nbsp;}, <br>
+        <br>
+        &nbsp;&nbsp;set setName(name) {{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;this.name = name <br>
+        &nbsp;&nbsp;} <br>
+    } <br>
+    <br>
+    console.log(student.getName); //Jack <br>  
+    student.setName = "Michael"; <br>
+    console.log(student.getName); //Michael <br>
+</code>
+<br><br>

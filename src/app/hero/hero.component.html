@@ -1,0 +1,23 @@
+<h1>Hero Service (In Memory Web API)</h1>
+<br>
+<div *ngIf="!heroes"><i class="fas fa-spinner fa-spin"></i></div>
+<div *ngIf="heroes" fxLayout="column" fxLayoutGap="7px">
+  <div fxLayout="row">
+    <div fxFlex="40px"><strong>ID</strong></div>
+    <div fxFlex="200px"><strong>Name</strong></div>
+  </div>
+  <div *ngFor="let hero of heroes" fxLayout="row">
+    <div fxFlex="40px">{{hero.id}}</div>
+    <div fxFlex="200px">{{hero.name}}</div>
+  </div>
+</div> 
+<br>
+<br>
+Angular has a tool called In Memory Web API. Once installed this library will intercept all your HTTP calls and return mock data for you. You don't have to hardcode anything or rely on the backend team. The tool makes everything seamless even mimicking delayed responses if you want it too. You can set headers, response types, basically everything you might do with a server.
+<br>
+<br>
+Install the in-memory-web-api as follows:
+<br>
+<code>
+    npm i angular-in-memory-web-api --save
+</code>

@@ -1,0 +1,242 @@
+<a href="https://rxjs.dev/" target="_blank" style="text-decoration: none;"><h1>RxJS Library</h1></a>
+<br>
+Reactive programming is an asynchronous programming paradigm concerned with data streams and the propagation of change.
+RxJS (Reactive Extensions for JavaScript) is a library for reactive programming using observables that makes it easier
+to compose asynchronous or callback-based code.
+<br>
+<br>
+<strong>arrow function and curly braces</strong>
+<br>
+Arrow functions can have either a "concise body" or the usual "block body". Check <a
+  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions"
+  target="_blank">arrow function expressions</a>. In a concise body, only an expression is specified, which becomes the
+implicit return value. In a block body, you must use an explicit return statement.
+<br>
+<code>
+  // concise body syntax, implied "return" <br>
+  var func = x => x * x; <br>                   
+  <br>
+  // with block body, explicit "return" needed <br>
+  var func = (x, y) => {{'{'}} return x + y; }; 
+</code>
+<br>
+<br>
+<h2>obs</h2>
+<button (click)="testObs()">Obs Test</button>
+
+<h2>scan</h2>
+<button #scanButton (click)="runScan()">scan</button>
+<br>
+<span *ngFor="let scanValue of scanValues">
+  <span>{{scanValue}} </span>
+</span>
+
+<br>
+<br>
+
+<div>
+  <div>
+    <strong>Subject</strong>
+    <br>
+    An RxJS Subject is a special type of Observable that allows values to be multicasted to many Observers.
+    <br>
+    <br>
+    <button (click)="increaseSubjectValue()">subject</button>
+    <ul *ngFor="let subjectData of subjectObsData">
+      <li>{{subjectData}}</li>
+    </ul>
+  </div>
+  <div>
+    <strong>Behavior Subject</strong>
+    <br>
+    One of the variants of Subjects is the BehaviorSubject, which has a notion of "the current value". It stores the
+    latest value emitted to its consumers, and whenever a new Observer subscribes, it will immediately receive the
+    "current value" from the BehaviorSubject.
+    <br>
+    <br>
+    <button (click)="increaseBehaviorSubjectValue()">behavior subject</button>
+    <ul *ngFor="let behaviorSubjectData of behaviorSubjectObsData">
+      <li>{{behaviorSubjectData}}</li>
+    </ul>
+  </div>
+  <div>
+    <strong>Replay Subject</strong>
+    <br>
+    A ReplaySubject is similar to a BehaviorSubject in that it can send old values to new subscribers, but it can also
+    record a part of the Observable execution.
+    <br>
+    <br>
+    <button (click)="increaseReplaySubjectValue()">replay subject</button>
+    <ul *ngFor="let replaySubjectData of replaySubjectObsData">
+      <li>{{replaySubjectData}}</li>
+    </ul>
+  </div>
+</div>
+<br>
+<br>
+<strong>Observable From a Promise</strong>
+<br>
+'from' converts almost anything to an observable.
+<br>
+<code>
+  import {{'{'}} from } from 'rxjs'; <br>
+  <br>
+  // Create an Observable out of a promise <br>
+  const data = from(fetch('/api/endpoint')); <br>
+  // Subscribe to begin listening for async result <br>
+  data.subscribe({{'{'}} <br>
+    &nbsp;&nbsp;next(response) {{'{'}} console.log(response); }, <br>
+    &nbsp;&nbsp;error(err) {{'{'}} console.error('Error: ' + err); }, <br>
+    &nbsp;&nbsp;complete() {{'{'}} console.log('Completed'); } <br>
+  });
+</code>
+<br>
+<br>
+<strong>Observable From a Counter</strong>
+<br>
+<code>
+  import {{'{'}} interval } from 'rxjs'; <br>
+  <br>
+  // Create an Observable that will publish a value on an interval <br>
+  const secondsCounter = interval(1000); <br>
+  // Subscribe to begin publishing values <br>
+  secondsCounter.subscribe(n => <br>
+    &nbsp;&nbsp;console.log(`It's been ${{'{'}}n} seconds since subscribing!`) <br>
+  ); <br>
+</code>
+<br>
+<br>
+<strong>Observable From an Event</strong>
+<br>
+<code>
+  import {{'{'}} fromEvent } from 'rxjs'; <br>
+<br>
+  const el = document.getElementById('my-element'); <br>
+  <br>
+  // Create an Observable that will publish mouse movements <br>
+  const mouseMoves = fromEvent(el, 'mousemove'); <br>
+  <br>
+  // Subscribe to start listening for mouse-move events <br>
+  const subscription = mouseMoves.subscribe((evt: MouseEvent) => {{'{'}} <br>
+    &nbsp;&nbsp;// Log coords of mouse movements <br>
+    &nbsp;&nbsp;console.log(`Coords: ${{'{'}}evt.clientX} X ${{'{'}}evt.clientY}`); <br>
+   <br>
+   &nbsp;&nbsp;// When the mouse is over the upper-left of the screen, <br>
+   &nbsp;&nbsp;// unsubscribe to stop listening for mouse movements <br>
+   &nbsp;&nbsp;if (evt.clientX &lt; 40 && evt.clientY &lt; 40) {{'{'}} <br>
+   &nbsp;&nbsp;&nbsp;&nbsp;subscription.unsubscribe(); <br>
+   &nbsp;&nbsp;} <br>
+  });
+</code>
+<br>
+<br>
+<strong>Create an Observable from Ajax Request</strong>
+<br>
+<code>
+  import {{'{'}} ajax } from 'rxjs/ajax'; <br>
+  <br>
+  // Create an Observable that will create an AJAX request <br>
+  const apiData = ajax('/api/data'); <br>
+  // Subscribe to create the request <br>
+  apiData.subscribe(res => console.log(res.status, res.response));
+</code>
+<br>
+<br>
+<strong>Operators (functions)</strong>
+<br>
+Operators are functions that build on the observables foundation to enable sophisticated manipulation of collections.
+<br>
+<br>
+<div>
+  <div><strong>Area</strong></div>
+  <div><strong>Operators</strong></div>
+</div>
+<div>
+  <div>Creation</div>
+  <div>from, fromEvent, of</div>
+</div>
+<div>
+  <div>Combination</div>
+  <div>combineLatest, concat, merge, startWith, withLatestFrom, zip</div>
+</div>
+<div>
+  <div>Filtering</div>
+  <div>debounceTime, distinctUntilChanged, filter, take, takeUntil</div>
+</div>
+<div>
+  <div>Transformation</div>
+  <div>bufferTime, concatMap, map, mergeMap, scan, switchMap</div>
+</div>
+<div>
+  <div>Utility</div>
+  <div>tap</div>
+</div>
+<div>
+  <div>Multicasting</div>
+  <div>share</div>
+</div>
+<br>
+<br>
+<strong>pipe</strong>
+<br>
+You can use pipes to link operators together. Pipes let you combine mutltiple functions into a single function. The
+pipe() function takes as its arguments the functions you want to combine, and returns a new function that, when
+executed, runs the composed functions in sequence.
+<br>
+<br>
+<strong>Error Handling</strong>
+<br>
+In addition to the error() handler that you provide on subscription, RxJS provides the catchError operator that lets you
+handle known errors in the observable recipe.
+<br>
+<br>
+<code>
+import {{'{'}} ajax } from 'rxjs/ajax'; <br>
+import {{'{'}} map, catchError } from 'rxjs/operators'; <br>
+// Return "response" from the API. If an error happens, <br>
+// return an empty array. <br>
+const apiData = ajax('/api/data').pipe( <br>
+  &nbsp;&nbsp;map(res => {{'{'}} <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;if (!res.response) {{'{'}} <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new Error('Value expected!'); <br>
+  &nbsp;&nbsp;&nbsp;} <br>
+  &nbsp;&nbsp;&nbsp;return res.response; <br>
+  &nbsp;&nbsp;}), <br>
+  &nbsp;&nbsp;catchError(err => of([])) <br>
+); <br>
+<br>
+apiData.subscribe({{'{'}} <br>
+&nbsp;&nbsp;next(x) {{'{'}} console.log('data: ', x); }, <br>
+&nbsp;&nbsp;error(err) {{'{'}} console.log('errors already caught... will not run'); } <br>
+});
+</code>
+<br>
+<br>
+<strong>retry</strong>
+<br>
+The retry operator lets you retry a failed request.
+<br>
+<br>
+<code>
+  import {{'{'}} ajax } from 'rxjs/ajax'; <br>
+  import {{'{'}} map, catchError } from 'rxjs/operators';
+ <br>
+ <br>
+  const apiData = ajax('/api/data').pipe( <br>
+    &nbsp;&nbsp;retry(3), // Retry up to 3 times before failing <br>
+    &nbsp;&nbsp;map(res => {{'{'}} <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;if (!res.response) {{'{'}} <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new Error('Value expected!'); <br>
+    &nbsp;&nbsp;&nbsp;} <br>
+    &nbsp;&nbsp;&nbsp;return res.response; <br>
+    &nbsp;&nbsp;}), <br>
+    &nbsp;&nbsp;catchError(err => of([])) <br>
+  ); <br>
+  <br>
+  apiData.subscribe({{'{'}} <br>
+  &nbsp;&nbsp;next(x) {{'{'}} console.log('data: ', x); }, <br>
+  &nbsp;&nbsp;error(err) {{'{'}} console.log('errors already caught... will not run'); } <br>
+  });
+  </code>
+<br>
+<br>

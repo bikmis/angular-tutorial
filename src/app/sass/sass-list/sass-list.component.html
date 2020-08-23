@@ -1,0 +1,82 @@
+<h1>List, @each</h1>
+<p><code>#{{'{'}}}</code> (interpolation) returns an unquouted string. #{{'{'}}1} returns 1 (unquoted
+  string), which is useful for dynamically generating names such as m-1.</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3 border"><b>Sass</b></div>
+    <div class="col-3 border"><b>CSS</b></div>
+  </div>
+  <div class="row">
+    <div class="col-3 border">
+      <code>
+            $spaceamounts: (1,2,3,4,5); /* (1,2,3,4,5) is a list*/<br>
+            <br>
+            @each $space in $spaceamounts {{'{'}} <br>
+                &nbsp;&nbsp;.m-#{{'{'}}$space} {{'{'}} <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;margin: #{{'{'}}$space}rem; <br>
+                &nbsp;&nbsp;} 
+                <br>
+                <br>
+                &nbsp;&nbsp;.my-#{{'{'}}$space} {{'{'}} <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;margin: #{{'{'}}$space}rem 0; <br>
+                    &nbsp;&nbsp;} 
+                <br>
+                <br>
+                &nbsp;&nbsp;.mx-#{{'{'}}$space} {{'{'}} <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;margin: 0 #{{'{'}}$space}rem; <br>
+                    &nbsp;&nbsp;} 
+                <br>
+                <br>
+                &nbsp;&nbsp;.p-#{{'{'}}$space} {{'{'}} <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;padding: #{{'{'}}$space}rem; <br>
+                    &nbsp;&nbsp;} 
+                <br>
+                <br>
+                &nbsp;&nbsp;.py-#{{'{'}}$space} {{'{'}} <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;padding: #{{'{'}}$space}rem 0; <br>
+                    &nbsp;&nbsp;} 
+                <br>
+                <br>
+                &nbsp;&nbsp;.px-#{{'{'}}$space} {{'{'}} <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;padding: 0 #{{'{'}}$space}rem; <br>
+                     &nbsp;&nbsp;} 
+                <br>
+            }
+        </code>
+    </div>
+    <div class="col-3 border">
+      <code>
+            .m-1{{'{'}}margin:1rem} <br>
+            .m-2{{'{'}}margin:2rem} <br>
+            .m-3{{'{'}}margin:3rem} <br>
+            .m-4{{'{'}}margin:4rem} <br>
+            .m-5{{'{'}}margin:5rem} <br>
+            .my-1{{'{'}}margin:1rem 0} <br>
+            .my-2{{'{'}}margin:2rem 0} <br>
+            .my-3{{'{'}}margin:3rem 0} <br>
+            .my-4{{'{'}}margin:4rem 0} <br>
+            .my-5{{'{'}}margin:5rem 0} <br>
+            .mx-1{{'{'}}margin:0 1rem} <br>
+            .mx-2{{'{'}}margin:0 2rem} <br>
+            .mx-3{{'{'}}margin:0 3rem} <br>
+            .mx-4{{'{'}}margin:0 4rem} <br>
+            .mx-5{{'{'}}margin:0 5rem} <br>
+            .p-1{{'{'}}padding:1rem} <br>
+            .p-2{{'{'}}padding:2rem} <br>
+            .p-3{{'{'}}padding:3rem} <br>
+            .p-4{{'{'}}padding:4rem} <br>
+            .p-5{{'{'}}padding:5rem} <br>
+            .py-1{{'{'}}padding:1rem 0} <br>
+            .py-2{{'{'}}padding:2rem 0} <br>
+            .py-3{{'{'}}padding:3rem 0} <br>
+            .py-4{{'{'}}padding:4rem 0} <br>
+            .py-5{{'{'}}padding:5rem 0} <br>
+            .px-1{{'{'}}padding:0 1rem} <br>
+            .px-2{{'{'}}padding:0 2rem} <br>
+            .px-3{{'{'}}padding:0 3rem} <br>
+            .px-4{{'{'}}padding:0 4rem} <br>
+            .px-5{{'{'}}padding:0 5rem}
+        </code>
+    </div>
+  </div>
+</div>

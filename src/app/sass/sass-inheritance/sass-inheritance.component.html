@@ -1,0 +1,53 @@
+<h1>Inheritance</h1>
+<p> This deals with inheritance.</p>
+<br>
+<p>% is a placeholder selector and is similar to class selectors. Placeholder selectors don't
+  show up in the generated CSS. @extend is used to inherit placeholder selectors.</p>
+<div class="row">
+  <div class="col-3 border"><b>Sass</b></div>
+  <div class="col-3 border"><b>CSS</b></div>
+</div>
+<div class="row">
+  <div class="col-3 border">
+    <code>
+            %icon{{'{'}} <br>
+                &nbsp;&nbsp;transition: background-color ease .2s; <br>
+                &nbsp;&nbsp;margin: 0 .5em; <br>
+            } 
+            <br>
+            <br>
+            .error-icon {{'{'}} <br>
+                &nbsp;&nbsp;@extend %icon; <br>
+                &nbsp;&nbsp;background-color: red; <br>
+                &nbsp;&nbsp;color: white; <br>
+            } 
+            <br>
+            <br>
+            .info-icon {{'{'}} <br>
+                &nbsp;&nbsp;@extend %icon; <br>
+                &nbsp;&nbsp;background-color: yellow; <br>
+                &nbsp;&nbsp;color: black; <br>
+            }
+        </code>
+  </div>
+  <div class="col-3 border">
+    <code>
+            .error-icon, .info-icon{{'{'}} <br>
+                &nbsp;&nbsp;transition: background-color ease .2s; <br>
+                &nbsp;&nbsp;margin: 0 .5em; <br>
+            } 
+            <br>
+            <br>
+            .error-icon {{'{'}} <br>
+                &nbsp;&nbsp;background-color: red; <br>
+                &nbsp;&nbsp;color: white; <br>
+            } 
+            <br>
+            <br>
+            .info-icon {{'{'}} <br>
+                &nbsp;&nbsp;background-color: yellow; <br>
+                &nbsp;&nbsp;color: black; <br>
+            }
+        </code>
+  </div>
+</div>

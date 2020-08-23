@@ -1,0 +1,93 @@
+<h1>User (http)</h1>
+<br>
+<button (click)="getUsers()">Get Users</button>
+<button (click)="clearUsers()">Clear Users</button>
+<br>
+<br>
+<div class="error">{{error}}</div>
+<div *ngIf="isVisible && !error">
+  <div *ngIf="!users?.body"><i class="fas fa-spinner fa-spin"></i></div>
+  <div *ngIf="users" fxLayout="column" fxLayoutGap="7px">
+    <div>
+      <span>URL: {{users?.url}}</span> <br>
+      <span>Status: {{users?.status}}</span> <br>
+      <span>Status Text: {{users?.statusText}}</span> <br>
+      <span>Type: {{users?.type}}</span> <br>
+      <span>ok: {{users?.ok}}</span> <br>
+      <span>headers: {{users?.headers | json}}</span>
+    </div>
+    <div fxLayout="row">
+      <div fxFlex="40px"><strong>ID</strong></div>
+      <div fxFlex="200px"><strong>Name</strong></div>
+      <div fxFlex="200px"><strong>Username</strong></div>
+      <div fxFlex="200px"><strong>Email</strong></div>
+    </div>
+    <div *ngFor="let user of users?.body" fxLayout="row">
+      <div fxFlex="40px">{{user.id}}</div>
+      <div fxFlex="200px">{{user.name}}</div>
+      <div fxFlex="200px">{{user.username}}</div>
+      <div fxFlex="200px">{{user.email}}</div>
+    </div>
+  </div>
+</div>
+<br>
+<strong>Service Definition</strong>
+<br>
+First create "user" interface for type checking - to specify the response object type. Use an interface rather than a
+class, because the response is a plain object that cannot be automatically converted to an instance of a class.
+<br>
+<code>
+  export interface User {{'{'}} <br>
+    &nbsp;&nbsp;id: number; <br>
+    &nbsp;&nbsp;name: string; <br>
+    &nbsp;&nbsp;username: string; <br>
+    &nbsp;&nbsp;email: string; <br>
+  }
+</code>
+<br>
+<br>
+Write the following code in the User service. Specify "User" interface as the HttpClient.get() call's type parameter in
+the service.
+<br>
+<code>
+    import {{'{'}} Observable } from 'rxjs';
+    <br>
+    ....<br>
+    ....<br>
+    private url = 'https://jsonplaceholder.typicode.com/users'; 
+    <br>
+    <br>
+    constructor(private http: HttpClient) {{'{'}} }
+    <br>
+    <br>
+    getUsers(): Observable&lt;User[]> {{'{'}} <br>
+      &nbsp;&nbsp;return this.http.get&lt;User[]>(this.url); <br>
+    }
+</code>
+<br>
+<br>
+<strong>Service Consumption</strong>
+<br>
+Write the following code to consume the service. The callback in the component method receives a typed data object, which is easier and safer to consume.
+<br>
+<code>
+import {{'{'}} User } from './user'; <br>
+.... <br>
+.... <br>
+<br>
+users: User[] = null;<br>
+<br>
+  constructor(private userService: UserService) {{'{'}} } <br>
+<br>
+  ngOnInit(): void {{'{'}} <br>
+    &nbsp;&nbsp;this.getUsers(); <br>
+  } <br>
+<br>
+  getUsers() {{'{'}} <br>
+  &nbsp;&nbsp;this.userService.getUsers().subscribe((data: User[]) => {{'{'}} <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;this.users = data; <br>
+  &nbsp;&nbsp;}); <br>
+  } <br>
+</code>
+<br>
+<br>

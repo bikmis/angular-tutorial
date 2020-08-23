@@ -1,0 +1,47 @@
+<h1>Type Script</h1>
+<br>
+<strong>| (Pipe Symbol or Vertical Bar)</strong>
+<br>
+A pipe can combine several types to denote a Union Type. A variable with a Union Type can be any of the types combined
+by the pipe.
+<br>
+<br>
+In the code below, x is either string or number.
+<br>
+<code>
+  var x: string | number
+</code>
+<br>
+<br>
+<strong>Index Signature</strong>
+<br>
+The StringArray object can have any number of properties. Each property will be a number, but will be assigned to a string.
+<br>
+<code>
+  interface StringArray {{'{'}} <br>
+    &nbsp;&nbsp;[index: number]: string; <br>
+} <br>
+<br>
+let myArray: StringArray = ['Bob', 'Fred']; <br>
+let myString: string = myArray[0];  // myString is set Bob
+</code>
+<br>
+<br>
+<strong>Type Assertions (type cast)</strong>
+<br>
+A type assertion is like a type cast in other languages. Type assertions use two forms: "angle-bracket" syntax or as-syntax.
+<br>
+<br>
+"angle bracket" syntax: <br>
+<code>
+  let someValue: any = "this is a string"; <br>
+  let strLength: number = (&lt;string>someValue).length;
+</code>
+<br>
+<br>
+as-syntax:
+<br>
+<code>
+  let someValue: any = "this is a string"; <br>
+  let strLength: number = (someValue as string).length;
+</code>

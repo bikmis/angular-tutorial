@@ -1,0 +1,61 @@
+<h1>Preflight Request (CORS)</h1>
+
+<ul>
+  <li>A web application executes a cross-origin HTTP request when it requests a resource that has different origin
+    (domain, protocol, or port) from its own.</li>
+  <li>http : // hostname [ : port ] / path [ ? searchwords ] <br>
+    Example: <br>
+    https://video.google.co.uk:80/videoplay?docid=-724692761456464478&hl=en#00h02m30s <br>
+    https --- protocol <br>
+    video --- subdomain<br>
+    google.co.uk --- domain name <br>
+    80 --- port <br>
+    videoplay --- path <br>
+    ? --- query <br>
+    docid=-724692761456464478&hl=en --- parameter (key=value separated by &)<br>
+    #00h02m30s --- fragment
+  </li>
+  <li>An example of a cross-origin request: the front-end JavaScript code served from https://domain-a.com uses
+    XMLHttpRequest to make a request for https://domain-b.com/data.json.</li>
+  <li>
+    When a cross-origin request is made, the browser first makes a preflight request with OPTIONS method to solicit
+    approval from the server before making the main request. Once the preflight request is complete and it gets a
+    response with the status code 204 (No Content), then it makes the main (real) request. Servers can also inform
+    clients
+    whether "credentials" (such as Cookies and HTTP Authentication) should be sent with requests.
+  </li>
+  <li>
+    CORS failures result in errors, but for security reasons, specifics about the error are not available to JavaScript.
+  </li>
+  <li>
+    Some requests don't trigger a CORS preflight. They are called simple requests. A simple request is one that meets
+    all the following conditions:
+    <ul>
+      <li>
+        One of the allowed methods: GET, HEAD, POST
+      </li>
+      <li>
+        With the following headers set manually: Accept, Accept-Language, Content-Language, Content-Type(allowed values
+        are "applicaiton/x-www-form-urlencoded", "multipart/form-data", "text/plain"), DPR, Downlink, Save-Data,
+        Viewport-Width, Width
+      </li>
+    </ul>
+  </li>
+  <li>
+    Check the "origin" in the request and "Access-Control-Allow-Origin" in the response. To allow access to the
+    resource, the Access-Control-Allow-Origin header should contain the value that was sent in the request's Origin
+    header.
+  </li>
+  <li>
+    "preflighted" requests first send an HTTP request by the OPTIONS method to the resource on the other domain, to
+    determine if the actual request is safe to send. The OPTIONS request contains "Access-Control-Request-Method"
+    and "Access-Control-Request-Headers" and the resource server determines whether it wishes to accept the main or
+    real request with these headers later on. The server then sends back "Access-Control-Allow-Origin",
+    "Access-Control-Allow-Methods", "Access-Control-Allow-Headers" and "Access-Control-Max-Age".
+    "Access-Control-Max-Age" gives the value in seconds for how long the response to the preflight request can be
+    cached for without sending another preflight request.
+  </li>
+  <li>
+    Check <a href="https://enable-cors.org/server_aspnet.html" target="_blank">CORS on ASP.NET</a> and <a href="https://enable-cors.org/server.html" target="_blank">CORS on the server</a>.
+  </li>
+</ul>

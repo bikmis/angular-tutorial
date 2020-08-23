@@ -1,0 +1,20 @@
+<div class="container">
+  <h1 class="row">Search Hero</h1>
+  <!--"keyup" event fires when any character key or enter key is pressed and released. "search" event is fired when we press and release enter or click on x in the search input field to clear the field-->
+  <input class="row" type="search" (keyup)="search($event.target.value)" (search)="search($event.target.value)"
+    placeholder="Search">
+  <br>
+  <div *ngIf="searchResults$ | async as searchResults">
+    <div *ngIf="searchResults.length > 0">
+      <div class="row">Heroes containing the search string:</div>
+      <div class="row border">
+        <div class="col-1"><strong>ID</strong></div>
+        <div class="col"><strong>Name</strong></div>
+      </div>
+      <div *ngFor="let hero of searchResults" class="row border">
+        <div class="col-1">{{hero.id}}</div>
+        <div class="col">{{hero.name}}</div>
+      </div>
+    </div>
+  </div>
+</div>

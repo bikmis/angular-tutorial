@@ -1,0 +1,287 @@
+<h1>window</h1>
+<br>
+This page discusses the window object. window interface contains the document property loaded in
+the window or tab. window is a global variable. Even in a tabbed browser, some properties and
+methods still apply to the overall window that contains the tab, such as resizeTo() and
+innerHeight. Generally, anything that can't reasonably pertain to a tab pertains to the window
+instead.
+<br>
+<br>
+<h2 id="console">console</h2>
+console is an object on window. console.log("argument") function prints in the Console. <br>
+<code>
+    var consoleLogId = document.getElementById("console-log");<br>
+    consoleLogId.addEventListener("click", function(){{'{'}} <br>
+       &nbsp;&nbsp;console.log("You clicked on an element with the id 'console-log'.") <br>
+    });
+</code>
+<br>
+console.log(param1, param2, ...) can print multiple parameters in the console. The following
+code prints 2 3;
+<br>
+<code>
+    var x = 2, y = 3; <br>
+    console.log(x, y);
+</code>
+<br>
+<br>
+<h2 id="alert">alert()</h2>
+alert is a function on window. alert(argument) pops up a message. <br>
+<code>
+    var consoleLogId = document.getElementById("console-log");<br>
+    consoleLogId.addEventListener("click", function(){{'{'}} <br>
+        &nbsp;&nbsp;alert("You clicked on an element with the id 'console-log'.") <br>
+    });
+</code>
+<br>
+<br>
+<h2 id="prompt">prompt()</h2>
+prompt is a function on window.
+<br> <br>
+Example:
+<p id="purchase">Confirm purhcase by clicking the button below and typing in your name.</p>
+<button id="confirm-prompt">Confirm</button>
+<br> <br>
+prompt(argument); pops up argument as a message with an input element and ok and cancel
+buttons.
+<br>
+<br>
+<code>
+    var confirm = document.getElementById("confirm"); <br>
+    confirm.addEventListener("click", function(){{'{'}} <br>
+        &nbsp;&nbsp;var username = prompt("Type in your name."); <br>
+        &nbsp;&nbsp;if(username){{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;document.getElementById("purchase").innerHTML = username + " Your purchase order is confirmed."; <br>
+            &nbsp;&nbsp;} else <br>
+            &nbsp;&nbsp;{{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;document.getElementById("purchase").innerHTML = "Confirm purhcase by clicking the button below and &nbsp;&nbsp;&nbsp;&nbsp;typing in your name."; <br>
+            &nbsp;&nbsp;} <br>
+    });
+</code>
+<br>
+<br>
+<h2 id="confirm">confirm()</h2>
+window.confirm(message) pops up a message with ok and cancel buttons. If ok is pressed, true is
+returned. For cancel false is returned. <br> <br>
+<button id="google">Google</button>
+<br> <br>
+<code>
+    let google = document.getElementById("google"); <br>
+    google.addEventListener("click", function(){{'{'}} <br>
+        &nbsp;&nbsp;var goToGoogle = window.confirm("Do you want to go to google?"); <br>
+        &nbsp;&nbsp;if(goToGoogle){{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;window.open("https://www.google.com"); <br>
+            &nbsp;&nbsp;} <br>
+    });
+</code>
+<br>
+<br>
+<h2 id="document">document</h2>
+window.document or document returns a reference to the document that the window contains.
+<br>
+<br>
+<h2 id="history">history</h2>
+history.back(); <br>
+history.go(1);
+history.forward();
+<br>
+<br>
+<h2>location</h2>
+Gets/sets the location, or current URL, of the window object.
+<br>
+<br>
+<h2>localStorage</h2>
+Returns a reference to the local storage object used to store data that may only be accessed by
+the origin that created it.
+<br>
+<br>
+<h2>name</h2>
+Gets/sets the name of the window.
+<br>
+<br>
+<h2>opener</h2>
+Returns a reference to the window that opened this current window.
+<br>
+<br>
+<h2>parent</h2>
+Returns a reference to the parent of the current window or subframe.
+<br>
+<br>
+<h2>status</h2>
+Gets/sets the text in the statusbar at the bottom of the browser.
+<br>
+<br>
+<h2>close()</h2>
+Closes the current window.
+<br>
+<br>
+<h2>open()</h2>
+Opens a new window.
+<br><br>
+<h2>postMessage()</h2>
+Provides a secure means for one window to send a string of data to another window, which need
+not be within the same domain as the first. <br> <br>
+<h2>print()</h2>
+Opens the Print Dialog to print the current document. <br> <br>
+<h2>resizeTo(), resizeBy()</h2>
+Dynamically resizes window. <br>
+Resizes the current window by a certain amount.
+<br>
+<br>
+<h2>scroll(), scrollBy(), scrollTo()</h2>
+Scrolls the window to a particular place in the document. <br>
+Scrolls the document in the window by the given amount. <br>
+Scrolls to a particular set of coordinates in the document.
+<br>
+<br>
+<h2>atob()</h2>
+Decodes a string of data which has been encoded using base-64 encoding. <br> <br>
+<h2>btoa()</h2>
+Creates a base-64 encoded ASCII string from a string of binary data. <br> <br>
+<h2>addEventListener()</h2>
+Register an event handler to a specific event type on the window. <br> <br>
+<h2>clearInterval()</h2>
+Cancels the repeated execution set using setInterval(). <br> <br>
+<h2>clearTimeout()</h2>
+Cancels the delayed execution set using setTimeout(). <br> <br>
+<h2>setInterval</h2>
+Schedules a function to execute every time a given number of milliseconds elapses. <br> <br>
+<h2>setTimeout</h2>
+Schedules a function to execute in a given amount of time. <br> <br>
+<h2>onaffterprint</h2>
+Called when the print dialog box is closed. <br> <br>
+<h2>onbeforeprint</h2>
+Called when the print dialog box is opened. <br> <br>
+<h2>onblur</h2>
+Called after the window loses focus, such as due to a popup. <br> <br>
+<h2>onclick</h2>
+Called after the ANY mouse button is pressed & released <br> <br>
+<h2>ondblclick</h2>
+Called when a double click is made with ANY mouse button. <br> <br>
+<h2>onclose</h2>
+Called after the window is closed <br> <br>
+<h2>onerror</h2>
+Called when a resource fails to load OR when an error occurs at runtime. <br> <br>
+<h2>onfocus</h2>
+Called after the window receives or regains focus. <br> <br>
+<h2>onhashchange</h2>
+An event handler property for hashchange events on the window; called when the part of the URL
+after the hash mark ("#") changes. <br> <br>
+<h2>oninput</h2>
+Called when the value of an input element changes <br> <br>
+<h2>onkeydown</h2>
+Called when you begin pressing ANY key. <br> <br>
+<h2>onkeypress</h2>
+Called when a key (except Shift, Fn, and CapsLock) is in pressed position. <br> <br>
+<h2>onkeyup</h2>
+Called when you finish releasing ANY key. <br> <br>
+<h2>onload</h2>
+Called after all resources and the DOM are fully loaded. WILL NOT get called when the page is
+loaded from cache, such as with back button. <br> <br>
+<h2>onmousedown</h2>
+Called when ANY mouse button is pressed. <br> <br>
+<h2>onmousemove</h2>
+Called continously when the mouse is moved inside the window. <br> <br>
+<h2>onmouseout</h2>
+Called when the pointer leaves the window. <br> <br>
+<h2>onmouseover</h2>
+Called when the pointer enters the window <br> <br>
+<h2>onmouseup</h2>
+Called when ANY mouse button is released <br> <br>
+<h2>onoffline</h2>
+Called when network connection is lost. <br> <br>
+<h2>ononline</h2>
+Called when network connection is established. <br> <br>
+<h2>onpagehide</h2>
+Called when the user navigates away from the page, before the onunload event. <br> <br>
+<h2>onpageshow</h2>
+Called after all resources and the DOM are fully loaded. <br> <br>
+<h2>onpopstate</h2>
+Called when a back button is pressed. <br> <br>
+<h2>onreset</h2>
+Called when a form is reset <br> <br>
+<h2>onresize</h2>
+Called continuously as you are resizing the window <br> <br>
+<h2>onscroll</h2>
+Called when the scroll bar is moved via ANY means. If the resource fully fits in the window,
+then this event cannot be invoked <br> <br>
+<h2>onwheel</h2>
+Called when the mouse wheel is rotated around any axis <br> <br>
+<h2>onselect</h2>
+Called after text in an input field is selected <br> <br>
+<h2>onstorage</h2>
+Called when there is a change in session storage or local storage. <br> <br>
+<h2>onsubmit</h2>
+Called when a form is submitted <br> <br>
+<h2>onunload</h2>
+Called when the user navigates away from the page. <br> <br>
+<h2>error</h2>
+Fired when a resource failed to load, or can't be used. For example, if a script has an
+execution error or an image can't be found or is invalid. <br> <br>
+<h2>languagechange</h2>
+Fired at the global scope object when the user's preferred language changes. <br> <br>
+<h2>orientationchange</h2>
+Fired when the orientation of the device has changed. <br> <br>
+<h2>resize</h2>
+Fired when the window has been resized. <br> <br>
+<h2>storage</h2>
+Fired when a storage area (localStorage or sessionStorage) has been modified in the context of
+another document. <br> <br>
+<h2>animationend</h2>
+Fired when an animation has completed normally. <br> <br>
+<h2>animationstart</h2>
+Fired when an animation starts. <br> <br>
+<h2>animationiteration</h2>
+Fired when an animation iteration has completed. <br> <br>
+<h2>copy, cut, paste</h2>
+Fired when the user initiates a copy, cut or paste action through the browser's user interface.
+<br> <br>
+<h2>online, offline</h2>
+online: Fired when the browser has gained access to the network and the value of
+navigator.onLine has switched to true. <br> <br>
+offline: Fired when the browser has lost access to the network and the value of navigator.onLine
+has switched to false. <br> <br>
+<h2>blur</h2>
+Fired when an element has lost focus. <br> <br>
+<h2>focus</h2>
+Fired when an element has gained focus. <br> <br>
+<h2>hashchange</h2>
+Fired when the fragment identifier of the URL has changed (the part of the URL beginning with
+and following the # symbol). <br> <br>
+<h2>pagehide</h2>
+Sent when the browser hides the current document while in the process of switching to displaying
+in its place a different document from the session's history. This happens, for example, when
+the user clicks the Back button or when they click the Forward button to move ahead in session
+history. <br> <br>
+<h2>pageshow</h2>
+Sent when the browser makes the document visible due to navigation tasks, including not only
+when the page is first loaded, but also situations such as the user navigating back to the page
+after having navigated to another within the same tab. <br> <br>
+<h2>popstate</h2>
+Fired when the active history entry changes. <br> <br>
+<h2>beforeunload</h2>
+Fired when the window, the document and its resources are about to be unloaded. <br> <br>
+<h2>DOMContentLoaded</h2>
+Fired when the document has been completely loaded and parsed, without waiting for stylesheets,
+images, and subframes to finish loading. <br> <br>
+<h2>load</h2>
+Fired when the whole page has loaded, including all dependent resources such as stylesheets,
+images. <br> <br>
+<h2>unload</h2>
+Fired when the document or a child resource is being unloaded. <br> <br>
+<h2>message</h2>
+Fired when the window receives a message, for example from a call to Window.postMessage() from
+another browsing context. <br> <br>
+<h2>messageerror</h2>
+Fired when a Window object receives a message that can't be deserialized. <br> <br>
+<h2>afterprint</h2>
+Fired after the associated document has started printing or the print preview has been closed.
+<br> <br>
+<h2>beforeprint</h2>
+Fired when the associated document is about to be printed or previewed for printing. <br> <br>
+<h2>transitionend</h2>
+Fired when a CSS transition has completed. <br> <br>
+<h2>transitionrun</h2>
+Fired when a CSS transition is first created. <br> <br>
+<h2>transitionstart</h2>
+Fired when a CSS transition has actually started. <br> <br>

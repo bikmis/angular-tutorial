@@ -1,0 +1,78 @@
+<h1>Font Awesome</h1>
+<br>
+Example 1:
+<br>
+<button class="btn btn-primary" (click)="getAnimal()">Get Animal List</button>
+<br>
+List of animals:
+<br>
+<span *ngIf="!animal"><i class="fas fa-spinner fa-spin"></i></span>
+<ul *ngIf="animal">
+  <li *ngFor="let a of animal">
+    {{a}}
+  </li>
+</ul>
+<br>
+Example 2:
+<div class="fa-1x">
+  <i class="fas fa-spinner fa-spin"></i>
+  &nbsp;&nbsp;<i class="fas fa-circle-notch fa-spin"></i>
+  &nbsp;&nbsp;<i class="fas fa-sync fa-spin"></i>
+  &nbsp;&nbsp;<i class="fas fa-cog fa-spin"></i>
+  &nbsp;&nbsp;<i class="fas fa-spinner fa-pulse"></i>
+  &nbsp;&nbsp;<i class="fas fa-stroopwafel fa-spin"></i>
+</div>
+<br>
+<strong>Font Script</strong>
+<br>
+Open an account in <a href="https://fontawesome.com/" target="_blank">Font Awesome</a>. Create a kit and use the font
+script like below in the head section.
+<br>
+<code>
+  &lt;head> <br>
+    &nbsp;&nbsp;&lt;script src="https://kit.fontawesome.com/7x8df925df.js" crossorigin="anonymous">&lt;/script> <br>
+  &lt;/head>
+</code>
+<br>
+<br>
+<strong>Component</strong>
+<br>
+Write the following code in the component.
+<br>
+<code>
+animal = null;
+<br>
+<br>
+ngOnInit(): void {{'{'}} <br>
+  &nbsp;&nbsp;this.getAnimal(); <br>
+}
+<br>
+<br>
+getAnimal() {{'{'}} <br>
+&nbsp;&nbsp;this.animal = null; <br>
+&nbsp;&nbsp;setTimeout(() => {{'{'}} <br>
+&nbsp;&nbsp;&nbsp;&nbsp;this.animal = ['cat', 'tiger', 'leopard', 'elephant', 'mouse']; <br>
+&nbsp;&nbsp;}, 2000); <br>
+}
+</code>
+<br>
+<br>
+<strong>Template</strong>
+<br>
+Write the following code in the template.
+<br>
+<code>
+&lt;button (click)="getAnimal()">Get Animal List&lt;/button>
+<br>
+<br>
+List of animals:
+<br>
+&lt;span *ngIf="!animal">&lt;i class="fas fa-spinner fa-spin">&lt;/i>&lt;/span> <br>
+&lt;ul *ngIf="animal"> <br>
+&nbsp;&nbsp;&lt;li *ngFor="let a of animal"> <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;{{'{{'}}a}} <br>
+&nbsp;&nbsp;&lt;/li> <br>
+&lt;/ul>
+</code>
+<br>
+<br>

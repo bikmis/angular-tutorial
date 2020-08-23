@@ -1,0 +1,236 @@
+<h1>Function</h1>
+<br>
+This page discusses function. JavaScript function is a Function object.
+<br>
+<br>
+<h2 id="func-execution">Function Execution</h2>
+The following method executes itself. IIFE stands for "immediately invokable function
+expression". The whole function is within parentheses and ends with parentheses () which invokes
+the function immediately.<br>
+<code>
+(function(){{'{'}} <br>
+    &nbsp;&nbsp;var name = "Jhon"; <br>
+    &nbsp;&nbsp;console.log(name); <br>
+})();
+</code>
+<br>
+<br>
+An anonymous function is assigned to printName variable. printName("William") invokes the
+function.
+<br>
+<code>
+    var printName = function(name) {{'{'}} <br>
+    &nbsp;&nbsp;console.log(name); <br>
+    } <br>
+    <br>
+    printName("William");
+</code>
+<br>
+<br>
+person("Michael", "Jackson", "04/19/2000"); invokes the creaatePerson function.
+<br>
+<code>
+    var person = function createPerson(fname, lname, dobParam) {{'{'}} <br>
+        &nbsp;&nbsp;function computeDOB(dobParam) {{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;var diff_ms = Date.now() - new Date(dobParam).getTime(); <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;var age_dt = new Date(diff_ms); <br>
+            <br>                
+            &nbsp;&nbsp;&nbsp;&nbsp;return Math.abs(age_dt.getUTCFullYear() - 1970); <br>
+            &nbsp;&nbsp;} <br>
+        <br>
+        &nbsp;&nbsp;return {{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;fullName: fname + " " + lname, <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;dob: computeDOB(dobParam) <br>
+            &nbsp;&nbsp;} <br>
+    }; <br>
+    <br>
+    var per = person("Michael", "Jackson", "04/19/2000"); <br>
+    console.log(per.fullName + " Age: " + per.dob + " years");
+</code>
+<br>
+<br>
+getScore() returns 9 as add function executes when getScore() is called. <br>
+<code>
+    var num1 = 22, <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;num2 = 102, <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;name = 'John'; <br>
+    function getScore() {{'{'}} <br>
+    &nbsp;&nbsp;var num1 = 2, // outside variable is overridden here.<br>
+    &nbsp;&nbsp;num2 = 7; // outside variable num2 is overridden here.<br>
+    <br>
+    &nbsp;&nbsp;function add() {{'{'}} <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return name + ' scored ' + (num1 + num2) + '.'; <br>
+    &nbsp;&nbsp;} <br>
+    <br>
+    &nbsp;&nbsp;return add(); // returns after executing the function add i.e. 9<br>
+    } <br>
+    <br>
+    console.log(getScore());
+</code>
+<br>
+<br>
+<h2 id="anonymous-func">Anonymous Function</h2>
+An anonymous function is one that is declared/defined without a name to refer to it. So it is
+used as a value to a variable or as an argument to another function. In the below code,
+helloWorld without parentheses gives the definition of the function and helloWorld() runs it.
+<br>
+<code>
+    var helloWorld = function(){{'{'}} <br>
+        &nbsp;&nbsp;console.log("Hello World"); <br>
+    }; <br>
+    <br>
+    helloWorld();
+</code>
+<br>
+<br>
+In the code below the anonymous function is passed into another function as an argument. The
+anonymous function runs after 2000 milliseconds or 2 seconds.
+<br>
+<code>
+    setTimeout(function(){{'{'}} <br>
+        &nbsp;&nbsp;console.log("Hello World"); <br>
+     }, 2000);
+</code>
+<br><br>
+<h2 id="recursive-func">Recursive Function</h2>
+A function that calls itself is called a recursive function. The following loop function calls
+itself within its body.
+<br>
+<code>
+    function loop(x){{'{'}} <br>
+        &nbsp;&nbsp;if(x >=10) <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;return; <br>
+        &nbsp;&nbsp;console.log("Recursive " + x); <br>
+        &nbsp;&nbsp;loop(x+1); <br>
+    } <br>
+    <br>
+    loop(0);
+</code>
+<br><br>
+<h2 id="closure">Closure</h2>
+A closure is a function with references to its surrounding state. A closure (inner or nested
+function) gives you access to an outer function's scope.
+<br>
+<br>
+In the code below showName is the inner function, which is a closure and uses the local variable
+"name" declared / defined in the parent function init.
+<br>
+<code>
+     function init(){{'{'}} <br>
+        &nbsp;&nbsp;var name = "Michael"; <br>
+        &nbsp;&nbsp;function showName(){{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;console.log(name); <br>
+        &nbsp;&nbsp;} <br>
+        &nbsp;&nbsp;showName(); <br>
+     } <br>
+     <br>
+     init();
+ </code>
+<br>
+<br>
+makeFunc function returns showName function. myFunc is assigned to a makeFunc function. When
+myFunc is called, makeFunc runs and returns showName and showName runs as well. showName inner
+function is a closure and references a "name" variable of the parent function.<br>
+<code>
+    function makeFunc() {{'{'}} <br>
+        &nbsp;&nbsp;var name = "Jack"; <br>
+        &nbsp;&nbsp;function showName() {{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;console.log(name); <br>
+        &nbsp;&nbsp;} <br>
+        &nbsp;&nbsp;return showName; <br>
+    } <br>
+    <br>
+    var myFunc = makeFunc(); <br>
+    myFunc();
+</code>
+<br>
+<br>
+Function makeCalcAdd takes an arguement "x" and returns an anonymous function that takes an
+arguement "y" and returns x+y. makeCalcAdd is a function factory. add3 and add4 are closures
+which are set to the anonymous function returned by makeCalcAdd function.
+<br>
+<code>
+    function makeCalcAdd(x){{'{'}} <br>
+    &nbsp;&nbsp;return function(y){{'{'}} <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;return x+y; <br>
+        &nbsp;&nbsp;}; <br>
+    } <br>
+    <br>
+    var add3 = makeCalcAdd(3); <br>
+    var add4 = makeCalcAdd(4); <br>
+
+    console.log(add3(5)); //prints 8 <br>
+    console.log(add4(6)); // prints 10 <br>
+</code>
+<br>
+We can access private variables and functions through public closure functions. The following
+function returns an object that has properties assigned to anonymous closure functions.
+<br>
+<code>
+    var counter = (function(){{'{'}} <br>
+        &nbsp;&nbsp;var privateCounter = 0; <br>
+        &nbsp;&nbsp;function changeBy(val){{'{'}} <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;privateCounter += val; <br>
+        &nbsp;&nbsp;} <br>
+        <br>
+        &nbsp;&nbsp;return {{'{'}}<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;increment: function() {{'{'}} <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changeBy(1); <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;}, <br>
+                <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;decrement: function() {{'{'}}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changeBy(-1); <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;}, <br>
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;value: function(){{'{'}} <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return privateCounter; <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;} <br>
+        &nbsp;&nbsp;}; <br>
+    })(); <br>
+    <br>
+    console.log(counter.value()); //0 <br>
+    counter.increment(); <br>
+    counter.increment(); <br>
+    console.log(counter.value()); //2 <br>
+    counter.decrement(); <br>
+    console.log(counter.value()); //1 <br>
+ </code>
+<br>
+<br>
+In the following code the two counters maintain their independence from one another. Each
+closure references a different version of the privateCounter variable through its own closure.
+<br>
+<code>
+    var makeCounter = function(){{'{'}} <br>
+        &nbsp;&nbsp;var privateCounter = 0; <br>
+        &nbsp;&nbsp;function changeBy(val){{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;privateCounter += val; <br>
+        &nbsp;&nbsp;} <br>
+        <br>
+        &nbsp;&nbsp;return{{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;increment: function(){{'{'}} <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changeBy(1); <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;}, <br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;decrement: function(){{'{'}} <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changeBy(-1); <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;}, <br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;value: function(){{'{'}} <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return privateCounter; <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;} <br>
+        &nbsp;&nbsp;} <br>
+    }; <br>
+    <br>
+    var counter1 = makeCounter(); <br>
+    var counter2 = makeCounter(); <br>
+    <br>
+    console.log(counter1.value()); // 0 <br>
+    counter1.increment(); <br>
+    counter1.increment(); <br>
+    console.log("counter1's value: "+counter1.value()); // 2 <br>
+    <br>
+    counter1.decrement(); <br>
+    console.log("counter1's value: "+counter1.value()); //1 <br>
+    console.log("counter2's value: "+counter2.value()); //0 <br>
+ </code>

@@ -1,0 +1,15 @@
+<h1>Users via Node API</h1>
+<p>Enable cors in the node app, as node is running at port 3000 and angular at 4200.</p>
+
+<div fxLayout="row">
+  <div fxFlex="40px"><strong>ID</strong></div>
+  <div fxFlex="200px"><strong>Name</strong></div>
+  <div fxFlex="200px"><strong>Username</strong></div>
+  <div fxFlex="200px"><strong>Email</strong></div>
+</div>
+<div *ngFor="let user of users" fxLayout="row">
+  <div fxFlex="40px">{{user.id}}</div>
+  <div fxFlex="200px">{{user.name}}</div>
+  <div fxFlex="200px">{{user.username}}</div>
+  <div fxFlex="200px">{{user.email}}</div>
+</div>

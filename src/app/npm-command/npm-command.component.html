@@ -1,0 +1,43 @@
+<h2>npm Command</h2>
+<br>
+To install, update, delete node packages, we use npm commands.
+<ul>
+  <li>
+    <code>npm init</code>: It sets up / initializes an application / project. This command creates package.json file.
+    package.json file is required if you want to create a public package or a team of people work on the same
+    application (package / project).
+  </li>
+  <br>
+  <li><code>npm install -g @angular/cli</code>: This installs angular cli package in the folder
+    C:\Users\Bikash\AppData\Roaming\npm. "-g" is used to make the package globally available.
+  </li>
+  <br>
+  <li>
+    <code>npx ng serve</code> or <code>npm run-script ng serve</code>: Run this command if @angular/cli is installed
+    locally for a project. For a global installation, <code>ng serve</code> will do. npx is pre-bundled with npm. npx
+    makes it easy to use CLI tools and other executables hosted on the npm registry.
+  </li>
+  <br>
+  <li>
+    <code>npm install</code>: This command creates a local node_modules folder and installs all the packages listed as
+    depedencies in the package.json. Since this command changes node_modules tree, a new file package-lock.json is
+    generated.
+  </li>
+  <br>
+  <li>
+    <code>npm list -g --depth 0</code>: This lists all the packages globally installed. Without "-g", the command lists
+    packages available locally at the folder where it is run. The global installation folder for packages in Windows 10
+    is C:\Users\Bikash\AppData\Roaming\npm.
+  </li>
+  <br>
+  <li>
+    When npm creates or modifies either node_modules or package.json, package-lock.json is automatically generated.
+    package-lock.json describes the exact node_modules tree. package-lock.json is committed into source repositories and
+    so history of node_modules tree will be available.
+  </li>
+  <br>
+  <li>
+    <code>npm uninstall &lt;package-name> --save</code>: This uninstalls a package and removes depedencies from
+    package.json. "-g" or "--global" appended to the command uninstalls the package as a global package.
+  </li>
+</ul>

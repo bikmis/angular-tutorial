@@ -1,0 +1,178 @@
+<h1>Template-driven Forms</h1>
+<br>
+<u>Key points</u>
+<br>
+<ul>
+  <li>The template variable is set to the ngForm directive that governs the form as a whole. Angular atuomatically
+    creates and attaches an ngForm directive to the &lt;form> tag. The ngForm directive supplements the form element
+    with additional features.
+  </li>
+  <li>
+    The template variable holds the controls you created for the elements with an ngModel directive and name attribute,
+    and monitors their properties, including their validity.
+  </li>
+  <li>
+    It also has its own valid property which is true only if every contained control is valid.
+  </li>
+  <li>
+    Template-driven forms use [(ngModel)].
+  </li>
+  <li>
+    Defining a name attribute is a requirement when using [(ngModel)] in combination with a form.
+  </li>
+  <li>
+    ngModel tells you if the user touched the control, if the value changed, or if the value became invalid. It
+    updates the control with special Angular CSS classes that reflect the state.
+  </li>
+  <li>
+    All the control properties can be accessed via the local variable. Check <a
+      href="https://angular.io/api/forms/AbstractControl" target="_blank">AbstractControl</a> for a full list of control
+    properties and functions. Some examples of control properties are: status: string, valid: boolean, invalid: boolean,
+    disabled: boolean, enabled: boolean, errors: ValidationErrors | null, pristine: boolean, dirty: boolean, touched:
+    boolean, untouched: boolean etc.
+  </li>
+  <li>If the control has been visited, then the class ng-touched is applied otherwise ng-untouched.</li>
+  <li>If the control's value has changed, then the class ng-dirty is applied, otherwise ng-pristine.</li>
+  <li>If the control's value is valid, then the class ng-valid is applied, otherwise ng-invalid.</li>
+</ul>
+<u>Hero form</u>
+<br>
+<div class="border border-dark">
+  <div [hidden]="submitted">
+    <form #heroForm="ngForm" (ngSubmit)="submitHeroForm(heroForm)">
+      <div>
+        <label for="name">Name*</label> <br>
+        <input type="text" id="name" required pattern="^\S+(\s\S+)*$" [(ngModel)]="hero.name" name="heroName"
+          #name="ngModel" class="valid-invalid-bar">
+        <br>
+        {{'{{'}}name.value}} --- {{name.value}} <br>
+        {{'{{'}}name.errors?.required | json}} --- {{name.errors?.required | json}} <br>
+        {{'{{'}}name.errors?.pattern | json}} --- {{name.errors?.pattern | json}} <br>
+        {{'{{'}}name.status}} --- {{name.status}} <br>
+        {{'{{'}}name.valid}} --- {{name.valid}} <br>
+        {{'{{'}}name.invalid}} --- {{name.invalid}} <br>
+        {{'{{'}}name.pristine}} --- {{name.pristine}} <br>
+        {{'{{'}}name.untouched}} --- {{name.untouched}} <br>
+        {{'{{'}}name.touched}} --- {{name.touched}} <br>
+        {{'{{'}}name.dirty}} --- {{name.dirty}} <br>
+        {{'{{'}}name.disabled}} --- {{name.disabled}} <br>
+        {{'{{'}}name.enabled}} --- {{name.enabled}} <br>
+        <button type="button" (click)="name.reset()">Reset name</button>
+        <br>
+        <span *ngIf="name.errors?.required && !name.pristine" class="error">Name is required.</span>
+        <span *ngIf="name.errors?.pattern" class="error">Name cannot have leading or trailing space.</span>
+      </div>
+      <br>
+      <div>
+        <label for="alterEgo">Alter Ego</label> <br>
+        <input type="text" id="alterEgo" [(ngModel)]="hero.alterEgo" name="heroAlterEgo">
+      </div> <br>
+      <div>
+        <label for="power">Hero Power</label>
+        <br>
+        <select id="power" [(ngModel)]="hero.power" name="heroPower" required>
+          <option *ngFor="let pow of powers" [value]="pow">{{pow}}</option>
+        </select>
+      </div>
+      <br>
+      <button type="submit" [disabled]="heroForm.invalid">Submit</button>
+      <br>
+      {{'{{'}}diagnostic}} --- {{diagnostic}} <br>
+      {{'{{'}}heroForm.value | json}} --- {{heroForm.value | json}} <br>
+      {{'{{'}}heroForm.value.heroName}} --- {{heroForm.value.heroName}} <br>
+      {{'{{'}}hero.name}} --- {{hero.name}} <br>
+      {{'{{'}}heroForm.status}} --- {{heroForm.status}} <br>
+      {{'{{'}}heroForm.valid}} --- {{heroForm.valid}} <br>
+      {{'{{'}}heroForm.invalid}} --- {{heroForm.invalid}} <br>
+      {{'{{'}}heroForm.pristine}} --- {{heroForm.pristine}} <br>
+      {{'{{'}}heroForm.untouched}} --- {{heroForm.untouched}} <br>
+      {{'{{'}}heroForm.touched}} --- {{heroForm.touched}} <br>
+      {{'{{'}}heroForm.dirty}} --- {{heroForm.dirty}} <br>
+      {{'{{'}}heroForm.disabled}} --- {{heroForm.disabled}} <br>
+      {{'{{'}}heroForm.enabled}} --- {{heroForm.enabled}} <br>
+    </form>
+  </div>
+  <div [hidden]="!submitted">
+    <div>You saved the following:</div>
+    <div>{{hero.name}}</div>
+    <div>{{hero.alterEgo}}</div>
+    <div>{{hero.power}}</div>
+  </div>
+  <br>
+  <button type="button" (click)="heroForm.reset();" (click)="addNewHero();">New Hero</button>
+</div>
+<br>
+<br>
+<u>Validation</u>
+<br>
+<ul>
+  <li>
+    Template-driven forms are tied to template directives, and must provide custom validator directives that wrap
+    validation functions.
+  </li>
+  <li>
+    To add validation to a template-driven form, you add the same validation attributes as you would with native
+    HTML form validation. Angular uses directives to match these attributes with validator functions in the
+    framework.
+  </li>
+  <li>
+    HTML5 has a set of built-in attributes that you can use for native validation, including required, minlength,
+    and maxlength. Add "pattern" attribute (takes a regex) as well. pattern="(\S){{'{'}}1,}" means the string
+    should have no white space and length should be 1 or more.
+  </li>
+  <li>
+    Every time the value of a form control changes, Angular runs validation and generates either a list of
+    validation errors that results in an INVALID status, or null, which results in a VALID status.
+  </li>
+  <li>
+    For template-driven forms, a directive is created as a custom validator that implements Validator with an input
+    property.
+  </li>
+</ul>
+<form #myForm="ngForm" (ngSubmit)="submitMyForm(myForm)" class="border border-dark">
+  <label for="name1">Name*(no bob, length=4)</label><br>
+  <input id="name1" name="name1" required minlength="4" appForbiddenName="bob" pattern="^(\S+)(\s\S+)*$"
+    [(ngModel)]="hero.name" #name1="ngModel" class="valid-invalid-bar">
+  <div *ngIf="name1.invalid && !name1.pristine">
+    <div *ngIf="name1.errors?.required" class="error">
+      Name is required.
+    </div>
+    <div *ngIf="name1.errors?.minlength" class="error">
+      Name must be at least {{name1.errors?.minlength.requiredLength}} characters long.
+    </div>
+    <div *ngIf="name1.errors?.forbiddenName" class="error">
+      Name cannot contain {{name1.errors?.forbiddenName.forbiddenValue}}.
+    </div>
+    <div *ngIf="name1.errors?.pattern" class="error">No leading or trailing space.</div>
+  </div> <br> <br>
+  <button type="submit" [disabled]="myForm.invalid">Submit</button>
+</form>
+<br>
+<br>
+<u>Password Change (cross/custom validation)</u>
+<br>
+<form #passwordChangeForm="ngForm" class="border border-dark" appChangePasswordValidator>
+  <label for="newPassword">New Password</label><br>
+  <input type="text" id="newPassword" required [(ngModel)]="password.newPassword" name="newPassword"
+    #newPassword="ngModel"><br>
+    <span *ngIf="passwordChangeForm.invalid && !passwordChangeForm.pristine">
+      <span *ngIf="newPassword.errors?.required" class="error">New password is required.</span>
+      <span class="error">{{passwordChangeForm.errors?.passwordSpace}}</span>
+      <span class="error">{{passwordChangeForm.errors?.passwordLength}}</span>
+      <span class="error">{{passwordChangeForm.errors?.passwordDigit}}</span>
+      <span class="error">{{passwordChangeForm.errors?.passwordLessThanTwoDigits}}</span>
+      <span class="error">{{passwordChangeForm.errors?.passwordUnderscoreOrNonWordCharacter}}</span>
+      <span class="error">{{passwordChangeForm.errors?.passwordLessThanTwoUnderscoreOrNonWordCharacters}}</span>
+    </span> <br>
+  <label for="retypePassword">Retype Password</label> <br>
+  <input type="text" id="retypePassword" [(ngModel)]="password.retypePassword" name="retypePassword" #retypePassword="ngModel">
+  <br>
+  <span *ngIf="passwordChangeForm.invalid && !retypePassword.pristine">
+    <span class="error">{{passwordChangeForm.errors?.passwordMismatch}}</span>
+  </span>
+  <br>
+  <button type="submit">Save</button>
+</form>
+<br>
+<br>
+<br>

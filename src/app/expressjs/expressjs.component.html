@@ -1,0 +1,101 @@
+<h1>Express JS</h1>
+
+Create app.js file and write the following code in it. <br>
+<code>
+  const express = require('express') <br>
+  const app = express() <br>
+  const port = 3000 <br>
+  <br>
+  app.get('/', (req, res)=> {{'{'}} <br>
+  &nbsp;&nbsp;res.send('Hello World!') <br>
+  }) <br>
+  <br>
+  app.post('/', (req, res)=> {{'{'}} <br>
+  &nbsp;&nbsp;res.send('Got a post request!') <br>
+  }) 
+  <br>
+  <br>
+  //http://localhost:3000/butterfly -- any path that ends in "fly". It's an example of a path based on regular expression. <br>
+    app.get(/.*fly$/, function (req, res) {{'{'}} <br>
+        &nbsp;&nbsp;res.send('/.*fly$/') <br>
+    })
+  <br>
+  <br>
+  app.listen(port, ()=>console.log(`Hello world app listening at http://localhost:${{'{'}}port}`)) <br>
+</code>
+<br>
+<br>
+Run the app with the following command. <br>
+<code>
+  app dir location>nodemon app.js
+</code>
+<br>
+Then load http://localhost:3000/ in a browser to see the output.
+<br>
+<br>
+<h2>Basic Routing</h2>
+Route definiion takes the following structure:
+<br>
+<br>
+<code>app.METHOD(PATH, HANDLER)</code>
+app is an instance of express. METHOD is an HTTP request method (verb e.g. get, post etc). PATH is the path on the
+server. HANDLER is the function executed when the route is matched.
+<br>
+<br>
+<h2>Route Parameters</h2>
+//http://localhost:3000/users/120/books/52 <br>
+//response will be {{'{'}}"userId":"120","bookId":"52"} <br>
+<code>
+  app.get('/users/:userId/books/:bookId', function (req, res) {{'{'}} <br>
+    &nbsp;&nbsp;res.send(req.params) <br>
+  })
+</code>
+<br>
+<br>
+<code>
+Route path: /flights/:from-:to <br>
+Request URL: http://localhost:3000/flights/LAX-SFO <br>
+req.params: {{'{'}} "from": "LAX", "to": "SFO" }
+<br>
+<br>
+Route path: /plantae/:genus.:species <br>
+Request URL: http://localhost:3000/plantae/Prunus.persica <br>
+req.params: {{'{'}} "genus": "Prunus", "species": "persica" }
+<br>
+<br>
+Route path: /user/:userId(\d+) <br>
+Request URL: http://localhost:3000/user/42 <br>
+req.params: {{'{'}}"userId": "42"}
+</code>
+<br>
+<br>
+<h2>Serving static files in Express</h2>
+To serve static files such as images CSS files, and JavaScript files, use the express.static built-in middleware
+function in Express.
+<br>
+<br>
+The function signature is: <br>
+<code>express.static(root, [optiopns])</code>
+<br>
+<br>
+Use the following code to serve images, CSS files, and JavaScript files in a directory named public: <br>
+<code>app.use(express.static('public'))</code>
+<br>
+<br>
+<h2>Middleware</h2>
+<ul>
+  <li>Application-level middleware</li>
+  <li>Router-level middleware</li>
+  <li>Error-handling middleware</li>
+  <li>Built-in middleware</li>
+  <li>Third-party middleware</li>
+</ul>
+<br>
+<h2>Error-handling Middleware</h2>
+<code>
+  app.use(function(err, req, res, next){{'{'}} <br>
+  &nbsp;&nbsp;console.error(err.stack) <br>
+  &nbsp;&nbsp;res.status(500).send('Something broke') <br>
+  })
+</code>
+

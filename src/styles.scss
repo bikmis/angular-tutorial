@@ -1,0 +1,50 @@
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+code {
+  color: red;
+}
+
+.p-15 {
+  padding: 15px !important;
+}
+
+.border-left-gray{
+  border-left: 1px lightgray solid !important;
+}
+
+.border-right-gray {
+  border-right: 1px lightgray solid !important;
+}
+
+.min-height-95vh {
+  min-height: 95vh !important;
+}
+
+.min-height-5vh {
+  min-height: 5vh !important;
+}
+
+.max-width-60pct {
+  max-width: 60% !important;
+}
+
+.container-70pct {
+  max-width: 70% !important;
+  margin: auto !important;
+}
+
+.min-width-200px {
+  min-width: 200px !important
+}
+
+.active-nav {
+  background-color: #3f51b5 !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.error {
+  color: red;
+}
+

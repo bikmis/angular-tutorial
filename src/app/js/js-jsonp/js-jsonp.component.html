@@ -1,0 +1,13 @@
+<h1>jsonp</h1>
+The script with the src set to a url and with a callback function myFunc will get the data wrapped in the function myFunc. This is json data padded with a JavaScript function. This is jsonp (json with padding). Cross-domain policy does not allow requesting data from another domain but requesting script from another domain does not have this problem. JSONP uses this and requests data using the script tag instead of the XMLHttpRequest object.
+<br>
+<code>
+    &lt;script> <br>
+        &nbsp;&nbsp;function myFunc(data){{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;console.log(data); <br>
+        &nbsp;&nbsp;} <br>
+    &lt;/script>
+    <br>
+    <br>
+    &lt;script src="https://jsonplaceholder.typicode.com/users?callback=myFunc">&lt;/script>
+</code>

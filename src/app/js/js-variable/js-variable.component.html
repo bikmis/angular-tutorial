@@ -1,0 +1,131 @@
+<h1>Variable</h1>
+<br>
+This page discusses variables.
+<br>
+<br>
+<h2>var(function-scoped)</h2>
+Type the following code inside of the script tag at the bottom of the body tag. Run myFuncVar()
+or window.myFuncVar() in Console. 7 is printed. x is visible outside of "if" block but only
+within the function myFuncVar." <br>
+<code>
+    function myFuncVar() {{'{'}} <br>
+        &nbsp;&nbsp;if(true){{'{'}} <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;var x = 7;   <br>
+        &nbsp;&nbsp;} <br>
+        &nbsp;&nbsp;console.log(x); <br>
+    };<br>
+</code>
+<br>
+<h2>let(block-scoped)</h2>
+A block scope means the scope within curly braces. Type the following code inside of the script
+tag at the bottom of the body tag. Run myFuncLet() or window.myFuncLet() in Console. This
+function throws "Uncaught ReferenceError: x is not defined". The error comes from
+console.log(x). x is not visible outside of "if" block. let variables are used in "for" loops,
+"if" blocks etc. "const" and "let" are stored in the global environment's declarative
+environment record. Even if "const" and "let" variables are declared at the global level, they
+are not available on the window object.<br>
+<code>
+    function myFuncLet() {{'{'}} <br>
+        &nbsp;&nbsp;if(true){{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;let x = 7;  <br>
+            &nbsp;&nbsp;} <br>
+            &nbsp;&nbsp;console.log(x); <br>
+    };<br>
+</code>
+
+<br>
+<h2>const(block-scoped)</h2>
+A block scope means the scope within curly braces. Type the following code inside of the script
+tag at the bottom of the body tag. This function throws "Uncaught ReferenceError: x is not
+defined". The error comes from console.log(x). x is not visible outside of "if" block. "const"
+and "let" are stored in the global environment's declarative environment record. Even if "const"
+and "let" variables are declared at the global level, they are not available on the window
+object.<br>
+<code>
+    function myFuncConst1() {{'{'}} <br>
+        &nbsp;&nbsp;if(true){{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;const x = 7;<br>
+            &nbsp;&nbsp;} <br>
+            &nbsp;&nbsp;console.log(x); <br>
+    };<br>
+</code>
+<br><br>
+A constant cannot be redefined/redclared. In the below code, x is defined twice - the JavaScript
+engine will throw the following error: "Uncaught SyntaxError: Identifier 'x' has already been
+declared." and the function won't be available.
+<code>
+    function myFuncConst2() {{'{'}} <br>
+        &nbsp;&nbsp;if(true){{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;const x = 7;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;const x = 8;<br>
+            &nbsp;&nbsp;} <br>
+            &nbsp;&nbsp;console.log(x); <br>
+    };<br>
+</code>
+<br><br>
+A constant cannot be reassigned. In the below code, x is assigned twice: first with 7 and then
+8. When you run the function, it will throw the following error: "Uncaught TypeError: Assignment
+to constant variable."
+<br>
+<code>
+    function myFuncConst2() {{'{'}} <br>
+        &nbsp;&nbsp;if(true){{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;const x = 7;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;x = 8;<br>
+            &nbsp;&nbsp;} <br>
+            &nbsp;&nbsp;console.log(x); <br>
+    };<br>
+</code>
+<br>
+<br>
+In case of a constant assigned to an object, the object properties can change. The following
+code returns Jack Simpson.
+<br>
+<code>
+    function myFuncConst3() {{'{'}} <br>
+        &nbsp;&nbsp;var myObj = {{'{'}}FirstName: "Mike"}; <br>
+        &nbsp;&nbsp;const x = myObj; <br>
+        &nbsp;&nbsp;myObj.FirstName = "Jack"; <br>
+        &nbsp;&nbsp;myObj.LastName = "Simpson"; <br>
+        &nbsp;&nbsp;console.log(x.FirstName + " " + x.LastName); <br>
+    };
+</code>
+<br>
+<br>
+<h2>Global Variable</h2>
+Write the below function in a script tag at the bottom of the body tag and load the page. In
+Console run myFuncGloVar(); or window.myFuncGloVar(); and then check the value of x by typing in
+x; or window.x; The result is 7. x is scoped at the window object level (not only scoped within
+the function but outside as well) and so it is a global variable because it does not have var,
+let or const in front of it.
+<br>
+<code>
+    function myFuncGloVar() {{'{'}} <br>
+        &nbsp;&nbsp;if(true){{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;x = 7; <br>
+        &nbsp;&nbsp;} <br>
+    };
+</code>
+<br>
+<br>
+<h2>Declarations of Variables And Functions Get Hoisted</h2>
+Only delclarations are hoisted, but not initializations. The variable and function declarations
+are put into memory during the compile phase. x is used in console.log(x) before it is declared
+in the function. x is not global here, it is only scoped within the function. The function
+catName(name) is called before it is declared. This is ok because declaratins of variables and
+functions get hoisted, but initializations don't get hoisted.
+<br>
+<code>
+    function myFunc1() {{'{'}} <br>
+        &nbsp;&nbsp;x = 4; <br>
+        &nbsp;&nbsp;console.log(x); <br>
+        &nbsp;&nbsp;var x; <br>
+    };
+    <br>
+    <br>
+    catName("Chloe"); <br>
+    <br>
+    function catName(name) {{'{'}} <br>
+        &nbsp;&nbsp;console.log("My cat's name is " + name); <br>
+    }
+</code>

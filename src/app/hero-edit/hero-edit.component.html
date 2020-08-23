@@ -1,0 +1,12 @@
+<h1>Hero Edit</h1>
+Change a value below in the form and navigate away, you will see a message invoked by HeroEditGuard which is a canDeactivate guard.
+<br>
+<br>
+<form [formGroup]="heroEditForm" (ngSubmit)="save()">
+  <label for="name">Name:</label> <br>
+  <input type="text" formControlName="name"><br>
+  <label for="power">Power:</label> <br>
+  <input type="text" formControlName="power">
+  <br> <br>
+  <button type="submit">Save</button>
+</form>

@@ -1,0 +1,33 @@
+<h1>User (jsonp)</h1>
+<br>
+<button (click)="getUsers()" class="mr-3">Get Users</button>
+<button (click)="clearUsers()">Clear Users</button>
+<br>
+<br>
+<div *ngIf="isVisible">
+  <div *ngIf="!users"><i class="fas fa-spinner fa-spin"></i></div>
+  <div *ngIf="users" fxLayout="column" fxLayoutGap="7px">
+    <div fxLayout="row">
+      <div fxFlex="40px"><strong>ID</strong></div>
+      <div fxFlex="200px"><strong>Name</strong></div>
+      <div fxFlex="150px"><strong>Username</strong></div>
+      <div fxFlex="150px"><strong>Email</strong></div>
+    </div>
+    <div fxLayout="row" *ngFor="let user of users">
+      <div fxFlex="40px">{{user.id}}</div>
+      <div fxFlex="200px">{{user.name}}</div>
+      <div fxFlex="150px">{{user.username}}</div>
+      <div fxFlex="150px">{{user.email}}</div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+Apps can use the HttpClient to make JSONP requests across domains when a server doesn't support CORS protocol. In
+Angular, use JSONP by including HttpClientJsonpModule in the NgModule imports. JSONP means json data padded with a
+callback function. jsonp call creates a script tag with a source URL and defines a callback to be triggered when the
+requested script with data is fetched from the server.
+<br>
+<code>
+  import {{'{'}} HttpClientModule, HttpClientJsonpModule  } from '@angular/common/http';
+</code>

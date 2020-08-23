@@ -1,0 +1,114 @@
+<h1>HTML5 Validation</h1>
+<br>
+HTML5 added new semantic types for the &lt;input> element and contraint validation to ease the work of checking the form
+content on the client side. Basic constraints can be checked without the need for JavaScript by setting new attributes
+and complex constraints can be tested using <a
+  href="https://developer.mozilla.org/en-US/docs/Web/API/Constraint_validation" target="_blank">Constraint Validation
+  API</a>. For details, check <a
+  href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation" target="_blank">Constraint
+  Validation</a> and <a href="https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation"
+  target="_blank">Client-side Form Validation</a>. HTML5 constraint validation doesn't remove the need for validation on
+the server side.
+<br>
+<br>
+if "novalidate" attribute is set on the &lt;form> element, interactive validation of the constraints doesn't happen. Calling the submit() method on the &lt;form> doesn't trigger a constraint validation and the method sends the form data to the server even if it doesn't satisfy the constraints. Call a click() method on a submit button instead. 
+<br>
+<br>
+":required", ":optional" pseudo classes are generated to represent required and optional fields. ":valid" and ":invalid" pseudo classes are used to represent &lt;input> elements whose content valiates and fails to validate respectively according to the input's type setting.
+<br>
+<br>
+Example:
+<ol>
+  <li>
+    &lt;input type="URL"> <br>
+    <input type="URL">
+    <br>
+   The value must be an absolute URL.
+  </li>
+  <li>
+    &lt;input type="email"> 
+    <br>
+    <input type="email"> 
+    <br> The value must be a syntactically valid email address.
+  </li>
+  <li>
+    &lt;input id="emailAddress" type="email" multiple> 
+    <br>
+    <input id="emailAddress" type="email" multiple>
+    <br>    
+    The input can accept multiple comma-separated email
+    addresses.
+  </li>
+  <li>
+    &lt;input id="firstName" type="text" pattern="(\S)+"> 
+    <br>
+    <input id="firstName" type="text" pattern="(\S)+">
+    <br>
+    The value must match the pattern's regex with input types (text, search, url, tel, email, password). The regex "(\S)+" matches one or more character (other than a white space). + means one or more of the preceding character.
+  </li>
+  <li>
+    &lt;input type="date" min="2019-12-25" step="1">
+    <br>
+    <input type="date" min="2019-12-25" step="1">
+  </li>
+  <li>
+    &lt;input type="month" min="2019-12" step="12">
+    <br>
+    <input type="month" min="2019-12" step="12">
+  </li>
+  <li>
+    &lt;input type="week" min="2019-W23" step=""> <br>
+    <input type="week" min="2019-W23" step="">
+  </li>
+  <li>
+    &lt;input type="time" min="09:00" step="900"> <br>
+    <input type="time" min="09:00" step="900">
+  </li>
+  <li>
+    &lt;input type="datetime-local" min="2019-12-25T19:30"> <br>
+    <input type="datetime-local" min="2019-12-25T19:30">
+  </li>
+  <li>
+    &lt;input type="number" min="0" step="5" max="20"> <br>
+    <input type="number" min="0" step="5" max="20"> <br>
+  </li>
+  <li>
+    &lt;input type="range" min="60" step="5" max="100"> <br>
+    <input type="range" min="60" step="5" max="100">
+    <br>
+    The input will slide from 60 to 100 with a difference of 5 between two numbers one following the other. <br>
+  </li>
+  <li>
+    &lt;input type="date" max="2019-12-25" step="1"> <br>
+    <input type="date" max="2019-12-25" step="1">
+  </li>
+  <li>
+    &lt;input type="month" max="2019-12" step="12"> <br>
+    <input type="month" max="2019-12" step="12">
+  </li>
+  <li>
+    &lt;input type="week" max="2019-W23" step=""> <br>
+    <input type="week" max="2019-W23" step="">
+  </li>
+  <li>
+    &lt;input type="time" max="17:00" step="900"> <br>
+    <input type="time" max="17:00" step="900">
+  </li>
+  <li>
+    &lt;input type="datetime-local" max="2019-12-25T23:59"> <br>
+    <input type="datetime-local" max="2019-12-25T23:59">
+  </li>
+  <li>
+    &lt;input type="text" id="username" name="username" required> <br>
+    <input type="text" id="username" name="username" required>
+  </li>
+  <li>
+    &lt;input type="text" minlength="5" id="fruit"> <br>
+    <input type="text" minlength="5" id="fruit">
+  </li>
+  <li>
+    &lt;input type="password" maxlength="4"/> <br>
+    <input type="password" maxlength="4"/>
+  </li>
+</ol>
+<br>

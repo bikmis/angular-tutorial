@@ -1,0 +1,24 @@
+<h1>Compilation</h1>
+<p> This deals with how you compile .css files from .scss files using sass command. You'll need
+    to tell Sass which file to build from and where to output to. The basic command is to run
+    <code>sass input.scss output.css</code> from your terminal or command prompt.</p>
+<code>
+    C:\>sass scss/style.scss css/style.css /* For globally installed sass */ <br>
+    C:\Users\Bikash\source\repos\user_interface\style>npx sass scss/main.scss css/main.css   /* For locally installed sass run this command from the project root. */ 
+</code>
+<br>
+<br>
+<h2>Watch For Change</h2>
+<p>--watch keeps watching for change in the .scss file, and compiles .css and .css.map files
+    immediately upon change detection in the .scss file.</p>
+<code>
+    C:\>sass --watch scss/style.scss css/style.css <br> 
+</code>
+<br>
+<h2>Output To Directory</h2>
+<p>You can watch and output to directories by using folder paths as your input and output, and
+    separating them with a colon. Sass would watch all files in the app/sass folder for changes,
+    and compile CSS to the public/stylesheets folder.</p>
+<code>
+    C:\>sass --watch app/sass:public/stylesheets
+</code>

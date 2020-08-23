@@ -1,0 +1,38 @@
+<h1>Variables / Custom Properties</h1>
+<p>This deals with custom properties/variables in css.</p>
+<br>
+<br>
+<h2>Global Variable</h2>
+:root is a pseudo-class selector used to select the root element of the page/document. Normally
+HTML is the root of the document, but :root has higher specificity. You can create a global
+custom properties / variables by putting them in the :root class.
+<br>
+<br>
+<code>
+    :root {{'{'}} <br>
+        &nbsp;&nbsp;/*two dashes let the browser know this is a custom property / variable.*/ <br>
+        &nbsp;&nbsp;--primary-clr: #456; /*This is a global variable/property that can be used anywhere in this document.*/ <br>
+        &nbsp;&nbsp;--spacer: 1rem; <br>
+        &nbsp;&nbsp;--spacer-md: calc(var(--spacer) * 2); <br>
+        &nbsp;&nbsp;--spacer-lg: calc(var(--spacer) * 3); <br>
+    } 
+    <br>
+    <br>
+    body {{'{'}} <br>
+        &nbsp;&nbsp;color: var(--primary-clr); /*var() is a function that inserts value of custom property.*/ <br>
+    } 
+    <br>
+    <br>
+    .top-section {{'{'}}<br>
+        &nbsp;&nbsp;--secondary-clr: steelblue; /*This variable/property can be used only inside of .intro class.*/ <br>
+        &nbsp;&nbsp;color: var(--secondary-clr, yellow); /*if --secondary-clr does not work, use yellow. <br> 
+        &nbsp;&nbsp;This is useful for debugging issues.*/<br>
+    } <br>
+    <br>
+    .middle-section {{'{'}} <br>
+        &nbsp;&nbsp;--primary-clr: blue; /*global variable --primary-clr has be redefined here.*/<br> 
+        &nbsp;&nbsp;color: var(--primary-clr); <br>
+    } 
+    <br>
+    <br>
+</code>

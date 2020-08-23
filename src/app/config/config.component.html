@@ -1,0 +1,89 @@
+<h1>Get *.json file from server (http)</h1>
+<br>
+Example 1: <br>
+User Url is {{userUrl}}
+<br>
+Text File is {{textFile}}
+<br>
+<br>
+Example 2: <br>
+User Url is {{config.userUrl}}
+<br>
+Text File is {{config.textFile}}
+<br>
+<br>
+<strong>Service Definition</strong>
+<br>
+Create a config.json file as follows and keep it in the assets folder. This file would be in the server which we want to access using HttpClient.get() method.
+<br>
+<code>
+  {{'{'}} <br>
+    &nbsp;&nbsp;"userUrl": "api/user", <br>
+    &nbsp;&nbsp;"textFile": "assets/textfile.txt" <br>
+  }
+</code>
+<br>
+<br>
+Create a config.ts file with the following code for type checking.
+<br>
+<code>
+    export interface Config {{'{'}} <br>
+        &nbsp;userUrl: string, <br>
+        &nbsp;textFile: string <br>
+    }
+</code>
+<br>
+<br>
+Write the following in the config service:
+<br>
+<code>
+    import {{'{'}} HttpClient } from '@angular/common/http'; <br>
+    import {{'{'}} Config } from './config'; <br>
+    ... <br>
+    ... <br>
+    private configUrl = 'assets/config.json';
+    <br>
+    <br>
+    constructor(private http: HttpClient) {{'{'}} }
+    <br>
+    <br>
+  getConfig() {{'{'}} <br>
+    &nbsp;&nbsp;return this.http.get&lt;Config>(this.configUrl); <br>
+  }
+</code>
+<br>
+<br>
+<strong>Service Consumption</strong> <br>
+Write the following in the config component.
+<br>
+<code>
+    import {{'{'}} ConfigService } from './config.service'; <br>
+    import {{'{'}} Config } from './config'; <br>
+    ... <br>
+    ... <br>
+    userUrl: string = null; <br>
+    textFile: string = null; <br>
+    config: Config = &lt;Config>{{'{'}}}; <br>
+    <br>
+    constructor(private configService: ConfigService) {{'{'}} } <br>
+    <br>
+    ngOnInit(): void {{'{'}} <br>
+        &nbsp;&nbsp;this.showConfig_1(); <br>
+        &nbsp;&nbsp;this.showConfig_2(); <br>
+    } <br>
+    <br>
+    showConfig_1() {{'{'}} <br>
+        &nbsp;&nbsp;this.configService.getConfig().subscribe((data) => {{'{'}} <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;this.userUrl = data['userUrl']; <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;this.textFile = data['textFile']; <br>
+        &nbsp;&nbsp;}) <br>
+    }; <br>
+      <br>
+      showConfig_2(){{'{'}} <br>
+      &nbsp;&nbsp;this.configService.getConfig().subscribe((data: Config) =>{{'{'}} <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;this.config = data; <br>
+      &nbsp;&nbsp;}); <br>
+      };
+    </code>
+<br>
+<br>

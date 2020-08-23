@@ -1,0 +1,42 @@
+<h1>Sass</h1>
+<p> This is a tutorial on Sass.</p>
+<br>
+<h2>What is Sass?</h2>
+<ul>
+    <li>Sass stands for Syntactically Awesome Style Sheets.</li>
+    <li>It is a CSS preprocessor / extension (extends natural capabilities of css) or sometimes
+        it is called a css language.</li>
+    <li>Lets you use features that do not exist in CSS.</li>
+    <li>Sass (.scss) files are compiled to CSS.</li>
+    <li>.scss file is preferred to .sass file. .scss is backward compatible.</li>
+</ul>
+<br>
+<br>
+<h2>File Structure</h2>
+<ol>
+    <li>Create scss folder and and style.scss file.</li>
+    <li>write the folloing code in style.scss file. <br>
+        <code>
+            $font-stack: Arial, Helvetica, sans-serif; <br>
+            $light-color: #f4f4f4; <br>
+            <br>
+            * {{'{'}} <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;box-sizing: border-box; <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;margin: 0; <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;padding: 0; <br>
+            } <br>
+            <br>
+            body {{'{'}} <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;background-color: $light-color; <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;font-family: $font-stack; <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;line-height: 1.6; <br>
+            } <br>
+        </code>
+    </li>
+    <li>Compile style.css from style.scss. --watch will keep watching for any change in the
+        scss/style.scss file. <br>
+        <code>
+                sass --watch scss/style.scss css/style.css
+        </code>
+    </li>
+</ol>

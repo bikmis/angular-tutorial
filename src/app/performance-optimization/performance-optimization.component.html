@@ -1,0 +1,243 @@
+<h1>Performance Optimization</h1>
+<br>
+The source of the following info is <a href="https://www.youtube.com/watch?v=Tlmx1PbP8Qw" target="_blank">Performance Optimizations in Angular</a>.
+<br>
+<br>
+<div fxLayout="row">
+  <div fxFlex="40px"><strong>S.N.</strong></div>
+  <div fxFlex="400px"><strong>Avoid</strong></div>
+  <div fxFlex="400px"><strong>Prefer</strong></div>
+</div>
+<div fxLayout="row">
+  <div fxFlex="40px">1</div>
+  <div fxFlex="400px">ChangeDetectorRef.detectChanges();</div>
+  <div fxFlex="400px">ChangeDetectorRef.markForCheck(); <br>
+    //Bonus: use <br>
+    //ChangeDetectionStrategy.OnPush
+  </div>
+</div>
+<div fxLayout="row">
+  <div fxFlex="40px">2</div>
+  <div fxFlex="400px">&lt;div [ngClass]="'foo'">Content &lt;/div></div>
+  <div fxFlex="400px">&lt;div class="foo">Content &lt;/div></div>
+</div>
+<div fxLayout="row">
+  <div fxFlex="40px">3</div>
+  <div fxFlex="400px">&lt;div [ngStyle]="{{'{'}}color: 'red'}">Content &lt;/div></div>
+  <div fxFlex="400px">&lt;div [style.color]="'red'"> Content &lt;/div></div>
+</div>
+<div fxLayout="row">
+  <div fxFlex="40px">4</div>
+  <div fxFlex="400px">Consider avoiding: <br>&lt;div *ngFor="let item of items"> {{'{{'}}item}}&lt;/div></div>
+  <div fxFlex="400px">for(const item of items) {{'{'}} <br>&nbsp;&nbsp;v.createEmbeddedView(item); <br> }</div>
+</div>
+<div fxLayout="row">
+  <div fxFlex="40px">5</div>
+  <div fxFlex="400px">&lt;div *ngFor="let item of items"><br>&lt;ng-container *ngTemplateOutlet="itemTemplate"/>
+    <br>
+    &lt;ng-template #itemTemplate> <br>
+    foo&lt;/ng-template><br>&lt;/div></div>
+  <div fxFlex="400px">&lt;div *ngFor="let item of items"><br>&lt;ng-container *ngTemplateOutlet=<br>
+    "itemTemplate"/>
+    <br>
+    &lt;/div> <br> <br>
+    &lt;ng-template #itemTemplate> <br>
+    foo&lt;/ng-template>
+  </div>
+</div>
+<div fxLayout="row">
+  <div fxFlex="40px">6</div>
+  <div fxFlex="400px">RxJS related code <br>allRows.subscribe();</div>
+  <div fxFlex="400px">RxJS related code <br>visibleRows.subscribe();</div>
+</div>
+<div fxLayout="row">
+  <div fxFlex="40px">7</div>
+  <div fxFlex="400px">@Component({{'{'}} <br>
+    &nbsp;&nbsp;selector: 'cell' <br>
+    }) <br>
+    export class DomElPerCellInTable{{'{'}}}
+  </div>
+  <div fxFlex="400px">@Component({{'{'}} <br>
+    &nbsp;&nbsp;selector: '[cell]' <br>
+    }) <br>
+    export class DrctvPerCell{{'{'}}}</div>
+</div>
+<div fxLayout="row">
+  <div fxFlex="40px">8</div>
+  <div fxFlex="400px">Listener per element. If there are 1000
+    tooltips on a page, this will add 1000 event listeners.
+    <br><br>@Directive({{'{'}} <br>
+    &nbsp;&nbsp;selector: 'tooltip', <br>
+    &nbsp;&nbsp;host: {{'{'}}'mouseover': 'show()'}, <br>
+    }) <br>
+    export class Tooltip{{'{'}}}
+  </div>
+  <div fxFlex="400px">One listener per document
+    <br><br>@Injectible({{'{'}}providedIn: 'root'
+    }) <br>
+    export class Tooltip{{'{'}} <br>
+    constructor() <br>
+    {{'{'}}document.addEventListener <br> ('mouseover')}} <br> <br>
+    React does this at framework level via syntetic events.
+  </div>
+</div>
+<div fxLayout="row">
+  <div fxFlex="40px">9</div>
+  <div fxFlex="400px">//Layout thrashing within list
+    <br><br>@Directive({{'{'}} <br>
+    &nbsp;&nbsp;selector: '[cell]', <br>
+    }) <br>
+    export class DirctvPerCellInTable{{'{'}} <br>
+    &nbsp;&nbsp;ngAfterViewInit(){{'{'}} <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;element.classlist.add('foo'); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;const foo = element.offsetHeight; <br>
+    &nbsp;&nbsp;} <br>
+    }
+  </div>
+  <div fxFlex="400px">//Batched reads <br> <br>
+    fastdom.measure(()=> {{'{'}} <br>
+    &nbsp;&nbsp; foo = element.offsetHeight; <br>
+    });
+  </div>
+</div>
+<div fxLayout="row">
+  <div fxFlex="40px">10</div>
+  <div fxFlex="400px">//Components with a lot of bindings
+    <br><br>
+    &lt;table> <br>
+    &nbsp;&nbsp;&lt;tr *ngFor="let i of items"> <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;td> <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;mat-checkbox>&lt;/mat-checkbox> <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;td> <br>
+    &nbsp;&nbsp;&lt;tr> <br>
+    &lt;table>
+  </div>
+  <div fxFlex="400px">//Components with less bindings
+    <br><br>
+    &lt;table> <br>
+    &nbsp;&nbsp;&lt;tr *ngFor="let i of items"> <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;td> <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;mat-pseudo-checkbox>&lt;/mat-pseudo-checkbox> <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;td> <br>
+    &nbsp;&nbsp;&lt;tr> <br>
+    &lt;table>
+  </div>
+</div>
+<div fxLayout="row">
+  <div fxFlex="40px">11</div>
+  <div fxFlex="400px">
+    Promise.resolve(foo) <br>
+    setTimeout(foo) <br>
+    setInterval(foo) <br> <br>
+    //foo doesn't need angular change detection <br>
+    function foo() {{'{'}} <br>
+    &nbsp;&nbsp;el.classList.add('foo'); <br>
+    }
+  </div>
+  <div fxFlex="400px">//Work without Angular change detection
+    <br><br>
+    this.ngZone.runOutsideAngular( <br>
+    ()=> {{'{'}} <br>
+    &nbsp;&nbsp;setTimeout(foo);
+    });
+  </div>
+</div>
+<div fxLayout="row">
+  <div fxFlex="40px">12</div>
+  <div fxFlex="400px">
+    //setTimeout (or any other call to create
+    //micro/macrotask) within list
+    <br>
+    <br>
+    @Directive({{'{'}}selector: '[cell]'}) <br>
+    export class DiretvPerCellInTable {{'{'}} <br>
+    &nbsp;&nbsp;ngAfterViewInit(){{'{'}} <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;setTimeout(()=> {{'{'}}..}) <br>
+    &nbsp;&nbsp;} <br>
+    }
+  </div>
+  <div fxFlex="400px">
+    //Batched setTimeout at parent component
+    <br>
+    <br>
+    @Component({{'{'}}selector: 'table'}) <br>
+    export class DiretvPerCellInTable {{'{'}} <br>
+    &nbsp;&nbsp;Table(){{'{'}} <br>
+    &nbsp;&nbsp;ngAfterViewInit(){{'{'}} <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;setTimeout(()=> {{'{'}}..}) <br>
+    &nbsp;&nbsp;} <br>
+    }
+  </div>
+</div>
+<div fxLayout="row">
+  <div fxFlex="40px">13</div>
+  <div fxFlex="400px">
+    @Directive({{'{'}} <br>
+    &nbsp;&nbsp;selector: 'tooltip', <br>
+    &nbsp;&nbsp;host: {{'{'}} 'mousewheel':'foo()'}, <br>
+    }) <br>
+    export class ActiveListeners {{'{'}} <br>
+    &nbsp;&nbsp;foo(){{'{'}}..} <br>
+    }
+  </div>
+  <div fxFlex="400px">
+    @Directive({{'{'}} <br>
+    &nbsp;&nbsp;selector: 'tooltip', <br>
+    }) <br>
+    export class ActiveListeners {{'{'}} <br>
+    &nbsp;&nbsp;constructor() {{'{'}} <br>
+    document.addEventListener( <br> 'touchstart',
+    ()=>{{'{'}}..}, {{'{'}}passive: true}); <br>
+    }
+  </div>
+</div>
+<div fxLayout="row">
+  <div fxFlex="40px">14</div>
+  <div fxFlex="400px">
+    .show-on-hover {{'{'}} <br>
+    &nbsp;&nbsp;opacity: 0; <br>
+    }
+    <br>
+    <br>
+    .show-on-hover:hovered {{'{'}} <br>
+    &nbsp;&nbsp;opacity: 1; <br>
+    }
+  </div>
+  <div fxFlex="400px">
+    .show-on-hover {{'{'}} <br>
+    &nbsp;&nbsp;opacity: 0; <br>
+    }
+    <br>
+    <br>
+    .show-on-hover:hovered {{'{'}} <br>
+    &nbsp;&nbsp;opacity: 1; <br>
+    &nbsp;&nbsp;will-change: opacity; <br>
+    } <br>
+    <br>
+    //Use sparingly
+  </div>
+</div>
+<div fxLayout="row">
+  <div fxFlex="40px">15</div>
+  <div fxFlex="400px">
+    opacity: 0;
+  </div>
+  <div fxFlex="400px">
+    visibility: hidden;
+    <br><br>
+    //Browser doesn't need to actually draw something.
+  </div>
+</div>
+<div fxLayout="row">
+  <div fxFlex="40px">16</div>
+  <div fxFlex="400px">
+    letter-spacing: $non-zero-value;
+  </div>
+  <div fxFlex="400px">
+    letter-spacing: 0;
+    <br><br>
+    //Guidance from Chrom team is to simply not use this.
+  </div>
+</div>
+<br>
+<br>

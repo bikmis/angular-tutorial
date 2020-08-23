@@ -1,0 +1,33 @@
+<div *ngIf="contactDetail">
+  <h1>Contact Detail</h1>
+  <h2><strong>{{contact.firstName}} {{contact.lastName != "undefined" ? contact.lastName : ""}}</strong></h2>
+  <div fxLayout="column" fxLayoutGap="5px">
+    <div fxLayout="row" fxLayoutGap="20px">
+      <div fxFlex="95px"><strong>ID</strong></div>
+      <div>{{contactDetail.id}}</div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="20px">
+      <div fxFlex="95px"><strong>House Number</strong></div>
+      <div>{{contactDetail.houseNumber}}</div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="20px">
+      <div fxFlex="95px"><strong>Street</strong></div>
+      <div>{{contactDetail.street}}</div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="20px">
+      <div fxFlex="95px"><strong>City</strong></div>
+      <div>{{contactDetail.city}}</div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="20px">
+      <div fxFlex="95px"><strong>State</strong></div>
+      <div>{{contactDetail.state}}</div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="20px">
+      <div fxFlex="95px"><strong>ZIP</strong></div>
+      <div>{{contactDetail.zip}}</div>
+    </div>
+  </div>
+</div>
+<br>
+<div *ngIf="!contactDetail" class="text-danger">This contact does not exist.</div>
+<button (click)="onBackToContactList()">Back to Contacts</button>

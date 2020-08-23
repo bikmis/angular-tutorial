@@ -1,0 +1,99 @@
+<h1>Map</h1>
+<p>Maps in Sass hold keys and values. They are written (key: value, key: value). Keys need to be
+  unique. A map with no keys and values is written () (empty parentheses), which is also an
+  empty list.</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3 border"><b>Sass</b></div>
+    <div class="col-3 border"><b>CSS</b></div>
+  </div>
+  <div class="row">
+    <div class="col-3 border">
+      <b>$map, map.get($map, $key)</b> <br>
+      <br>
+      <p>$font-weights is a map with keys regular, medium, bold and values 400, 500, 700
+        respectively.</p>
+      <code>
+            $primary-color: #272727; <br>
+            $text-color: #fff; <br>
+            $font-weights: ( <br>
+                &nbsp;&nbsp;"regular": 400, <br>
+                &nbsp;&nbsp;"medium": 500, <br>
+                &nbsp;&nbsp;"bold": 700 <br>
+            )
+            <br>
+            <br>
+            body {{'{'}} <br>
+                &nbsp;&nbsp;background: $primary-color; <br>
+                &nbsp;&nbsp;color: $text-color; <br>
+                &nbsp;&nbsp;font-weight: map.get($font-weights, "bold"); <br>
+            } <br>
+        </code>
+    </div>
+    <div class="col-3 border">
+      <code>
+            body {{'{'}} <br>
+                &nbsp;&nbsp;background: #272727; <br>
+                &nbsp;&nbsp;color: #fff; <br>
+                &nbsp;&nbsp;font-weight: 700; <br>
+            } <br>
+            
+        </code>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3 border">
+      <b>map.merge($map1, $map2)</b> <br>
+      <br>
+      <code>
+            $font-weights: ( <br>
+                &nbsp;&nbsp;"regular": 400, <br>
+                &nbsp;&nbsp;"medium": 500, <br>
+                &nbsp;&nbsp;"bold": 700 <br>
+            )
+            <br>
+            <br>
+            map.merge($font-weights, ("lightest": 100));
+            <br>
+            <br>
+            body {{'{'}} <br>
+                &nbsp;&nbsp;font-weight: map.get($font-weights, "lightest"); <br>
+            } <br>
+        </code>
+    </div>
+    <div class="col-3 border">
+      <code>
+            body {{'{'}} <br>
+                &nbsp;&nbsp;font-weight: 100; <br>
+            } <br>
+        </code>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3 border">
+      <b>@each with $map</b> <br>
+      <br>
+      <code>
+            $margins: ("1": 1rem, "2": 2rem, "3": 3rem, "4": 4rem, "5": 5rem)
+            <br>
+            <br>
+            @each $name, $margin in $margins {{'{'}} <br>
+                &nbsp;&nbsp;.m-#{{'{'}}$name} {{'{'}} <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;margin: $margin; <br>
+                &nbsp;&nbsp;} <br>
+            } <br>
+        </code>
+    </div>
+    <div class="col-3 border">
+      <code>
+            .m-1 {{'{'}} margin: 1rem; } <br>
+            .m-2 {{'{'}} margin: 2rem; } <br>
+            .m-3 {{'{'}} margin: 3rem; } <br>
+            .m-4 {{'{'}} margin: 4rem; } <br>
+            .m-5 {{'{'}} margin: 5rem; }
+        </code>
+    </div>
+  </div>
+</div>
+<br>
+<br>

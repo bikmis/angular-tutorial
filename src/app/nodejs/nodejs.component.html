@@ -1,0 +1,1005 @@
+<h1>Node.js</h1>
+<br>
+<strong>Introduction to Node.js</strong>
+<br>
+<a href="https://nodejs.dev/learn" target="_blank">Node.js</a> is a cross-platform JavaScript runtime environment to
+write the server-side code. It was born in 2009. It runs the V8 JavaScript engine, the core of Google Chrome, outside of
+the browser. A Node.js app is run in a single process, without creating a new thread for every request. Node.js can
+handle thousands of concurrent connections with a single server without introducing the burden of managing thread
+concurrency. <br>
+<br>
+<a href="https://expressjs.com/" target="_blank">Express</a> is a popular web framework for node.js. Express was born in
+2010.
+<br>
+<br>
+You will use require() in Node.js and import in the browser.
+<br>
+<br>
+In the browser, you interact with the DOM, or other Web Platform APIs like Cookies. Those do not exist in Node.js. You
+don't have the document, window and all the other objects that are provided by the browser. V8 provides the runtime
+environment in which JavaScript executes. The DOM, and the other Web Platform APIs are provided by the browser.
+JavaScript engine is independent of the browser in which it's hosted. JavaScript is internally compiled by V8 with
+just-in-time (JIT) compilation to speed up the execution.
+<br>
+<br>
+<strong>Install Node.js</strong>
+<br>
+Download Node.js from <a href="https://nodejs.org/en/download/">Downloads</a> to install it in Windows. Another way to
+install it is using nvm.
+<br>
+<br>
+<strong>nvm (node version manager)</strong>
+<br>
+"nvm" is used to install multiple versions of node in a single computer and it allows us to switch from version to
+another based on our requirement.
+<ul>
+  <li>
+    Install nvm. Open <a href="https://docs.microsoft.com/en-us/windows/nodejs/setup-on-windows" target="_blank">Set Up
+      Node.js on Windows</a>. Click on <a
+      href="https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows" target="_blank">windows-nvm
+      repository</a>. Click on <a href="https://github.com/coreybutler/nvm-windows/releases" target="_blank">Download
+      Now</a>. Download nvm-setup.zip. Once downloaded, open the zip file and run nvm-setup.exe file. Follow the steps
+    to complete the istallation of nvm.
+  </li>
+  <li>
+    "nvm ls" lists versions of node js that are installed in the computer.
+  </li>
+  <li>
+    "nvm --version" outputs nvm version.
+  </li>
+  <li>
+    "nvm intall 10.15.0" will install node js (version 10.15.0), "nvm insall 8.11.3" installs node js of version 8.11.3.
+  </li>
+  <li>
+    "nvm use 10.15.0" will switch to node 10.15.0. To switch to another version of node, use the command "nvm use
+    8.11.3"
+  </li>
+</ul>
+<br>
+<strong>Run Node.js scripts</strong> <br>
+If your Node.js application is app.js, you can call it by typing the following at the directory where your app.js file
+is: <br>
+<code>C:\...>node app.js</code>
+<br>
+<br>
+<strong>exit</strong>
+<br>
+<code>process.exit()</code> <br>
+<code>process.exit(1)</code> <br>
+<code>process.exitCode=1</code>
+<br>
+<br>
+<strong>HTTP server</strong> <br>
+<code>
+const express = require('express'); <br>
+const app = express(); <br>
+<br>
+app.get('/', (req, res) => {{'{'}} <br>
+  &nbsp;&nbsp;res.send('Hi!') <br>
+}) <br>
+<br>
+app.listen(3000, ()=> console.log('Server ready')) <br>
+<br>
+process.on('SIGTERM', ()=> {{'{'}} <br>
+  &nbsp;&nbsp;server.close(()=> {{'{'}} <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;console.log('Process terminated') <br>
+  &nbsp;&nbsp;}) <br>
+})
+</code>
+<br>
+<br>
+<strong>Process kill</strong>
+<br>
+Use the following code from another Node.js or any other app running in your system.
+<br>
+<code>process.kill(process.pid, 'SIGTERM')</code>
+<br>
+<br>
+<strong>Environment Variable</strong> <br>
+<code>process.env.NODE_ENV</code> // "development"
+<br>
+<br>
+<strong>REPL (Read-Eval-Print-Loop)</strong>
+<br>
+You use the "node" command in the terminal to run Node.js scripts: <br>
+<code>C:\...>node scriptFileName.js</code> <br>
+Type the following in the terminal: <br>
+<code>C:\...>node <br>
+  >console.log('test') <br>
+  test <br>
+  undefined <br>
+  >
+</code>
+<br>
+console.log prints test and undefined is the return value of console.log(). If a method returns void, then undefined is
+printed. You can use tab key to autocomplete.
+<br>
+<br>
+<strong>Exploring objects</strong> <br>
+<code>>Number. (then tab)</code> // REPL will print all the properties and methods you can access on that class. <br>
+<code>>global. (then tab)</code> // You can inspect the globals by typing global. and pressing tab.
+<br>
+<br>
+<strong>_ variable</strong> <br>
+Write a function and run it. Then write _ (underscore) and hit Enter, it will print result of the last operation.
+<br>
+<code>
+  >x = function() {{'{'}}return 2+5}; x(); <br>
+  >7 <br>
+  >_ <br>
+  >7
+</code>
+<br>
+<br>
+<strong>Multiline code</strong>
+<br>
+<code>>.editor</code> // hit Enter
+<br>
+It enables editor mode, to write multiline JavaScript code with ease. Once you are in this mode, enter Ctrl-D to run the
+code you wrote. Outside the editor mode, REPL knows if you are in multiline mode by typing three dots(...) for you.
+<br>
+<br>
+<strong>arguments</strong> <br>
+You can pass a standalone or a key-value argument when invoking a Node.js application. <br>
+<code>
+  C:\...>node app.js jack <br>
+  or <br>
+  C:\...>node app.js name=jack <br>
+  <br>
+  process.argv.forEach((val, index) => {{'{'}} <br>
+  &nbsp;&nbsp;console.log(`${{'{'}}index}: ${{'{'}}val}`) <br>
+}) <br>
+<br>
+const args = process.argv.slice(2) <br>
+args[0]  //name=joe and you need to parse it. <br>
+<br>
+const args = require('minimist')(process.argv.slice(2)) <br>
+args['name'] //jack
+</code>
+<br>
+<br>
+With minimist, use double dashes before each argument name: <br>
+<code>
+  node app.js --name=jack
+</code>
+<br>
+<br>
+<strong>Output</strong>
+<br>
+<code>
+  const x = 'Hello' <br>
+  const y = 'Hey' <br>
+  console.log(x, y) <br>
+  console.log('My %s has %d years', 'dog', 5) // My dog has 5 years<br>
+  console.log('%o', Number) <br>
+</code>
+<code>console.clear()</code> // clears the console. <br>
+<code>console.count()</code> // will count the number of times a string is printed. <br>
+<code>console.trace() </code> // prints the stack trace. <br>
+<code>console.time() and console.timeEnd()</code> calculates the time spent. <br>
+<br>
+<code>
+const chalk = require('chalk') <br>
+console.log(chalk.yellow('hi!'))
+</code>
+<br>
+<br>
+Progress is an awesome package to create a progress bar in the console. Install it using npm install progress.
+<br>
+<code>
+  const ProgressBar = require('progress') <br>
+  <br>
+  const bar = new ProgressBar(':bar', {{'{'}} total: 10 }) <br>
+  const timer = setInterval(() => {{'{'}} <br>
+    &nbsp;&nbsp;bar.tick() <br>
+    &nbsp;&nbsp;if (bar.complete) {{'{'}} <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;clearInterval(timer) <br>
+    &nbsp;&nbsp;} <br>
+  }, 100)
+</code> <br>
+<br>
+<strong>Accept Input</strong>
+<br>
+<code>
+  const readline = require('readline').createInterface({{'{'}} <br>
+  &nbsp;&nbsp;input: process.stdin, <br>
+  &nbsp;&nbsp;output: process.stdout <br>
+  }) <br>
+  <br>
+  readline.question(`What's your name?`, name => {{'{'}} <br>
+  &nbsp;&nbsp;console.log(`Hi ${{'{'}}name}!`) <br>
+  &nbsp;&nbsp;readline.close() <br>
+  })
+</code>
+<br>
+<br>
+<strong>exports</strong>
+<br>
+The following will export an object only. <br>
+<code>
+  const car = {{'{'}} <br>
+    &nbsp;&nbsp;brand: 'Ford', <br>
+    &nbsp;&nbsp;model: 'Fiesta' <br>
+  } <br>
+  <br>
+  module.exports = car <br>
+  <br>
+  //..in the other file <br>
+  <br>
+  const car = require('./car')
+</code>
+<br>
+<br>
+The following will allow you to export multiple objects.
+<br>
+<code>
+  const car = {{'{'}} <br>
+    &nbsp;&nbsp;brand: 'Ford', <br>
+    &nbsp;&nbsp;model: 'Fiesta' <br>
+  } <br>
+  <br>
+  exports.car = car
+</code>
+<br>
+or directly <br>
+<code>
+  exports.car = {{'{'}} <br>
+    &nbsp;&nbsp;brand: 'Ford', <br>
+    &nbsp;&nbsp;model: 'Fiesta' <br>
+  }
+</code>
+<br>
+<br>
+<strong>imports</strong>
+<br>
+<code>
+  const items = require('./items') <br>
+  items.car
+</code>
+<br>
+or
+<br>
+<code>
+  const car = require('./items').car
+</code>
+<br>
+<br>
+<strong>npm (node package manager)</strong>
+<br>
+if a project has a package.json file, install all dependencies by running:
+<br>
+<code>npm install</code>
+<br>
+<br>
+Install a single package by running: <br>
+<code>
+  npm install &lt;package-name>
+</code>
+<br>
+<br>
+Update all packages by running the following:
+<br>
+<code>npm update</code>
+<br>
+<br>
+Update one package by running the following: <br>
+<code>npm update &lt;package-name></code>
+<br>
+<br>
+You can control versioning with package.json file. Specifying an explicit version of a library also helps to keep
+everyone on the same exact version of a package, so that the whole team runs the same version until the package.json
+file is updated.Specifying an explicit version of a library also helps to keep everyone on the same exact version of a
+package, so that the whole team runs the same version until the package.json file is updated.
+<br>
+<br>
+You can run tasks with the following command: <br>
+<code>npm run &lt;task-name></code>
+<br>
+It's very common to use this feature to run Webpack: <br>
+<code>
+{{'{'}} <br>
+  &nbsp;&nbsp;"scripts": {{'{'}} <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;"watch": "webpack --watch --progress --colors --config webpack.conf.js", <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;"dev": "webpack --progress --colors --config webpack.conf.js", <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;"prod": "NODE_ENV=production webpack -p --config webpack.conf.js", <br>
+  &nbsp;&nbsp;}, <br>
+} <br>
+<br>
+  $ npm run watch <br>
+  $ npm run dev <br>
+  $ npm run prod <br>
+</code>
+<br>
+Two types of installation: <br>
+<ul>
+  <li>local install</li>
+  <li>global install</li>
+</ul>
+<code>
+  npm install lodash // Installs lodash in the current file tree under the node_modules subfolder. <br>
+  npm install -g lodash // This performs the global installation. <br>
+  npm root -g //It gives you the global location.
+</code>
+<br>
+<br>
+If you want to use lodash, then write the following code: <br>
+<code>
+const _ = require('lodash');
+</code>
+<br>
+<br>
+If the package is an executable, then the executable files would be under the node_modules/.bin/ folder.
+<br>
+<code>
+  npm install cowsay
+</code>
+<br>
+npx will find the package location from the .bin folder and run it. <br>
+<code>
+C:\...>npx cowsay take me out of here
+</code>
+<br>
+<br>
+<strong>package.json</strong>
+<br>
+The package.json file is a manifest for your project. It's where npm stores the names and versions for all the installed
+packages. It's a central repository of configuration for tools. The file has json-style content - key/value pairs.
+<br>
+<br>
+The following are the properties in the package.json file.
+<br>
+<ul>
+  <li>name - application/package name</li>
+  <li>version - current version (major.minor.patch) - a major release can have breaking change, a minor release will be
+    for
+    backward-compatibility, and a patch release is for bug fixes.
+    <ul>
+      <li>~0.13.0 -this means you want to update patch releases only. </li>
+      <li>^0.13.0 -this means you want to update patch and minor releases.</li>
+      <li>* -you accept all updates, including major version upgrades.</li>
+      <li>> -you accept any version higher than the one you specify.</li>
+      <li>>= -you accept any version equal to or higher than the one you specify.</li>
+      <li>&lt;= -you accept any version equal to or lower than the one you specify.</li>
+      <li>&lt; -you accept any version lower than the one you specify.</li>
+      <li>no symbol -you accept only that specific version you specify.</li>
+      <li>latest -you want to use the latest version available.</li>
+      <li>combine e.g. 1.0.0 || >=1.1.0 &lt;1.2.0 -to either user 1.0.0 or one release from 1.1.0 up, but lower than
+        1.2.0
+      </li>
+      <li>- -this is for range e.g. 2.1.0 - 2.6.2</li>
+      <li>= -this is for the exact version.</li>
+    </ul>
+  </li>
+  <li>description - description of the app/package</li>
+  <li>main - entry point for the application</li>
+  <li>private - you cannot publish app/package on npm</li>
+  <li>scripts - a list of node scripts you can run. These scripts are command line applications. You can run them by
+    calling npm run &lt;command name>. For local applications, you can run "npx &lt;command name>". npx can find the
+    executable from .bin folder. For example, "npm run ng serve" or "npx ng serve"</li>
+  <li>dependencies - list of npm packages installed as dependencies. When you install a package using npm, that package
+    name is automatially inserted in this list</li>
+  <li>devDependencies - list of npm packages installed as development dependencies. When you install a package using
+    "npm install --dev", that package is automatially inserted in this list.</li>
+  <li>engines - version of Node.js this package/app works on</li>
+  <li>browsersList - versions and names of browsers you want to support. It is referenced by Babel, Autoprefixer, and
+    other tools, to only add the polyfills and fallbacks needed to the browsers you target.</li>
+  <li>author</li>
+  <li>contributors</li>
+  <li>bugs - links to the package issue tracker</li>
+  <li>homepage - package homepage</li>
+  <li>license</li>
+  <li>keywords - helps people find the package when browsing the https://www.npmjs.com/ website</li>
+  <li>repository</li>
+</ul>
+<br>
+<strong>package-lock.json</strong>
+<br>
+<ul>
+  <li>
+    The goal of this file is to keep track of the exact version of every package that is installed so that a product is
+    100% reproducible in the same way even if packages are updated by their maintainers.
+  </li>
+  <li>
+    In package.json you can set which versions you want to upgrade to (patch or minor or major or exact or range etc),
+    using the semver
+    notation e.g. ~0.13.0 (you want to only update patch releases with a ~.)
+  </li>
+  <li>
+    You don't commit to Git your node_modules folder, which is generally huge. When you try to replicate the project on
+    another machine by using the npm install command, if you specified the ~ syntax and a patch release of a package has
+    been released, that one is going to be installed. Same for ^ and minor releases. If you specify exact versions, like
+    0.13.0, you are not affected by this problem.
+  </li>
+  <li>
+    If you try to initialize a project using "npm install", it looks for package names and exact versions from
+    package-lock.json. "npm install" will insall all modules listed as dependencies in package.json. package.json has
+    semver notation and package-lock.json has all dependencies with exact versions.
+  </li>
+  <li>
+    he package-lock.json file needs to be committed to your Git repository, so it can be fetched by other people.
+  </li>
+  <li>
+    The dependencies versions will be updated in the package-lock.json file when you run npm update.
+  </li>
+</ul>
+<br>
+<strong>Find an npm package</strong>
+<br>
+<code>npm list</code> // for locally installed packages
+<br>
+<code>npm list -g</code> //for globally installed packages
+<br>
+<code>npm list --depth=0</code> //gets the top-level packages (basically, the ones you told npm to install and you
+listed in the package.json) <br>
+<code>npm list cowsay</code> //gets the version of a specific package <br>
+<code>npm view @angular/cli version</code> //gets the latest available version of the package on the npm repository <br>
+<code>npm view @angular/cli versions</code> //gets all the versions of angular cli
+
+<br>
+<br>
+<strong>Install older version of npm package</strong>
+<br>
+<code>npm install &lt;package>@&lt;version></code> <br>
+<code>npm install cowsay@1.2.0</code> //local installation of a particular version of cowsay<br>
+<code>npm install -g webpack@4.16.4</code> //global installation of a particular version of webpack <br>
+<code>npm view @angular/cli versions</code> //gets all the versions of angular cli <br>
+<code>npm outdated</code> //gets the list of packages that are outdated
+<br>
+<br>
+<strong>Update dependencies</strong>
+<br>
+<ul>
+  <li>
+    When you install a package using npm install &lt;packagename>, the latest available version of the package is
+    downloaded and put in the node_modules folder, and a corresponding entry is added to the package.json and
+    package-lock.json files that are present in your current folder. npm calculates the dependencies and installs the
+    latest available version of those as well.
+  </li>
+  <li>
+    If there is a new minor or patch release and we type npm update, the installed version is updated, and the
+    package-lock.json file diligently filled with the new version. package.json will change too.
+  </li>
+  <li>
+    To discover new releases of the packages, you run npm outdated.
+  </li>
+  <li>
+    To update to a new major version of all the packages, install the npm-check-updates package by running "npm
+    insall npm-check-updates". Then run "ncu -u". This will upgrade all the version hints in the package.json file,
+    to dependencies and devDependencies, so npm can install the new major version. You are now ready to run the update:
+    "npm update".
+  </li>
+  <li>
+    If you just downloaded the project without the node_modules dependencies and you want to install the shiny new
+    versions first, just run "npm install".
+  </li>
+</ul>
+<br>
+<strong>Semantic Versioning</strong> <br>
+npm uses semver with three digits x.y.z. The first digit is a major version, the second is a minor version and the third
+is a patch version.
+<ul>
+  <li>You up the major version when you make incompatible API changes.</li>
+  <li>You up the minor version when you add functionality in a backward-compatible manner.</li>
+  <li>You up the patch version when you make backward-compatible bug fixes.</li>
+</ul>
+<br>
+<strong>Uninstall packages</strong>
+<br>
+<code>npm uninstall &lt;package-name></code> //This uninstalls the package that was installed locally. Run this command
+at the project root folder. <br>
+<code>npm uninstall --save (or -S)&lt;package-name></code> //This uninstalls the package and also removes it from the
+dependencies in package.json. This is the default value.<br>
+<code>npm uninstall --save-dev (or -D) &lt;package-name></code> //This uninstalls the package and also removes it from
+the devDependencies in package.json <br>
+<code>npm uninstall -g &lt;package-name></code> //This uninstalls a package that was globally installed.
+<br>
+<br>
+<strong>local or global package</strong> <br>
+<ul>
+  <li>
+    local packages are installed in the directory where you run npm install &lt;package-name>, and they are put in the
+    node_modules folder under this directory
+  </li>
+  <li>
+    global packages are all put in a single place in your system (exactly where depends on your setup), regardless of
+    where you run npm install -g &lt;package-name>
+  </li>
+  <li>
+    In your code you can only require local packages: require('package-name'). In general, all packages should be
+    installed locally. This makes sure you can have dozens of applications in your computer, all running a different
+    version of each package if needed. All projects have their own local version of a package.
+  </li>
+  <li>
+    A package should be installed globally when it provides an executable command that you run from the shell (CLI), and
+    it's reused across projects. You can also install executable commands locally and run them using npx, but some
+    packages are just better installed globally.
+  </li>
+  <li>
+    View packages using the following command: npm list -g --depth 0
+  </li>
+</ul>
+<br>
+<strong>dependencies and devDependencies</strong> <br>
+<ul>
+  <li>When you install using "npm install &lt;package-name>", you are installing it as a dependency. The package is
+    automatically listed in the package.json file, under the dependencies list.</li>
+  <li>"npm install -D (or --save-dev)&lt;package-name>" will install it as a devDependency and will add it to the
+    devDependencies list.</li>
+  <li>Development dependencies are intended as development-only packages, that are unneeded in production. For example
+    testing packages, webpack or Babel.</li>
+  <li>"npm install --production" will avoid installing packages listed under devDependencies.</li>
+</ul>
+<br>
+<strong>npx (package runner)</strong> <br>
+<ul>
+  <li>
+    npx lets you run code built with Node.js and published through the npm registry.
+  </li>
+  <li>
+    Running npx commandname automatically finds the correct reference of the command inside the node_modules folder of a
+    project, without needing to know the exact path, and without requiring the package to be installed globally and in
+    the user's path.
+  </li>
+  <li>
+    You don't need to install a package to run with npx. "npx ng serve" will run the command even if @angular/cli is not
+    installed either locally or globally.
+  </li>
+  <li>
+    Run different versions: <br>
+    npx node@10 -v <br>
+    npx node@12 -v
+  </li>
+</ul>
+<br>
+<strong>setTimeout(), process.nextTick(), setImmediate() </strong>
+<br>
+A function passed to process.nextTick() will be executed on the current iteration of the event loop, after the current
+operation ends. It executes before setTimeout() and setImmediate() functions. A setTimeout() callback with a 0ms delay
+is very similar to setImmediate() - both of these will run in the next iteration of the event loop.
+<br>
+<br>
+<strong>setTimeout()</strong> <br>
+This function delays the execution of a function.
+<br>
+
+<code>
+  setTimeout(() => {{'{'}} <br>
+    &nbsp;&nbsp;// runs after 2 seconds <br>
+  }, 2000)
+  <br>
+  <br>
+  setTimeout(() => {{'{'}} <br>
+  &nbsp;&nbsp;// runs after 50 milliseconds <br>
+  }, 50) <br>
+  <br>
+  const myFunction = (firstParam, secondParam) => {{'{'}} <br>
+  &nbsp;&nbsp;// do something <br>
+  } <br>
+  <br>
+  // runs after 2 seconds <br>
+  setTimeout(myFunction, 2000, firstParam, secondParam) <br>
+  <br>
+  const id = setTimeout(() => {{'{'}} <br>
+  &nbsp;&nbsp;// should run after 2 seconds <br>
+  }, 2000) <br>
+  <br>
+  // It deletes the scheduled function. This is not normally used. <br>
+  clearTimeout(id) <br>
+  <br>
+  //zero delay. If you specify the timeout delay to 0, the callback function will be executed as soon as possible, but after the current function execution <br>
+  setTimeout(() => {{'{'}} <br>
+    &nbsp;&nbsp;console.log('after ') <br>
+  }, 0) <br>
+  <br>
+  console.log(' before ')
+</code>
+<br>
+<br>
+<strong>setInterval()</strong>
+<br>
+<code>
+  setInterval(() => {{'{'}} <br>
+    &nbsp;&nbsp;// runs every 2 seconds <br>
+  }, 2000) <br>
+  <br>
+  const id = setInterval(() => {{'{'}} <br>
+  &nbsp;&nbsp;// runs every 2 seconds <br>
+  }, 2000) <br>
+  <br>
+  // deletes the execution of the above function. <br>
+  clearInterval(id) <br>
+  <br>
+  // It's common to call clearInterval inside the setInterval callback function, to let it auto-determine if it should run again or stop.
+  <br>
+  const interval = setInterval(() => {{'{'}} <br>
+    &nbsp;&nbsp;if (App.somethingIWait === 'arrived') {{'{'}} <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;clearInterval(interval) <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return <br>
+    &nbsp;&nbsp;} <br>
+    &nbsp;&nbsp;// otherwise do things <br>
+  }, 100)
+</code>
+<br>
+<br>
+<strong>Recursive setTimeout</strong> <br>
+setInterval starts a function every n milliseconds, without any consideration about when a function finished its
+execution. To avoid this, you can schedule a recursive setTimeout to be called when the callback function finishes
+<br>
+<br>
+<code>
+const myFunction = () => {{'{'}} <br>
+  &nbsp;&nbsp;// do something <br>
+  &nbsp;&nbsp;setTimeout(myFunction, 1000) <br>
+} <br>
+ <br>
+setTimeout(myFunction, 1000)
+</code>
+<br>
+<br>
+<strong>JavaScript asynchronous programming and callbacks</strong>
+<br>
+<ul>
+  <li>
+    JavaScript is synchronous by default and is single threaded. This means that code cannot create new threads and run
+    in parallel.
+  </li>
+  <li>
+    A callback is a simple function that's passed as a value to another function, and will only be executed when the
+    event happens.
+    <ul>
+      <li>
+        After the click event, a function is called back to run. <br>
+        <code>
+          document.getElementById('button').addEventListener('click', () => {{'{'}} <br>
+            &nbsp;&nbsp;//item clicked <br>
+          })
+        </code>
+      </li>
+      <li>
+        After the window is loaded, a function is called back to run. <br>
+        <code>
+          window.addEventListener('load', () => {{'{'}} <br>
+            &nbsp;&nbsp;//window loaded <br>
+            &nbsp;&nbsp;//do what you want <br>
+          })
+        </code>
+      </li>
+      <li>
+        After 2 seconds a function is called back to run. <br>
+        <code>
+          setTimeout(() => {{'{'}} <br>
+            &nbsp;&nbsp;// runs after 2 seconds <br>
+          }, 2000)
+        </code>
+      </li>
+      <li>
+        "onreadystatechange" property is set to a function, which will run once the response is received. <br>
+        <code>
+          const xhr = new XMLHttpRequest() <br>
+          xhr.onreadystatechange = () => {{'{'}} <br>
+            &nbsp;&nbsp;if (xhr.readyState === 4) {{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;xhr.status === 200 ? console.log(xhr.responseText) : console.error('error') <br>
+            &nbsp;&nbsp;} <br>
+          } <br>
+          xhr.open('GET', 'https://yoursite.com') <br>
+          xhr.send()
+        </code>
+      </li>
+      <li>
+        Error handling in callbacks: The first parameter in any callback in Node.js is the error object. There is no
+        error if the error object is null.<br>
+        <code>
+          fs.readFile('/file.json', (err, data) => {{'{'}} <br>
+            &nbsp;&nbsp;if (err !== null) {{'{'}} <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;//handle error <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;console.log(err) <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;return <br>
+            &nbsp;&nbsp;} <br>
+            <br>
+            &nbsp;&nbsp;//no errors, process data <br>
+            &nbsp;&nbsp;console.log(data) <br>
+          })
+        </code>
+      </li>
+      <li>
+        There can be a lot of callbacks resulting in a callback hell. The alternative to callback is Promises and
+        Async/Await.
+      </li>
+    </ul>
+  </li>
+</ul>
+<br>
+<strong>promise</strong>
+<br>
+<ul>
+  <li>
+    Promises are one way to deal with asynchronous code, without getting stuck in <a href="http://callbackhell.com/"
+      target="_blank">callback hell</a>. Async functions use promises behind the scenes.
+  </li>
+  <li>
+    Once a promise has been called, it will start in a pending state. This means that the calling function continues
+    executing, while the promise is pending until it resolves, giving the calling function whatever data was being
+    requested. The created promise will eventually end in a resolved state, or in a rejected state, calling the
+    respective callback functions (passed to then and catch) upon finishing.
+  </li>
+  <li>
+    In the code below, resolve returns a string if done is true otherwise reject returns a string. resolve or reject can
+    return an object or null. If resolve or reject is not invoked, the promise would be in a pending state. A promise
+    would be in one of the three states: (1)resolved or (2)rejected or (3)pending. <br>
+    <code>
+      let done = true <br>
+      <br>
+      const isItDoneYet = new Promise((resolve, reject) => {{'{'}} <br>
+        &nbsp;&nbsp;if (done) {{'{'}} <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;const workDone = 'Here is the thing I built' <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;resolve(workDone) <br>
+        &nbsp;&nbsp;} else {{'{'}} <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;const why = 'Still working on something else' <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;reject(why) <br>
+        &nbsp;&nbsp;} <br>
+      }   
+    </code>
+  </li>
+  <li>
+    Promisifying: Create a JavaScript function that takes a callback and have it return a promise. In Node.js there is a
+    promisifying function available in the util module, but the function you are trying to promisify should have the
+    correct signature.. <br>
+    <code>
+      const fs = require('fs') <br>
+      <br>
+      const getFile = (fileName) => {{'{'}} <br>
+      &nbsp;&nbsp;return new Promise((resolve, reject) => {{'{'}} <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;fs.readFile(fileName, (err, data) => {{'{'}} <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(err) {{'{'}} <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reject(err) //calling `reject` will cause the promise to fail<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return       //and we don't want to go any further <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resolve(data) <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;}) <br>
+      &nbsp;&nbsp;}) <br>
+      } <br>
+      <br>
+      getFile('/etc/passwd') <br>
+      .then(data => console.log(data)) <br>
+      .catch(err => console.error(err))
+    </code>
+  </li>
+  <li>
+    Consuming a promise: <br>
+    <code>
+      const isOk = true; <br>
+      <br>
+      const isItOk = new Promise((resolve, reject) => {{'{'}} <br>
+        &nbsp;&nbsp;if (isOk) {{'{'}} <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;resolve('Everything is OK.'); <br>
+        &nbsp;&nbsp;} else {{'{'}} <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;reject('Something went wrong.') <br>
+        &nbsp;&nbsp;} <br>
+      }) <br>
+      <br>
+      const checkIfItIsOk = () => {{'{'}} <br>
+      &nbsp;&nbsp;isItOk // calling the promise<br>
+      &nbsp;&nbsp;.then(resolvedValue => {{'{'}} // if resolved<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;console.log(resolvedValue) <br>
+      &nbsp;&nbsp;}) <br>
+      &nbsp;&nbsp;.catch((error) => {{'{'}} // if rejected<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;console.log(error) <br>
+      &nbsp;&nbsp;}) <br>
+      }
+    </code>
+  </li>
+  <li>
+    Chaining promises: A promise can be returned to another promise creating a chain of promises.<br>
+
+    <code>
+      const nodeFetch = require('node-fetch') <br>
+      const fs = require('fs'); <br>
+      <br>
+      const status = (response) => {{'{'}} <br>
+        &nbsp;&nbsp;if(response.status == 200) {{'{'}} <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;return Promise.resolve(response) <br>
+        &nbsp;&nbsp;} <br>
+        <br>
+        &nbsp;&nbsp;return Promise.reject(response) <br>
+        &nbsp;&nbsp;} <br>
+      <br>
+      const json = response => response.json() //json() returns a promise.<br>
+      <br>
+      nodeFetch('https://jsonplaceholder.typicode.com/users') <br>
+      &nbsp;&nbsp;.then(status) <br>
+      &nbsp;&nbsp;.then(json) <br>
+      &nbsp;&nbsp;.then(data => {{'{'}} <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;console.log('Successful request with JSON response', data) <br>
+      &nbsp;&nbsp;}) <br>
+      &nbsp;&nbsp;.catch(error => {{'{'}} <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;console.log('Request failed', error) <br>
+      &nbsp;&nbsp;})
+    </code>
+  </li>
+  <li>
+    Handling errors: When anything in the chain of promises fails and raises an error or rejects the promise, the
+    control goes to the nearest catch() statement down the chain. You can cascade errors too.<br>
+    <code>
+      new Promise((resolve, reject) => {{'{'}} <br>
+      &nbsp;&nbsp;throw new Error('Error') // or reject('Error') <br>
+      }).catch(err => {{'{'}} <br>
+      &nbsp;&nbsp;throw new Error('Error') <br>
+      }).catch(err => {{'{'}} <br>
+      &nbsp;&nbsp;console.error(err) <br>
+      })
+    </code>
+  </li>
+</ul>
+<br>
+<strong>async and await</strong>
+<br>
+JavaScript evolved in a very short time from callbacks to promises to async/await syntax. async/await is built on
+promises. async functions make the code look like they are synchronous, but it's asynchronous and non-blocking behind
+the scenes.
+<ul>
+  <li>
+    An async function returns a promise: <br>
+    <code>
+      const doSomethingAsync = () => {{'{'}} <br>
+        &nbsp;&nbsp;return new Promise(resolve => {{'{'}} <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;setTimeout(() => resolve('I did something'), 3000) <br>
+        &nbsp;&nbsp;}) <br>
+      }
+    </code>
+  </li>
+  <li>
+    When you want to call this function you prepend await, and the calling code will stop until the promise is resolved
+    or rejected. One caveat: the client function must be defined as async. <br>
+    <code>
+      const doSomething = async () => {{'{'}} <br>
+        &nbsp;&nbsp;console.log(await doSomethingAsync()) <br>
+      }
+    </code>
+  </li>
+  <li>
+    Prepending the async keyword to any function means that the function will return a promise. Even if it's not doing
+    so explicitly, it will internally make it return a promise. <br>
+    <code>
+      const aFunction = async () => {{'{'}} <br>
+        &nbsp;&nbsp;return 'test' <br>
+      } <br>
+      <br>
+      aFunction().then(alert) // This will alert 'test'
+    </code>
+  </li>
+  <li>
+    <code>
+      const getFirstUserData = async () => {{'{'}} <br>
+        &nbsp;&nbsp;const response = await fetch('/users.json') // get users list <br>
+        &nbsp;&nbsp;const users = await response.json() // parse JSON <br>
+        &nbsp;&nbsp;const user = users[0] // pick first user <br>
+        &nbsp;&nbsp;const userResponse = await fetch(`/users/${{'{'}}user.name}`) // get user data <br>
+        &nbsp;&nbsp;const userData = await userResponse.json() // parse JSON <br>
+        &nbsp;&nbsp;return userData <br>
+      } <br>
+       <br>
+      getFirstUserData()
+    </code>
+  </li>
+</ul>
+<br>
+<strong>Event emitter</strong>
+<br>
+Node.js offers us the option to build an event using the events module. <br>
+<code>
+  const EventEmitter = require('events') <br>
+  const eventEmitter = new EventEmitter()
+</code>
+<ul>
+  <li>"emit" is used to trigger an event</li>
+  <li>"on" is used to add a callback function that's going to be executed when the event is triggered</li>
+</ul>
+The following creates a start event. <br>
+<code>
+  eventEmitter.on('start', () => {{'{'}} <br>
+    &nbsp;&nbsp;console.log('started') <br>
+  })
+</code>
+<br>
+<br>
+The following runs the "start" event. <br>
+<code>
+eventEmitter.emit('start')
+</code>
+<br>
+<br>
+The EventEmitter object also exposes several other methods to interact with events, like <br>
+<ul>
+  <li>
+    once(): add a one-time listener
+  </li>
+  <li>
+    removeListener() / off(): remove an event listener from an event
+  </li>
+  <li>
+    removeAllListeners(): remove all listeners for an event
+  </li>
+</ul>
+<br>
+<strong>HTTP server</strong>
+<br>
+In the code below, we include the http module to create a http server. The server is set to listen on the port 3000.
+When the server is ready, the listn callback function is called. The callback function we pass is the one that's going
+to be executed upon every request that comes in. Whenever a new request is received, the request event is called,
+providing two objects: a request (an http.IncomingMessage object) and a response (an http.ServerResponse object).
+request provides the request details. Through it, we access the request headers and request data. response is used to
+populate the data we're going to return to the client. we set the statusCode property to 200, to indicate a successful
+response. We also set the Content-Type header. nd we end close the response, adding the content as an argument to end().
+<code>
+const http = require('http') <br>
+<br>
+const port = 3000 <br>
+<br>
+const server = http.createServer((req, res) => {{'{'}} <br>
+  &nbsp;&nbsp;res.statusCode = 200 <br>
+  &nbsp;&nbsp;res.setHeader('Content-Type', 'text/html') <br>
+  &nbsp;&nbsp;res.end('&lt;h1>Hello, World!&lt;/h1>') <br>
+}) <br>
+<br>
+server.listen(port, () => {{'{'}} <br>
+&nbsp;&nbsp;console.log(`Server running at port ${{'{'}}port}`) <br>
+}) <br>
+</code>
+<br>
+<br>
+POST request:
+<br>
+<code>
+const https = require('https') <br>
+<br>
+const data = JSON.stringify({{'{'}} <br>
+  &nbsp;&nbsp;todo: 'Buy the milk' <br>
+}) <br>
+<br>
+const options = {{'{'}} <br>
+&nbsp;&nbsp;hostname: 'whatever.com', <br>
+&nbsp;&nbsp;port: 443, <br>
+&nbsp;&nbsp;path: '/todos', <br>
+&nbsp;&nbsp;method: 'POST', <br>
+&nbsp;&nbsp;headers: {{'{'}} <br>
+&nbsp;&nbsp;&nbsp;&nbsp;'Content-Type': 'application/json', <br>
+&nbsp;&nbsp;&nbsp;&nbsp;'Content-Length': data.length <br>
+&nbsp;&nbsp;} <br>
+} <br>
+<br>
+const req = https.request(options, res => {{'{'}} <br>
+&nbsp;&nbsp;console.log(`statusCode: ${{'{'}}res.statusCode}`) <br>
+<br>
+&nbsp;&nbsp;res.on('data', d => {{'{'}} <br>
+&nbsp;&nbsp;&nbsp;&nbsp;process.stdout.write(d) <br>
+&nbsp;&nbsp;}) <br>
+}) <br>
+<br>
+req.on('error', error => {{'{'}} <br>
+&nbsp;&nbsp;console.error(error) <br>
+}) <br>
+<br>
+req.write(data) <br>
+req.end() <br>
+</code>
+<br>
+<strong>file</strong>
+<br>
+<code>
+const fs = require('fs') <br>
+fs.stat('/Users/joe/test.txt', (err, stats) => {{'{'}} <br>
+  &nbsp;&nbsp;if (err) {{'{'}} <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;console.error(err) <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;return <br>
+  &nbsp;&nbsp;} <br>
+  <br>
+  &nbsp;&nbsp;stats.isFile() //true <br>
+  &nbsp;&nbsp;stats.isDirectory() //false <br>
+  &nbsp;&nbsp;stats.isSymbolicLink() //false <br>
+  &nbsp;&nbsp;stats.size //1024000 //= 1MB <br>
+})
+</code>
+<br>
+
+<br>
+<br>

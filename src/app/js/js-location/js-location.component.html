@@ -1,0 +1,63 @@
+<h1>Location of JS</h1>
+<br>
+This page discusses where to place JavaScript code. <br> <br>
+<ul>
+  <li>
+    Type in functions in the &lt;script>&lt;/script> tag inside the body tag at the bottom
+    and open the page in a browser. <br>
+    <code>
+            &lt;script> <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;console.log("something"); <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;alert("something"); <br>
+            &lt;/script>;
+        </code>
+  </li>
+  <li>
+    Type in the following code in the address bar of the browser and hit return. <br>
+    <code>
+            javascript:alert("Hello World");console.log("Hey");
+        </code>
+  </li>
+  <li>
+    Open the Console in a browser by right-clicking and clicking Inspect. Inside Console
+    type in the following and hit return. It prints Hello World and then undefined.
+    console.log and alert() return void and so undefined is printed. If you use prompt() and
+    hit return and type in something in the input, that will be printed and undefined is not
+    printed as prompt() return a string, not void.<br>
+    <code>
+            console.log("something");alert("Hello World");
+        </code>
+  </li>
+  <li>
+    Create a .js file and write javascript code in it and call it with the code below
+    written before the closing body tag. <br>
+    <code>
+            &lt;script src="./js/youtube.js">&lt;/script>
+        </code>
+  </li>
+  <li>
+    You can also put in the <code>&lt;head>&lt;/head></code> section a script tag with
+    javascript code and/or with a src attribute linking to an external javascript file. But
+    you may not be able to reference html elements from your script in the
+    <code>&lt;head>&lt;/head></code> section, so it is a best practice to put the javascript
+    code before the closing body tag as the html elements in the body will already be
+    rendered. If you put the script in the <code>&lt;head>&lt;/head></code> section, use one
+    of the following to have access to the DOM elements:
+    <br>
+    <code>
+            window.addEventListener("DOMContentLoaded", function() {{'{'}} ... }); <br>
+            window.addEventListener("load", function() {{'{'}} ... }); <br>
+            &lt;script defer src="./js/youtube.js">&lt;/script>
+        </code>
+  </li>
+  <li>
+    Outside browsers, we can run JavaScript in NodeJs, which is built on Chrome's V8
+    JavaScript engine.
+  </li>
+</ul>
+<br> <br>
+<p id="myId" (click)="changeColor()">Click on me and I will toggle between black and red.</p>
+<script>
+
+</script>
+

@@ -1,0 +1,15 @@
+<h1>Contacts</h1>
+<div fxLayout="column" fxLayoutGap="5px">
+  <div fxLayout="row">
+    <div fxFlex="40px"><strong>ID</strong></div>
+    <div fxFlex="100px"><strong>First Name</strong></div>
+    <div fxFlex="100px"><strong>Last Name</strong></div>
+    <div fxFlex="80px"><strong>Action</strong></div>
+  </div>
+  <div *ngFor="let contact of contactList" fxLayout="row">
+    <div fxFlex="40px">{{contact.id}}</div>
+    <div fxFlex="100px">{{contact.firstName}}</div>
+    <div fxFlex="100px">{{contact.lastName ? contact.lastName : 'N/A'}}</div>
+    <div fxFlex="80px"><button (click)=getDetail(contact)>Detail</button></div>
+  </div>
+</div>

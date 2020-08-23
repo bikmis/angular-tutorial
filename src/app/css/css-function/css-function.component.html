@@ -1,0 +1,39 @@
+<h1>Functions</h1>
+<p>This deals with css functions.</p>
+<br>
+<br>
+<h2>calc() Function</h2>
+<p>calc() function performs a calculation to be used as the property value. Operators like + - *
+  / can be used.</p>
+<code>
+  #div1 {{'{'}}<br>
+    &nbsp;&nbsp;--variable-width: 30px;
+    &nbsp;&nbsp;width: calc(50px + 100px); <br>
+    &nbsp;&nbsp;or <br>
+    &nbsp;&nbsp;width: calc(100% - 100px); <br>
+    &nbsp;&nbsp;or <br>
+    &nbsp;&nbsp;width: calc(3rem * 2); <br>
+    &nbsp;&nbsp;or <br>
+    &nbsp;&nbsp;width: calc(var(--variable-width) + 10px); <br>
+    } <br>
+  </code>
+<br>
+<br>
+<h2>var() Function</h2>
+<p>The var() css function is used to insert the value of a custom property (sometimes called a
+  css variable)</p>
+<code>
+  :root {{'{'}} <br>
+  &nbsp;&nbsp;--color-red: red; <br>
+  &nbsp;&nbsp;--color-blue: blue: <br>
+  } <br>
+  <br>
+  h1 {{'{'}} <br>
+  &nbsp;&nbsp;color: var(--color-red); <br>
+  } 
+  <br>
+  <br>
+  p {{'{'}} <br>
+  &nbsp;&nbsp;color: var(--color-blue); <br>
+  } 
+</code>

@@ -1,0 +1,23 @@
+<h1>Dynamic Forms</h1>
+<br>
+To define a dynamic form, take the following steps:
+<ul>
+  <li>Import the FormArray class.</li>
+  <li>Define a FormArray conrol.</li>
+  <li>Access the FormArray control with a getter method.</li>
+  <li>Display the form array in a template.</li>
+</ul>
+<br>
+<form [formGroup]="dynamicForm" (ngSubmit)="onSubmitDynamicForm()" class="border border-dark">
+  <div formArrayName="aliases">
+    <div *ngFor="let alias of aliases.controls; let i=index">
+      <label>
+        <input type="text" [formControlName]="i">
+      </label>
+    </div>
+  </div>
+  <br>
+  <button type="button" (click)=addAlias()>Add Alias</button> &nbsp;&nbsp;&nbsp; <button type="submit">Submit</button>
+  <br>
+  {{'{{'}}formName.value | json}} ---> {{dynamicForm.value | json}}
+</form>

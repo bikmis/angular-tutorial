@@ -1,0 +1,150 @@
+<div class="border border-success">
+  <h5>Parent Component</h5>
+  <p><strong><u>Passing value from Parent to Child component using input property</u></strong></p>
+  Write the following code in the child component. <br>
+  <code>
+@Input() voter: Voter = &lt;Voter>{{'{'}}}; 
+</code>
+  <br>
+  <br>
+  Write the following code in the template of the child component.
+  <br>
+  <code>
+&lt;p>Voter's Name: {{'{{'}}voter.name}}&lt;/p>
+</code>
+  <br>
+  <br>
+  Write the following code in the parent component; <br>
+  <code>
+  import {{'{'}} Voter } from '../child/voter';<br>
+  ....<br>
+  ....<br>
+public voter: Voter = &lt;Voter>{{'{'}} name: "John" }; 
+</code>
+  <br>
+  <br>
+  Write the following code in the parent component's template. <br>
+  <code>
+    &lt;app-child #child [voter]="voter" (voteEvent) = "onVoted($event)">&lt;/app-child>
+</code>
+
+  <app-child #child [voter]="voter" (voteEvent)="onVoted($event)"></app-child>
+  <div class="border border-success">
+    Example - click Agree or Disagree button of the child component:
+    <p>Agree: {{agree}}</p>
+    <p>Disagree: {{disagree}}</p>
+    <p>Agree (observable): {{agreeObs}}</p>
+    <p>Disagree (observable): {{disagreeObs}}</p>
+  </div>
+
+  <p><strong><u>Accessing child property, methods via local variable #child</u></strong></p>
+  Local variable is limited as parent-child wiring is only done in the parent template. The parent "component" cannot
+  access the child component via the local variable. <br>
+  <br>
+  Add the following child component with #child local variable in the parent template. <br>
+  <code>
+    &lt;app-child #child [voter]="voter" (voteEvent) = "onVoted($event)">&lt;/app-child>
+  </code>
+  <br>
+  <br>
+  Add the following in the parent template accessing #child's properties and mthods. <br>
+  <code>
+    &lt;div>Name: {{'{{'}}child.name}}&lt;/div> <br>
+    &lt;span>Sum: {{'{{'}}child.addTwoNumber(5,8)}}&lt;/span> 
+  </code>
+  <br>
+  <br>
+  Example:
+  <div>Name: {{child.name}}</div>
+  <span>Sum: {{child.addTwoNumber(5,8)}}</span>
+  <br>
+  <p><strong><u>Passing event from Child to Parent component using output</u></strong></p>
+  <p>In the child component we make the voteEvent available which is bound to onVoted($event) method in the parent
+    component.</p>
+
+  Agree and Disagree buttons are in the Child component and when the voter clicks on them, agree and disagree numbers
+  increase in the Parent component. voteEvent is an output event on the child component.
+  <br>
+  <br>
+  Write the following code in the child component.
+  <br>
+  <code>
+    import {{'{'}} Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+<br>
+<br>
+    @Output() voteEvent = new EventEmitter&lt;boolean>(); <br>
+    <br>
+    public vote(agreed: boolean){{'{'}} <br>
+      &nbsp;&nbsp;this.voteEvent.emit(agreed); <br>
+    }
+  </code>
+  <br>
+  <br>
+  Write the following code in the child component's template. <br>
+  <code>
+    &lt;button (click)="vote(true)">Agree&lt;/button> <br>
+    &lt;button (click)="vote(false)">Disagree&lt;/button>
+  </code>
+  <br>
+  <br>
+  Write the following code in the parent component. <br>
+  <code>
+    public agree = 0; <br>
+    public disagree = 0; <br>
+    <br>
+    public onVoted(agreed: boolean){{'{'}} <br>
+      &nbsp;&nbsp;agreed ? this.agree++ : this.disagree++; <br>
+    } <br>
+  </code>
+  <br>
+  Write the following in the parent component's template.
+  <br>
+  <code>
+    &lt;app-child #child [voter]="voter" (voteEvent)="onVoted($event)">&lt;/app-child>
+    &lt;p>Agree: {{'{{'}}agree}}&lt;/p> <br>
+    &lt;p>Disagree: {{'{{'}}disagree}}&lt;/p>
+  </code>
+  <br>
+  <br>
+  <p><strong><u>Accessing properties and methods in Child from Parent component using @ViewChild</u></strong></p>
+Write the following in the child component.
+<br>
+<code> 
+public name = "Jack"; <br>
+public addTwoNumber(num1: number, num2: number): number{{'{'}} <br>
+  &nbsp;&nbsp;return num1 + num2; <br>
+}
+</code>
+<br><br>
+  Write the following code in the parent component. <br>
+  <code>
+    import {{'{'}} Component, OnInit, ViewChild, AfterViewInit } from '@angular/core'; <br>
+    import {{'{'}} ChildComponent } from '../child/child.component'; <br>
+    .... <br>
+    .... <br>
+  @ViewChild(ChildComponent) <br>
+  public child: ChildComponent; <br>
+  public name: string = null; <br>
+  public sum: number = null; <br>
+  <br>
+  ngAfterViewInit(){{'{'}} <br>
+  &nbsp;&nbsp;setTimeout(() => {{'{'}} <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;this.name = this.child.name; <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;this.sum = this.child.addTwoNumber(2,3); <br>
+  &nbsp;&nbsp;}, 0); <br>
+  } <br>
+  </code>
+  <br>
+  Write the following code in the parent template. <br>
+  <code>
+&lt;span>Name: {{'{{'}}name}}&lt;/span> <br>
+&lt;span>Sum: {{'{{'}}sum}}&lt;/span>
+</code>
+  <br>
+  <br>
+  Example: <br>
+  <span>Name: {{name}}</span> <br>
+  <span>Sum: {{sum}}</span>
+</div>
+<br>
+<br>

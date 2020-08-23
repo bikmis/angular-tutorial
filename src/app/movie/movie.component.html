@@ -1,0 +1,81 @@
+<h1>Movie (none-http)</h1>
+<br>
+Example: <br>
+<div>
+  <div><strong>List of Movies</strong></div>
+</div>
+<div fxLayout="column" fxLayoutGap="7px">
+  <div fxLayout="row">
+    <div fxFlex="50px"><strong>S.N.</strong></div>
+    <div fxFlex="150px"><strong>Movie</strong></div>
+    <div fxFlex="600px"><strong>Cast</strong></div>
+  </div>
+  <div *ngFor="let movie of movies; let i=index" fxLayout="row">
+    <div fxFlex="50px">{{i+1}}</div>
+    <div fxFlex="150px">{{movie.name}}</div>
+    <div fxFlex="600px">{{movie.cast.join(', ')}}</div>
+  </div>
+</div>
+<br>
+<p>
+  <strong>Service Definition:</strong>
+  <br>
+  Create data.ts within src\app\services folder to hold dummy data.
+  <br>
+  <code>
+    export interface Movie {{'{'}} <br>
+      &nbsp;&nbsp;name: string; <br>
+      &nbsp;&nbsp;cast: string[]; <br>
+    } <br>
+    <br>
+    export const MOVIES: Movie[] = [ <br>
+    &nbsp;&nbsp;{{'{'}} name: "Kill Bill", cast: ["Uma Thurman", "David Carradine", "Daryl Hannah"] }, <br>
+    &nbsp;&nbsp;{{'{'}} name: 'Pulp Fiction', cast: ["Tim Roth", "John Travolta", "Samuel Jackson"] }, <br>
+    &nbsp;&nbsp;{{'{'}} name: 'The Hateful Eight', cast: ["Sameul Jackson", "Kurt Russell", "Tim Roth"] }, <br>
+    &nbsp;&nbsp;{{'{'}} name: 'Knives Out', cast: ["Daniel Craig", "Ana De Armas", "Chris Evans"] }, <br>
+    &nbsp;&nbsp;{{'{'}} name: 'Django Unchained', cast: ["Jamie Foxx","Christoph Waltz","Leonardo DiCaprio"] } <br>
+    ];
+  </code>
+  <br>
+  <br>
+  Create a service called "movie" using ng g s services\movie at the terminal from within the Angular workspace. Then a
+  movie service is generated within src\app\services folder. <br>
+  <code>
+    import {{'{'}} Movie, MOVIES } from './data'; <br>
+    .... <br>
+    .... <br>
+    getMovies(): Movie[] {{'{'}} <br>
+      &nbsp;&nbsp;return MOVIES; <br>
+    } <br>
+  </code>
+  <br>
+  <strong>Service Consumption:</strong> <br>
+  Creat a movie component with ng g c movie. Import MovieService and inject the movieService in the constructor of the
+  component.
+  <br>
+  <code>
+    import {{'{'}} MovieService} from '../services/movie.service'; <br>
+    import {{'{'}} Movie } from '../services/data'; <br>
+    .... <br>
+    .... <br>
+    movies: Movie[] = null; <br>
+    <br>
+    constructor(private movieService: MovieService) {{'{'}} } <br>
+    <br>
+    ngOnInit(): void {{'{'}} <br>
+    &nbsp;&nbsp;this.movies = this.movieService.getMovies(); <br>
+    }
+  </code>
+  <br>
+  <br>
+  Write the following code in the template of the movie component.
+  <br>
+  <code>
+  &lt;div class="row" *ngFor="let movie of movies; let i=index"> <br>
+  &nbsp;&nbsp;&lt;div class="col-1">{{'{'}}{{'{'}}i+1}}&lt;/div> <br>
+  &nbsp;&nbsp;&lt;div class="col-3">{{'{'}}{{'{'}}movie.name}}&lt;/div> <br>
+  &nbsp;&nbsp;&lt;div class="col-8">{{'{'}}{{'{'}}movie.cast.join(', ')}}&lt;/div> <br>
+  &lt;/div>
+</code>
+</p>
+<br>

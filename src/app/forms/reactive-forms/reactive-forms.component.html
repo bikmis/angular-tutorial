@@ -1,0 +1,337 @@
+<h1>Reactive Forms</h1>
+<ul>
+  <li>
+    There are two types of forms:
+    <ul>
+      <li>Reactive forms: These are scalable and so used for complex forms.</li>
+      <li>Template-driven: We can use these for adding a simple form. These don't scale as well as reactive forms.</li>
+    </ul>
+  </li>
+  <li>
+    The following are the building blocks of a form:
+    <ul>
+      <li>FormControl</li>
+      <li>FormGroup</li>
+      <li>FormArray</li>
+      <li>ControlValueAccessor</li>
+    </ul>
+  </li>
+  <li>
+    There are two approaches to grouping a form:
+    <ul>
+      <li>Form Group</li>
+      <li>Form Array</li>
+    </ul>
+  </li>
+  <li>
+    There are two modules for template-driven and reactive forms. Import them in the AppModule "import {{'{'}}
+    FormsModule, ReactiveFormsModule } from '@angular/forms';" and list them in the "imports" array.
+  </li>
+</ul>
+<u>Reactive forms use [formControl].</u>
+<br>
+<div class="border border-dark">
+  <input type="text" [formControl]="favoriteColorControl">
+  <br>
+  {{favoriteColorControl.value}}
+</div>
+<br>
+<u>Student Form (Using FormGroup and FormControl)</u>
+<br>
+<form [formGroup]="studentForm" (ngSubmit)="onSubmitStudentForm()" class="border border-dark">
+  <label>
+    First Name*: <br>
+    <input type="text" formControlName="firstName" class="valid-invalid-bar">
+  </label>
+  <div *ngIf="studentFirstNameGetter.invalid && !studentFirstNameGetter.pristine">
+    <span *ngIf="studentFirstNameGetter.errors?.required" class="error">First name is required. </span>
+    <span *ngIf="studentFirstNameGetter.errors?.minlength" class="error">First name cannot be less than
+      {{studentFirstNameGetter.errors?.minlength.requiredLength}} characters in length.
+    </span>
+    <span *ngIf="studentFirstNameGetter.errors?.forbiddenName" class="error">First name cannot contain
+      {{studentFirstNameGetter.errors?.forbiddenName.forbiddenValue}}.</span>
+  </div> <br>
+  Using formName.value.controlName {{'{{'}}studentForm.value.firstName}} --> {{studentForm.value.firstName}} <br>
+  Using "getter property name".value {{'{{'}}studentFirstName.value}} --> {{studentFirstNameGetter.value}}
+  <br>
+  <label>
+    Last Name: <br>
+    <input type="text" formControlName="lastName">
+  </label>
+  <br>
+  <div formGroupName="address">
+    <span>Address (Nested FormGroup)</span>
+    <br>
+    <label>
+      Street*: <br>
+      <input type="text" formControlName="street" class="valid-invalid-bar">
+    </label>
+    <div *ngIf="studentStreetGetter.invalid && !studentStreetGetter.pristine">
+      <span *ngIf="studentStreetGetter.errors?.required" class="error">This is a required field.</span>
+      <span *ngIf="studentStreetGetter.errors?.pattern" class="error">This is 1 to 4 digits followed by at least one or more
+        words. No leading or trailing space.</span>
+    </div>
+    <br>
+    <label>
+      City: <br>
+      <input type="text" formControlName="city">
+    </label>
+    <br>
+    <label>
+      State: <br>
+      <input type="text" formControlName="state">
+    </label>
+    <br>
+    <label>
+      Zip Code: <br>
+      <input type="text" formControlName="zip">
+    </label>
+  </div>
+  <button type="submit" [disabled]="studentForm.invalid">Submit</button>
+</form>
+<br>
+<u>Teacher Form (Using FormBuilder)</u>
+<br>
+Import the FormBuilder class and inject the FormBuilder service to generate form contents. The FormBuilder service has
+three factory mothods: control(), group(), and array().
+<form [formGroup]="teacherForm" (ngSubmit)="onSubmitTeacherForm()" class="border border-dark">
+  <label>
+    First Name*: <br>
+    <input type="text" formControlName="firstName" class="valid-invalid-bar"> <br>
+    <span *ngIf="teacherFirstNameGetter.errors?.required" class="error">First name is required.</span>
+    <span *ngIf="teacherFirstNameGetter.errors?.minlength" class="error">First name cannot be less than
+      {{teacherFirstNameGetter.errors?.minlength.requiredLength}} characters in length.</span>
+  </label>
+  <br>
+  Using "formName.value.controlName" {{'{{'}}teacherForm.value.firstName}} ---> {{teacherForm.value.firstName}} <br>
+  Using "getter property name.value" {{'{{'}}teacherFirstNameGetter.value}} ---> {{teacherFirstNameGetter.value}}
+  <br>
+  <label>
+    Last Name*: <br>
+    <input type="text" formControlName="lastName" class="valid-invalid-bar">
+  </label>
+  <div *ngIf="teacherLastNameGetter.invalid && !teacherLastNameGetter.pristine">
+    <span *ngIf="teacherLastNameGetter.errors?.required" class="error">Last name is required.</span>
+    <span *ngIf="teacherLastNameGetter.errors?.pattern" class="error">Last name should be one or
+      two words only and each word cannot be less than 2 characters in length. No leading or trailing space.</span>
+  </div>
+  <br>
+  <div formGroupName="address">
+    <span>Address (Nested FormGroup)</span>
+    <br>
+    <label>
+      Street: <br>
+      <input type="text" formControlName="street">
+    </label>
+    <br>
+    <label>
+      City: <br>
+      <input type="text" formControlName="city">
+    </label>
+    <br>
+    <label>
+      State: <br>
+      <input type="text" formControlName="state">
+    </label>
+    <br>
+    <label>
+      Zip Code: <br>
+      <input type="text" formControlName="zip">
+    </label>
+  </div>
+  <button type="submit" [disabled]="teacherForm.invalid">Submit</button> <br>
+  Form status using {{'{{'}}teacherForm.status}}: {{teacherForm.status}}
+  <br>
+  Form Value using {{'{{'}}teacherForm.value | json}}: {{teacherForm.value | json}} <br>
+</form>
+<br>
+<u>Form Validation</u>
+<br>
+<ul>
+  <li>
+    Reactive forms define custom validators as functions that receive a control to validate.
+  </li>
+  <li>
+    Import Validators from @angular/forms package.
+  </li>
+  <li>
+    Use HTML5 validation attributes in combination with the built-in validators provided by Angular's reactive
+    forms. Using these in combination prevents errors when the expression is changed after the template has been
+    checked. In the template, "required" attribute is not necessary for validation, but should be retained for
+    accessibility purposes.
+  </li>
+  <li>
+    In a reactive form, the source of truth is the component class. Instead of adding validators through attributes in
+    the template, you add validator functions directly to the form control model in the component class. Angular then
+    calls these functions whenever the value of the control changes.
+  </li>
+  <li>
+    Sync validators: Synchronous functions that take a control instance and immediately return either a set of
+    validation errors or null. You can pass these in as the second argument when you instantiate a FormControl. For
+    example, add Validators.required method as the second item in the array.
+  </li>
+  <li>
+    Async validators: Asynchronous functions that take a control instance and return a Promise or Observable that
+    later emits a set of validation errors or null. You can pass these in as the third argument when you instantiate a
+    FormControl.
+  </li>
+  <li>
+    For performance reasons, Angular only runs async validators if all sync validators pass. Each must complete before
+    errors are set.
+  </li>
+  <li>
+    Multiple validators can be passed in an array.
+  </li>
+  <li>
+    You can access any form control through the "get" method, which you can use in the template.
+  </li>
+</ul>
+<u>Password Change (Custom/Cross Validation)</u> <br>
+A cross-field validator is a custom validator that compares the values of different fields in a form and accepts or
+rejects them in combination.
+<br>
+<form [formGroup]="passwordChangeForm" (ngSubmit)="changePassword()" class="border border-dark">
+  <label for="new-password">New Password</label> <br>
+  <input type="text" id="new-password" formControlName="newPassword">
+  <br>
+  <span *ngIf="passwordChangeForm.invalid && !passwordChangeForm.pristine">
+    <span *ngIf="newPasswordGetter.errors?.required" class="error">New password is required.</span>
+    <span class="error">{{passwordChangeForm.errors?.passwordSpace}}</span>
+    <span class="error">{{passwordChangeForm.errors?.passwordLength}}</span>
+    <span class="error">{{passwordChangeForm.errors?.passwordDigit}}</span>
+    <span class="error">{{passwordChangeForm.errors?.passwordLessThanTwoDigits}}</span>
+    <span class="error">{{passwordChangeForm.errors?.passwordUnderscoreOrNonWordCharacter}}</span>
+    <span class="error">{{passwordChangeForm.errors?.passwordLessThanTwoUnderscoreOrNonWordCharacters}}</span>
+  </span> <br>
+  <label for="retype-password">Retype Password</label> <br>
+  <input type="text" id="retype-password" formControlName="retypePassword">
+  <br>
+  <span *ngIf="passwordChangeForm.invalid && !retypePasswordGetter.pristine">
+    <span class="error">{{passwordChangeForm.errors?.passwordMismatch}}</span>
+  </span>
+  <br>
+  <button type="submit" [disabled]="passwordChangeForm.invalid">Save</button>
+</form>
+<br>
+<u>Examples of built-in validators for reactive forms</u> <br>
+min(): Validator that requires the control's value to be greater than or equal to the provided number. The validator
+exists only as a function and not as a directive. <br>
+const control = new FormControl(2, Validators.min(3)); <br>
+console.log(control.errors); // {{'{'}}min: {{'{'}}min: 3, actual: 2}} <br>
+<br>
+max(): Validator that requires the control's value to be less than or equal to the provided number. The validator exists
+only as a function and not as a directive. <br>
+const control = new FormControl(16, Validators.max(15)); <br>
+console.log(control.errors); // {{'{'}}max: {{'{'}}max: 15, actual: 16}} <br>
+<br>
+required(): Validator that requires the control have a non-empty value. <br>
+const control = new FormControl('', Validators.required); <br>
+console.log(control.errors); // {{'{'}}required: true} <br>
+<br>
+requiredTrue(): Validator that requires the control's value be true. This validator is commonly used for required
+checkboxes.
+<br>
+const control = new FormControl('', Validators.requiredTrue); <br>
+console.log(control.errors); // {{'{'}}required: true} <br>
+<br>
+email(): Validator that requires the control's value pass an email validation test. <br>
+const control = new FormControl('bad@', Validators.email); <br>
+console.log(control.errors); // {{'{'}}email: true} <br>
+<br>
+minLength(): Validator that requires the length of the control's value to be greater than or equal to the provided
+minimum length. This validator is also provided by default if you use the HTML5 minlength attribute. Note that the
+minLength validator is intended to be used only for types that have a numeric length property, such as strings or
+arrays. The minLength validator logic is also not invoked for values when their length property is 0 (for example in
+case of an empty string or an empty array), to support optional controls. You can use the standard required validator if
+empty values should not be considered valid. <br>
+const control = new FormControl('ng', Validators.minLength(3)); <br>
+console.log(control.errors); // {{'{'}}minlength: {{'{'}}requiredLength: 3, actualLength: 2}} <br>
+&lt;input minlength="5"> <br>
+<br>
+maxLength(): Validator that requires the length of the control's value to be less than or equal to the provided maximum
+length. This validator is also provided by default if you use the the HTML5 maxlength attribute. Note that the maxLength
+validator is intended to be used only for types that have a numeric length property, such as strings or arrays.
+<br>
+const control = new FormControl('Angular', Validators.maxLength(5)); <br>
+console.log(control.errors); // {{'{'}}maxlength: {{'{'}}requiredLength: 5, actualLength: 7}} <br>
+&lt;input maxlength="5"> <br>
+<br>
+pattern(): Validator that requires the control's value to match a regex pattern. This validator is also provided by
+default if you use the HTML5 pattern attribute.
+<br>
+<br>
+const control = new FormControl('1', Validators.pattern('[a-zA-Z ]*')); <br>
+console.log(control.errors); // {{'{'}}pattern: {{'{'}}requiredPattern: '^[a-zA-Z ]*$', actualValue: '1'}} <br>
+&lt;input pattern="[a-zA-Z ]*"> <br>
+<br>
+nullValidator(): Validator that performs no operation. <br>
+<br>
+compose(): Compose multiple validators into a single function that returns the union of the individual error maps for
+the provided control. <br>
+<br>
+composeAsync(): Compose multiple async validators into a single function that returns the union of the individual error
+objects for the provided control.
+<br>
+<br>
+<u>Asynchronous validators</u>
+<br>
+<ul>
+  <li>
+    The validate() function must return a promise or an observable.
+  </li>
+  <li>
+    Pipe an infinite observable into a finite one through a filtering operator such as first, last, take, or takeuntil.
+  </li>
+  <li>
+    Asynchronous validation happens after the synchronous validation, and is performed only if the synchronous
+    validation is successful.
+  </li>
+  <li>
+    After asynchronous validation begins, the form control enters into a pending state. A common UI pattern is to show a
+    spinner while the async validation is being performed. In a template-driven form you can do the following: <br>
+    &lt;input [(ngModel)]="name" #model="ngModel" appSomeAsyncValidator> <br>
+    &lt;app-spinner *ngIf="model.pending">&lt;/app-spinner>
+  </li>
+  <li>
+    By default, all validators run after every form value change. With synchronous validators, this does not normally
+    have a noticeable impact on application performance. Async validators, however, commonly perform some kind of HTTP
+    request to validate the control. Dispatching an HTTP request after every keystroke could put a strain on the backend
+    API, and should be avoided if possible.
+    <br>
+    <br> You can delay updating the form validity by changing the "updateOn" property from "change" (default) to "submit" or
+    "blur".
+    <br>
+    <br>
+    With template-driven forms: <br>
+    &lt;input [(ngModel)]="name" [ngModelOptions]="{{'{'}}updateOn: 'blur'}">
+    <br><br>
+    With reactive forms: <br>
+    new FormControl('', {{'{'}}updateOn: 'blur'});
+  </li>
+</ul>
+
+<form [formGroup]="loginForm" (ngSubmit)="login()" class="border border-dark">
+  <label for="username">Username</label> <br>
+  <input type="text" id="username" formControlName="username">
+  <br>
+  <span *ngIf="usernameGetter.errors?.required && !usernameGetter.pristine" class="error">Username is required</span>
+  <span class="error">{{loginForm.errors?.usernameLength}}</span>
+  <span class="error">{{usernameGetter.errors?.isNotJack}}</span>
+  <br>
+  <label for="password">Password (try jack)</label> <br>
+  <input type="password" id="password" formControlName="password">
+  <br>
+  <span class="error">{{loginForm.errors?.passwordLength}}</span>
+  <span *ngIf="passwordGetter.errors?.required && !passwordGetter.pristine" class="error">Password is required</span>
+  <div *ngIf="loginForm.invalid">
+    <span class="error">{{loginForm.errors?.authenticationError}}</span>
+  </div>
+  <br>
+  <button type="submit" [disabled]="loginForm.invalid">Login</button> <br>
+  {{'{{'}}loginForm.status}} --- {{loginForm.status}} <br>
+  {{'{{'}}loginForm.invalid}} --- {{loginForm.invalid}} <br>
+  {{'{{'}}loginForm.pending}} --- {{loginForm.pending}} <br>
+</form>
+<br>
+<br>
+<br>

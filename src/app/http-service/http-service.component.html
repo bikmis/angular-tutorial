@@ -1,0 +1,533 @@
+<h1>http Service</h1>
+Components shouldn't fetch or save data directly. They should focus on presenting data and delegate data access to a
+service. You will use dependency injection to inject a service into the component constructor. Services are a great
+way to share information among classes that don't know each other. A service can have other services too. A service
+can get data from anywhere - a web service, local storage, or a mock data source. Removing data access from components
+means you can change your mind about the implementation anytime, without touching any components. They don't know how
+the service works.
+<br>
+<br>
+Most front-end applications need to communicate with a server over the HTTP protocol to download or upload back-end
+services. Angular provides a HttpClient service class in @angular/common/http. Before you can use HttpClient, you need
+to import the Angular HttpClientModule. Most applications do so in the root AppModule. You need to import
+HttpClientModule after BrowserModule in the imports array of the AppModule.
+<br>
+<br>
+<strong>HttpClientModule</strong>
+<br>
+Write the following code in the AppModule to import HttpClientModule. Place HttpClientModule after BrowserModule.
+<br>
+<code>
+    import {{'{'}} HttpClientModule } from '@angular/common/http'; <br>
+    ... <br>
+    ... <br>
+    imports: [ <br>
+      &nbsp;&nbsp;BrowserModule, <br>
+      &nbsp;&nbsp;HttpClientModule, <br>
+      &nbsp;&nbsp;... <br>
+      &nbsp;&nbsp;... <br>
+    ]
+  </code>
+<br>
+<br>
+<strong>Service Injection</strong>
+<br>
+After you import HttpClientModule in the AppModule, then you can inject HttpClient service as a dependency of a
+service class (ConfigService in the example below).
+<br>
+<code>
+  import {{'{'}} Injectable } from '@angular/core'; <br>
+  import {{'{'}} HttpClient } from '@angular/common/http'; <br>
+  <br>
+  @Injectable() <br>
+  export class ConfigService {{'{'}} <br>
+    &nbsp;&nbsp;constructor(private http: HttpClient) {{'{'}} } <br>
+  }
+  </code>
+<br>
+<br>
+<strong>RxJs</strong>
+<br>
+Write the following code in the "config" service to import RxJS observable and operator symbols. HttpClient service
+makes use of observables for all transactions. Visit <a href="https://rxjs.dev/api" target="_blank">RxJs</a> for a
+complete API list.
+<br>
+<code>
+    import {{'{'}} Observable, throwError, of } from 'rxjs'; <br>
+    import {{'{'}} catchError, retry, finalize, tap, map, switchMap, filter } from 'rxjs/operators';<br>
+    import {{'{'}} ajax } from 'rxjs/ajax';
+</code>
+<br>
+<br>
+When you pass an interface as a type parameter to the HttpClient.get() method, you can use the RxJS map operator to
+transform the response data as needed by the UI. You can then pass the transformed data to the async pipe.
+<br>
+<br>
+
+<strong>Resource in the Server</strong>
+<br>
+Applications request JSON data (resources) from a server. The following config resource specifies resource URLs.
+<br>
+<code>
+    {{'{'}} <br>
+      &nbsp;&nbsp;"heroesUrl": "api/heroes", <br>
+      &nbsp;&nbsp;"textfile": "assets/textfile.txt" <br>
+    }
+  </code>
+<br>
+<br>
+<strong>HttpClient.get()</strong>
+<br>
+get() method fetches data from a server asynchronously. It sends an HTTP request and returns an Observable that emits
+the requested data when the rsponse is received. The return type varies based on the observe and responseType values
+that you pass to the call. The get() method takes two arguments: the endpoint URL and an options object. Important
+options include the observe and responseType properties. The observe option specifies how much of the response to
+return and the responseType option specifies the format in which to return data.
+<br>
+<code>
+    options: {{'{'}} <br>
+      &nbsp;&nbsp;headers?: HttpHeaders | {{'{'}}[header: string]: string | string[]}, <br>
+      &nbsp;&nbsp;observe?: 'body' | 'events' | 'response', <br>
+      &nbsp;&nbsp;params?: HttpParams|{{'{'}}[param: string]: string | string[]}, <br>
+      &nbsp;&nbsp;reportProgress?: boolean, <br>
+      &nbsp;&nbsp;responseType?: 'arraybuffer'|'blob'|'json'|'text', <br>
+      &nbsp;&nbsp;withCredentials?: boolean, <br>
+    }
+  </code>
+<br>
+<br>
+To fetch data, the get() call needs the following options <code>{{'{'}} observe: 'body', responseType: 'json'}</code>.
+These are the default values for those options. If you need the default values only, you don't need to pass the
+options object.
+<br>
+<br>
+In addtion to fetching data, the service can post-process the data, add error handling, and add retry logic.
+<br>
+<br>
+The ConfigService fetches this file using the following HttpClient.get() method.
+<br>
+<code>
+  configUrl = 'assets/config.json';
+  <br>
+  getConfig() {{'{'}}
+    &nbsp;&nbsp;return this.http.get(this.configUrl);
+  }
+  </code>
+<br>
+<br>
+<strong>Options: Observe & Response Types</strong>
+<br>
+The types of the observe and response options are string unions, rather than plain strings.
+<br>
+The following works. <br>
+<code>
+  client.get('/foo', {{'{'}}responseType: 'text'})
+  </code>
+<br>
+<br>
+The following works too.<br>
+<code>
+  const options = {{'{'}} <br>
+    &nbsp;&nbsp;responseType: 'text' as const, <br>
+  }; <br>
+  client.get('/foo', options);
+  </code>
+<br>
+<br>
+But the following does not work.
+<br>
+<code>
+  const options = {{'{'}} <br>
+  &nbsp;&nbsp;responseType: 'text', <br>
+  }; <br>
+  client.get('/foo', options)
+  </code>
+<br>
+<br>
+<strong>Component</strong>
+<br>
+The config component injects the ConfigService and calls the getConfig srevice method. Because the service method
+returns an Observable of configuration data, the component subscribes to the method's return value. The subscription
+callback performs minimal post-processing. It copies the data fields into the component's config object, which is
+data-bound in the component template for display.
+<br>
+<code>
+    showConfig() {{'{'}} <br>
+    &nbsp;&nbsp;this.configService.getConfig() <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;.subscribe((data: Config) => this.config = {{'{'}} <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;heroesUrl: data['heroesUrl'], <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;textfile:  data['textfile'] <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;}); <br>
+    }
+  </code>
+<br>
+<br>
+To access properties that are defined in an interface, you must explicitly convert the plain object you get from the
+JSON to the required response type. For example, the following subscribe callback receives data as an Object, and then
+type-casts it in order to access the properties.
+<br>
+<code>
+    .subscribe(data => this.config = {{'{'}} <br>
+      &nbsp;&nbsp;heroesUrl: (data as any).heroesUrl, <br>
+      &nbsp;&nbsp;textfile: (data as any).textfile, <br>
+    });
+  </code>
+<br>
+<br>
+<strong>Requesting a typed response</strong>
+<br>
+You can structure your HttpClient request to declare the type of the response object, to make consuming the output
+easier and more obvious. Specifying the response type acts as a type assertion at compile time.
+<br>
+<br>
+To specify the response object type, first define an interface with the required properties. Use an interface rather
+than a class, because the response is a plain object that cannot be automatically converted to an instance of a class.
+<br>
+<code>
+    export interface Config {{'{'}} <br>
+      &nbsp;&nbsp;heroesUrl: string; <br>
+      &nbsp;&nbsp;textfile: string; <br>
+    } <br>
+  </code>
+<br>
+Next, specify that interface as the HttpClient.get() call's type parameter in the service.
+<br>
+<code>
+  getConfig() {{'{'}} <br>
+    &nbsp;&nbsp;// now returns an Observable of Config <br>
+    &nbsp;&nbsp;return this.http.get&lt;Config>(this.configUrl); <br>
+  }
+</code>
+<br>
+<br>
+<strong>Full response</strong>
+<br>
+If you need headers or status code to indicate certain conditions that are important to the application workflow, tell
+HttpClient that you want the full response with the observe option of the get() method.
+<br>
+<code>
+    getConfigResponse(): Observable&lt;HttpResponse&lt;Config>> {{'{'}} <br>
+      &nbsp;&nbsp;return this.http.get&lt;Config>( <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;this.configUrl, {{'{'}} observe: 'response' }); <br>
+    }
+  </code>
+<br>
+<br>
+Now HttpClient.get() returns an Observable of type HttpResponse rather than just the JSON data contained in the body.
+<br>
+<br>
+The component's showConfigResponse() method displays the response headers as well as the configuration:
+<br>
+<code>
+    showConfigResponse() {{'{'}} <br>
+      &nbsp;&nbsp;this.configService.getConfigResponse() <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;// resp is of type `HttpResponse&lt;Config>` <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;.subscribe(resp => {{'{'}} <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// display its headers <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const keys = resp.headers.keys(); <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.headers = keys.map(key => <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`${{'{'}}key}: ${{'{'}}resp.headers.get(key)}`); <br>
+          <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// access the body directly, which is typed as `Config`. <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.config = {{'{'}} ... resp.body }; <br>
+      &nbsp;&nbsp;}); <br>
+    }
+  </code>
+<br>
+<br>
+The response object has a body property of the correct type.
+<br>
+<br>
+<strong>RxJS map operator</strong>
+<br>
+When you pass an interface as a type parameter to the HttpClient.get() method, you can use the RxJS map operator to
+transform the response data as needed by the UI. You can then pass the transformed data to the async pipe.
+
+<br>
+<br>
+<strong>async pipe</strong>
+<br>
+When you pass an interface as a type parameter to the HttpClient.get() method, you can use the RxJS map operator to
+transform the response data as needed by the UI. You can then pass the transformed data to the async pipe.
+<br>
+<br>
+<strong>jsonp</strong>
+<br>
+Apps can use the HttpClient to make JSONP requests across domains when a server doesn't support CORS protocol. In
+Angular, use JSONP by including HttpClientJsonpModule in the NgModule imports. In the following code get heroes whose
+name contains search term.
+<br>
+<code>
+  import {{'{'}} HttpClientModule, HttpClientJsonpModule  } from '@angular/common/http';
+  <br>
+  .... <br>
+  .... <br>
+searchHeroes(term: string): Observable {{'{'}} <br>
+  term = term.trim(); <br>
+  <br>
+  let heroesURL = `${{'{'}}this.heroesURL}?${{'{'}}term}`; <br>
+  return this.http.jsonp(heroesUrl, 'callback').pipe( <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;catchError(this.handleError('searchHeroes', [])) // then handle the error <br>
+  &nbsp;&nbsp;); <br>
+};
+  </code>
+<br>
+<br>
+This request passes the heroesURL as the first parameter and the callback function name as the second parameter. The
+response is wrapped in the callback function, which takes the observables returned by the JSONP method and pipes them
+through to the error handler.
+<br>
+<br>
+<strong>non-json data</strong>
+<br>
+In the following code the Observable returned by get() is of type Observable&lt;string> because a text response was
+specified. There's no need to pass a &lt;string> type parameter to get(). HttpClient.get() returns a string rather
+than the default JSON because of the responseType option. The RxJS tap operator lets the code inspect both success and
+error values passing through the observable without disturbing them.
+<br>
+<code>
+  getTextFile(filename: string) {{'{'}} <br>
+    &nbsp;&nbsp;return this.http.get(filename, {{'{'}}responseType: 'text'}) <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;.pipe( <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tap( // Log the result or error <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data => this.log(filename, data), <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error => this.logError(filename, error) <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;); <br>
+  }
+  </code>
+<br>
+<br>
+A download() method in the DownloaderComponent initiates the request by subscribing to the service method.
+<br>
+<code>
+  download() {{'{'}} <br>
+    &nbsp;&nbsp;this.downloaderService.getTextFile('assets/textfile.txt') <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;.subscribe(results => this.contents = results); <br>
+  }
+  </code>
+<br>
+<br>
+<strong>Request errors</strong>
+<br>
+There are two types of errors:
+<ul>
+  <li>Error Responses: The server backend might reject the request, returning an HTTP response with a status code such
+    as 404 or 500. These are error responses.</li>
+  <li>JavaScript ErrorEvent Objects: Something could go wrong on the client-side such as a network error that prevents
+    the request from completing successfully or an exception thrown in an RxJS operator. These errors produce JavaScript
+    ErrorEvent objects.</li>
+</ul>
+HttpClient captures both kinds of errors in its HttpErrorResponse. You can inspect that response to identify the error's
+cause. The following example defines an error handler in the ConfigService.
+<br>
+<code>
+  private handleError(error: HttpErrorResponse) {{'{'}} <br>
+    &nbsp;&nbsp;if (error.error instanceof ErrorEvent) {{'{'}} <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;// A client-side or network error occurred. Handle it accordingly. <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;console.error('An error occurred:', error.error.message); <br>
+    &nbsp;&nbsp;} else {{'{'}} <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;// The backend returned an unsuccessful response code. <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;// The response body may contain clues as to what went wrong, <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;console.error( <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Backend returned code ${{'{'}}error.status}, ` + <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`body was: ${{'{'}}error.error}`); <br>
+    &nbsp;&nbsp;} <br>
+    &nbsp;&nbsp;// return an observable with a user-facing error message <br>
+    &nbsp;&nbsp;return throwError( <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;'Something bad happened; please try again later.'); <br>
+  };
+</code>
+<br>
+<br>
+The handler returns an RxJS ErrorObservable with a user-friendly error message. The following code updates the
+getConfig() method, using a pipe to send all observables returned by the HttpClient.get() call to the error handler.
+<br>
+<code>
+  getConfig() {{'{'}} <br>
+    &nbsp;&nbsp;return this.http.get&lt;Config>(this.configUrl) <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;.pipe( <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;catchError(this.handleError) <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;); <br>
+  }
+</code>
+<br>
+<br>
+<strong>Retry a failed request</strong>
+<br>
+The RxJS library offers several retry operators. The following example shows how you can pipe a failed request to the
+retry() operator before passing it to the error handler.
+<br>
+<code>
+  getConfig() {{'{'}} <br>
+    return this.http.get&lt;Config>(this.configUrl) <br>
+      .pipe( <br>
+        retry(3), // retry a failed request up to 3 times <br>
+        catchError(this.handleError) // then handle the error <br>
+      ); <br>
+  }
+</code>
+<br>
+<br>
+<strong>HttpClient.post()</strong>
+<br>
+The following code adds a new hero to the database. It takes three parameters: resourceUrl, body and options, and
+returns an observable of hero.
+<br>
+<code>
+  const httpOptions = {{'{'}} <br>
+    &nbsp;&nbsp;headers: new HttpHeaders({{'{'}} <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;'Content-Type':  'application/json', <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;'Authorization': 'my-auth-token' <br>
+    &nbsp;&nbsp;}) <br>
+  };
+  <br>
+  <br>
+  addHero (hero: Hero): Observable&lt;Hero> {{'{'}} <br>
+    &nbsp;&nbsp;return this.http.post&lt;Hero>(this.heroesUrl, hero, httpOptions) <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;.pipe( <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;catchError(this.handleError('addHero', hero)) <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;); <br>
+  } <br>
+  </code>
+<br>
+The HeroesComponent initiates the actual POST operation by subscribing to the Observable returned by this service
+method. When the server responds successfully with the newly added hero, the component adds that hero to the displayed
+heroes list.
+<br>
+<code>
+  this.heroesService <br>
+  &nbsp;&nbsp;.addHero(newHero) <br>
+  &nbsp;&nbsp;.subscribe(hero => this.heroes.push(hero));
+</code>
+<br>
+<br>
+<strong>HttpClient.delete()</strong>
+<br>
+This application deletes a hero with the HttpClient.delete method by passing the hero's id in the request URL.
+<br>
+<code>
+  deleteHero (id: number): Observable&lt;{{'{'}}}> {{'{'}} <br>
+    &nbsp;&nbsp;const url = `${{'{'}}this.heroesUrl}/${{'{'}}id}`; // DELETE api/heroes/42 <br>
+    &nbsp;&nbsp;return this.http.delete(url, httpOptions) <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;.pipe( <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;catchError(this.handleError('deleteHero')) <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;); <br>
+  }
+</code>
+<br>
+<br>
+The HeroesComponent initiates the actual DELETE operation by subscribing to the Observable returned by this service
+method.
+<br>
+<code>
+  this.heroesService <br>
+  &nbsp;&nbsp;.deleteHero(hero.id) <br>
+  &nbsp;&nbsp;.subscribe();
+</code>
+<br>
+<br>
+The component isn't expecting a result from the delete operation, so it subscribes without a callback. Even though you
+are not using the result, you still have to subscribe. Calling the subscribe() method executes the observable, which is
+what initiates the DELETE request.
+<br>
+<br>
+<strong>subscribe</strong>
+<br>
+Calling subscribe(...) triggers execution of the observable and causes HttpClient to compose and send the HTTP request
+to the server.
+<br>
+<code>
+  const req = http.get&lt;Heroes>('/api/heroes'); <br>
+  // 0 requests made - .subscribe() not called. <br>
+  req.subscribe(); <br>
+  // 1 request made. <br>
+  req.subscribe(); <br>
+  // 2 requests made.
+</code>
+<br>
+<br>
+<strong>HttpClient.put()</strong>
+<br>
+The following code updates the hero on the server and returns the updated hero upon success.
+<br>
+<code>
+  updateHero (hero: Hero): Observable&lt;Hero> {{'{'}} <br>
+    &nbsp;&nbsp;return this.http.put&lt;Hero>(this.heroesUrl, hero, httpOptions) <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;.pipe( <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;catchError(this.handleError('updateHero', hero)) <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;); <br>
+  }
+</code>
+<br>
+<br>
+<strong>HttpHeaders (httpOptions)</strong>
+<br>
+The HeroesService defines headers in an httpOptions object that are passed to every HttpClient save method.
+<br>
+<code>
+  import {{'{'}} HttpHeaders } from '@angular/common/http'; <br>
+  <br>
+  const httpOptions = {{'{'}} <br>
+    &nbsp;&nbsp;headers: new HttpHeaders({{'{'}} <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;'Content-Type':  'application/json', <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;'Authorization': 'my-auth-token' <br>
+    &nbsp;&nbsp;}) <br>
+  };
+</code>
+<br>
+<br>
+The following example shows how, when an old token has expired, you can update the authorization header before making
+the next request.
+<br>
+<code>
+httpOptions.headers = httpOptions.headers.set('Authorization', 'my-new-auth-token');
+</code>
+<br>
+<br>
+<strong>HttpParams (httpOptions)</strong>
+<br>
+Use the HttpParams class with the params request option to add URL query strings in your HttpRequest.
+<br>
+<br>
+<code>
+  import {{'{'}}HttpParams} from "@angular/common/http"; <br>
+  .... <br>
+  .... <br>
+  searchHeroes(term: string): Observable&lt;Hero[]> {{'{'}} <br>
+  &nbsp;&nbsp;term = term.trim(); <br>
+  <br>
+  &nbsp;&nbsp;// Add safe, URL encoded search parameter if there is a search term <br>
+  &nbsp;&nbsp;const options = term ? {{'{'}} params: new HttpParams().set('name', term) } : {{'{'}}}; <br>
+  <br>
+  &nbsp;&nbsp;return this.http.get&lt;Hero[]>(this.heroesUrl, options) <br>
+  &nbsp;&nbsp;&nbsp;.pipe( <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;catchError(this.handleError&lt;Hero[]>('searchHeroes', [])) <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;); <br>
+  }
+</code>
+<br>
+<br>
+You can also create HTTP parameters directly from a query string by using the fromString variable:
+<br>
+<code>
+  const params = new HttpParams({{'{'}}fromString: 'name=foo'});
+</code>
+<br>
+<br>
+<strong>Intercepting requests and responses</strong>
+<br>
+You declare interceptors that inspect and transform HTTP requests from your application to a server.
+The same interceptors can also inspect and transform a server's responses on their way back to the application. Multiple
+interceptors form a forward-and-backward chain of request/response handlers. Interceptors can perform a variety of
+implicit tasks, from authentication to logging, in a routine, standard way, for every HTTP request/response. Without
+interception, developers would have to implement these tasks explicitly for each HttpClient method call.
+<br>
+<br>
+To create an interceptor run the following ng command at the terminal: <br>
+<code>
+  ng g interceptor interceptor/authorization
+</code>
+  
+<br>
+<br>

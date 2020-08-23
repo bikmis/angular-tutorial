@@ -1,0 +1,54 @@
+<h1>Modules</h1>
+<p> This deals with modules.</p>
+<br>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-4">
+      <div class="row">
+        <div class="col-12 border p-2 bg-light">
+          <h4>_base.scss (Partial Sass File)</h4>
+          <p>_base.scss - partial files begin with _ (underscore). Sass does not
+            compile from a partial file.</p>
+          <code>
+                        $font-stack: Helvetica, sans-serif; <br>
+                        $primary-color: #333; <br>
+                        <br>
+                        body {{'{'}} <br>
+                            &nbsp;&nbsp;font: 100% $font-stack; <br>
+                            &nbsp;&nbsp;color: $primary-color; <br>
+                        }
+                    </code>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 border p-2 bg-light">
+          <h4>style.scss (Main Sass File)</h4>
+          <p>style.scss - this is the main sass file, which you compile into the css
+            file.</p>
+          <code>
+                        @use or @import 'base'; /* @use uses/imports _base.scss*/<br>
+                        .inverse {{'{'}} <br>
+                            &nbsp;&nbsp;background-color: base.$primary-color; <br>
+                            &nbsp;&nbsp;color: white; <br>
+                        }
+                    </code>
+        </div>
+      </div>
+    </div>
+    <div class="col-4 border">
+      <h4>CSS File</h4>
+      <p>The following site.css file compiles from style.scss file.</p>
+      <code>
+                body {{'{'}} <br>
+                    &nbsp;&nbsp;font: 100% Helvetica, sans-serif; <br>
+                    &nbsp;&nbsp;color: #333; <br>
+                } <br>
+                <br>
+                .inverse {{'{'}} <br>
+                    &nbsp;&nbsp;background-color: #333; <br>
+                    &nbsp;&nbsp;color: white; <br>
+                }                               
+            </code>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,122 @@
+<h1>Regular Expression (regex)</h1>
+<br>
+In an input element we can add required, minlength, maxlength and "pattern" attribute with regex values. Based on regex
+values, the form will be valid or invalid.
+<br>
+<br>
+<strong>Character class:</strong> <br>
+\d ---> one digit from 0 to 9 <br>
+\D ---> one character that is not a digit
+<br>
+<br>
+\w ---> one word character <br>
+\W ---> one character that is not a word character
+<br>
+<br>
+\s ---> one whitespace character <br>
+\S ---> one character that is not whitespace character
+<br>
+<br>
+. ---> any character except line break
+<br>
+<br>
+\ ---> escapes a special character
+<br>
+<br>
+<strong>Assertions</strong>
+<br>
+^cat$ ---> beginning of the line and cat and end of the line. so it is as good as just cat
+<br>
+<br>
+^$ ---> beginning of the line and end of the line (this means nothing, not even spaces)
+<br>
+<br>
+^ ---> beginning of the line. All lines have this. So this is meaningless.
+<br>
+<br>
+\b ---> matches a word boundary. (new RegExp(/\bJava\b/)).test('Hello Java!')  output is true
+<br>
+<br>
+lookahead ---> (new RegExp(/Jack(?=Sprat|Frost)/)).test('JackSprat') // if Jack is followed by Sprat or Frost, it is true. So JackSprat or JackFrost outputs true.
+<br>
+<br>
+negative lookahead ---> (new RegExp(/Jack(?!Sprat|Frost)/)).test('JackSprat') // if Jack is not followed by Sprat or Frost, then it is true. So JackBirdy outputs true.
+<br>
+<br>
+lookbehind ---> (new RegExp(/(?&lt;=Sprat|Frost)Jack/)).test('SpratJack')  //SpratJack or FrostJack outputs true
+<br>
+<br>
+negative lookbehind ---> (new RegExp(/(?&lt;!Sprat|Frost)Jack/)).test('SpratJack')  //BirdyJack outputs true. Jack should not be preceded by Sprat or Frost
+
+<br>
+<br>
+<strong>Range</strong>
+<br>
+[...] ---> any character listed
+<br>
+[^...] ---> any character not listed
+<br>
+[12345] ---> 1 or 2 or 3 or 4 of 5
+<br>
+gr[ae]y ---> gray or grey
+<br>
+[0-9] ---> range: any digit from 0 to 9
+<br>
+[^0-5] --> range: any character that is not 0 to 5
+<br>
+[a-z] ---> range: any lowercase character from a to z
+<br>
+[A-Z] ---> range: any uppercase character from A to Z
+
+<br>
+<br>
+<strong>Quantifiers</strong>
+<br>
+? ---> zero or one of the immediately preceding item i.e. optional (allows a single optional space) <br>
+* ---> zero or more of the immediately preceding item (allows any number of optional spaces) <br>
++ ---> one or more of the immediately preceding item <br>
+{{'{'}}3} ---> exactly 3 times <br>
+{{'{'}}3,6} ---> 3 to 6 times <br>
+{{'{'}}3,} ---> 3 or more times <br>
+colou?r ---> color or colour
+<br>
+July? ---> Jul or July <br>
+July? (fourth|4(th)?) ---> Jul or July fourth or 4 or 4th
+<br>
+<br>
+<strong>Logic</strong>
+<br>
+| ---> or <br>
+(July | Jul) ---> July or Jul <br>
+(fourth | 4th | 4) ---> fourth or 4th or 4 <br>
+(...) ---> capturing group
+<br>
+<br>
+<strong>ignoreCase ('i')</strong>
+<br>
+const regex1 = new RegExp('foo', 'i'); // creates a new regex whose ignoreCase property is set to true. <br>
+console.log(regex1.test('Football'))  // expected output: true
+
+<br>
+<br>
+<strong>Examples</strong>
+<br>
+pattern="\S+(\s\S+)?" <br>
+This matches "word1", or "word1 word2" i.e. one or two words, and each word will have a length of 1
+or more of non-space characters. <br>
+\S+ ---> \S means any non-space character, and + means such a character may appear one or more times <br>
+(\s\S+)? ---> (...) means the code inside is a group and ? means the group is optional (zero or one of the immediately
+preceding item). <br>
+\s means a space and \S means a non-space character and + means a non-space character may appear once or more times.
+<br>
+<br>
+pattern="(\S+){{'{'}}2,}(\s(\S+){{'{'}}2,})?" or pattern="(\S+){{'{'}}2,}(\s(\S+){{'{'}}2,}){{'{'}}0,1}"<br>
+This matches "word1", or "word1 word2" i.e. one or two words, and each word will have a length of 2 or more of non-space
+characters. ? or {{'{'}}0, 1} means the same.
+<br>
+<br>
+pattern="(\S+){{'{'}}2,}(\s(\S+){{'{'}}2,})*" <br>
+This matches "word1", or "word1 word2" or "word1 word2 word3" i.e. one or more words, and each word will have a length
+of 2 or more of non-space characters. * means zero or more of the immediately preceding item.
+<br>
+<br>

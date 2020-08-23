@@ -1,0 +1,64 @@
+<h1>Mixin</h1>
+<p>Mixin groups together a bunch of properties and also accepts an argument from the calling code to set a property to
+  that value.</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3 border"><b>Sass</b></div>
+    <div class="col-3 border"><b>CSS</b></div>
+  </div>
+  <div class="row">
+    <div class="col-3 border">
+      <code>
+            $font-weights: ( <br>
+                &nbsp;&nbsp;"regular": 400, <br>
+                &nbsp;&nbsp;"medium": 500, <br>
+                &nbsp;&nbsp;"bold": 700 <br>
+            ) 
+            <br>
+            <br>
+             @mixin flexCenter($direction) {{'{'}} <br>
+                &nbsp;&nbsp;display: flex; <br>
+                &nbsp;&nbsp;justify-content: center; <br>
+                &nbsp;&nbsp;align-items: center; <br>
+                &nbsp;&nbsp;flex-direction: $direction;
+             } 
+             <br> 
+             <br>
+             .main {{'{'}} <br>
+                &nbsp;&nbsp;@include flexCenter(column); <br>
+                &nbsp;&nbsp;width: 80%; <br>
+                &nbsp;&nbsp;margin: 0 auto; 
+                <br>
+                <br>
+                &nbsp;&nbsp;#{{'{'}}&}_paragraph {{'{'}} <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;font-weight: map.get($font-weights, bold); 
+                     <br>                                             
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&:hover {{'{'}} <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color: red; <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;} <br>
+             } <br>
+        </code>
+    </div>
+    <div class="col-3 border">
+      <code>
+            .main {{'{'}} <br>
+                &nbsp;&nbsp;display: flex; <br>
+                &nbsp;&nbsp;justify-content: center; <br>
+                &nbsp;&nbsp;align-items: center; <br>
+                &nbsp;&nbsp;flex-direction: column; <br>
+                &nbsp;&nbsp;width: 80%;<br>
+                &nbsp;&nbsp;margin: 0 auto; <br>
+            } <br>
+            <br>
+            .main .main_paragraph {{'{'}} <br>
+                &nbsp;&nbsp;font-weight: 700; <br>
+            } <br>
+            <br>
+            .main .main_paragraph:hover {{'{'}} <br>
+                &nbsp;&nbsp;color: red;<br>
+            }
+        </code>
+    </div>
+  </div>
+</div>

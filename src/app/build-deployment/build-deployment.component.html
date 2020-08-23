@@ -1,0 +1,88 @@
+<h1>Build & Deployment</h1>
+<br>
+<br>
+<strong>Production Build</strong>
+<br>
+<ul>
+  <li>
+    <code>
+      ng build --prod --base-href /angular-tutorial/
+    </code>
+    <br>
+    This will create a folder (named after the project) with compiled files in the dist folder. Default base href is '/'
+    as specified in the index.html. Here we are changing that to "angular-tutorial". It is advised that the
+    application name in IIS matches the base href value. We will create an application in IIS with the name
+    "angular-tutorial" in IIS.
+  </li>
+</ul>
+<br>
+<strong>Deployment to IIS Server</strong>
+<br>
+<ul>
+  <li>
+    Create a folder "AngularTutorial" (you can choose any name) on the IIS server and copy all the "build" files and
+    paste them in this new folder.
+  </li>
+  <li>
+    If IIS is off, turn it on from "Programs And Features" in the Control Panel. Open IIS by typing "inetmgr" in the
+    "run" window.
+  </li>
+  <li>
+    Before you create a new application in IIS, create a new application pool. Right-click on "Application Pools", click
+    on "Add Application Pool..." and name it "AngularTutorialAppPool" (you can have any meaningful name you like). Leave
+    other default values as they are. The default identity for this application pool is "ApplicationPoolIdentity" and
+    leave it as it is.
+  </li>
+  <li>
+    Right-click on "Default Web Site" and click on "Add Application..." and set alias to "angular-tutorial" (keep this
+    alias the same as base-href) and point the physical path to the "AngularTutorial" folder. Change the Application
+    Pool to "AngularTutorialAppPool".
+  </li>
+  <li>
+    Click on the appliction and double-click on Authentication in the IIS section. Right-click on Anonymous
+    Authentication and edit it. Change the Anonymous user identity from "IUSR" to "Application pool identity".
+  </li>
+  <li>
+    Right-click on the application and click on "Edit Permissions..."" and then click on the "Security" tab. Then click
+    Edit and Add... and type in "IIS AppPool\AngularTutorialAppPool", click on "Check Names" and OK.
+  </li>
+</ul>
+<br>
+<strong>URL Rewrite</strong>
+<ul>
+  <li>
+    Check if <a href="https://www.iis.net/downloads/microsoft/url-rewrite" target="_blank">URL Rewrite</a> is already
+    installed or not (from Control Panel -> Programs and Features or check the icon "URL Rewrite" in the IIS
+    section of the IIS application). If not installed, download it from <a
+      href="https://www.iis.net/downloads/microsoft/url-rewrite" target="_blank">here</a> for installation.
+  </li>
+  <li>
+    Before you build your application, create a web.config file with the following content and place it at the "src"
+    folder in the angular application. In this file, url will point to "/angular-tutorial/" and put "src/web.config" in
+    the assets array of angular.json file to tell the build process to output this file as is. This will create a
+    Rewrite rule in IIS. The rule is that any path (represented by .*) will be re-written to "/angular-tutorial/".
+    Instead of creating the web.config file, you can directly create a rule in IIS Rewrite, which then will
+    automatically create the web.config for you.
+    <br>
+    <code>
+      &lt;?xml version="1.0" encoding="utf-8" ?> <br>
+      &lt;configuration> <br>
+        &nbsp;&nbsp;&lt;system.webServer> <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;rewrite> <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;rules> <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;rule name="Angular Rewrite" stopProcessing="true"> <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;match url=".*" /> <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;conditions logicalGrouping="MatchAll"> <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;add input="{{'{'}}REQUEST_FILENAME}" matchType="IsFile" &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;negate="true" /> <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;add input="{{'{'}}REQUEST_FILENAME}" matchType="IsDirectory" &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;negate="true" /> <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/conditions> <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;action type="Rewrite" url="/angular-tutorial/" /> <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/rule> <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/rules> <br>
+        &nbsp;&nbsp;&nbsp;&nbsp; &lt;/rewrite> <br>
+        &nbsp;&nbsp;&lt;/system.webServer> <br>
+        &lt;/configuration>
+    </code>
+  </li>
+</ul>
+<br>

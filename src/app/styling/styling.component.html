@@ -1,0 +1,52 @@
+<h1>Styling</h1>
+<p>
+  If you want to use css:
+</p>
+<ul>
+  <li>
+    At the time of project creation, choose css for styling.
+  </li>
+  <li>
+    Create a css file in the "src/styles/site" folder and import it in the src/styles.css with <br>
+    <code>@import "./styles/site/homePage.css";</code>
+  </li>
+</ul>
+<br>
+<p>
+  If you want to use scss:
+</p>
+<ul>
+  <li>
+    At the time of project creation, choose scss for styling.
+  </li>
+  <li>
+    Create scss partial files such as _variable.scss in the "src/styles/site" folder and import them in the styles.scss
+    with <br>
+    <code>@import "./style/site/variable";</code>
+  </li>
+</ul>
+<br>
+<p>
+  If you want to use bootstrap (scss):
+</p>
+<ul>
+  <li>
+    At the time of project creation, choose scss for styling.
+  </li>
+  <li>
+    Keep bootstrap related files and folders in the "src/styles/bootstrap" folder and import them in the styles.scss
+    with <br>
+    <code>@import "./styles/bootstrap/bootstrap";</code>
+  </li>
+  <li>
+    Create site-related scss partial files such as _variable.scss etc and keep them in the "src/styles/site" folder and import them in the styles.scss with <br>
+    <code>@import "./styles/site/variable";</code> <br>
+    Import of _variable.scss file should be before the import of bootstrap.scss. 
+  </li>
+  <li>
+    "ng serve" / "ng build" will build css files from styles.scss automatically.
+  </li>
+</ul>
+<br>
+If you want to create new projects with scss in the future, you can change the config as follows: <br>
+<code>ng config --global defaults.styleExt=scss</code>

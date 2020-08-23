@@ -1,0 +1,34 @@
+<h1>Function</h1>
+<p>Function computes and returns a value.</p>
+<div class="row">
+  <div class="col-3 border"><b>Sass</b></div>
+  <div class="col-3 border"><b>CSS</b></div>
+</div>
+<div class="row">
+  <div class="col-3 border">
+    <code>
+            $font-weights: ( <br>
+                &nbsp;&nbsp;"regular": 400, <br>
+                &nbsp;&nbsp;"medium": 500, <br>
+                &nbsp;&nbsp;"bold": 700 <br>
+            )
+            <br>
+            <br>
+            @function weight($weight-name) {{'{'}} <br>
+                &nbsp;&nbsp;@return map.get($font-weights, $weight-name); <br>
+            }
+            <br>
+            <br>
+            body {{'{'}} <br>
+                &nbsp;&nbsp;font-weight: weight(bold); <br>
+            } <br>
+        </code>
+  </div>
+  <div class="col-3 border">
+    <code>
+            body {{'{'}} <br>
+                &nbsp;&nbsp;font-weight: 700; <br>
+            } <br>
+        </code>
+  </div>
+</div>

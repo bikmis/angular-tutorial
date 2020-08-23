@@ -1,0 +1,41 @@
+<h1>User (async pipe)</h1>
+<br>
+<br>
+async pipe (e.g. "| async as users") subscribes to an observable, populates a variable in the template and then
+unsubscribes from the
+observable. async pipe is directly used with an observable. In the component users$ observable is assigned to an http
+service, which returns an observable and this observable is bound to the template using async pipe.
+<br>
+<br>
+<button (click)="getUsers()">Get Users</button>
+<button (click)="clearUsers()">Clear Users</button>
+<br>
+<br>
+<div *ngIf="isVisible">
+  <div *ngIf="users$ | async as users; else spinner">
+    <div class="error">{{users?.error}}</div>
+    <div *ngIf="!users?.error" fxLayout="column" fxLayoutGap="7px">
+      <div>
+        <span>URL: {{users?.url}}</span> <br>
+        <span>Status: {{users?.status}}</span> <br>
+        <span>Status Text: {{users?.statusText}}</span> <br>
+        <span>Type: {{users?.type}}</span> <br>
+        <span>ok: {{users?.ok}}</span> <br>
+        <span>headers: {{users?.headers | json}}</span>
+      </div>
+      <div fxLayout="row">
+        <div fxFlex="40px"><strong>ID</strong></div>
+        <div fxFlex="200px"><strong>Name</strong></div>
+        <div fxFlex="200px"><strong>Username</strong></div>
+        <div fxFlex="200px"><strong>Email</strong></div>
+      </div>
+      <div *ngFor="let user of users?.body" fxLayout="row">
+        <div fxFlex="40px">{{user.id}}</div>
+        <div fxFlex="200px">{{user.name}}</div>
+        <div fxFlex="200px">{{user.username}}</div>
+        <div fxFlex="200px">{{user.email}}</div>
+      </div>
+    </div>
+  </div>
+  <ng-template #spinner><i class="fas fa-spinner fa-spin"></i></ng-template>
+</div>

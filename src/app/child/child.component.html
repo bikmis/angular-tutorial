@@ -1,0 +1,9 @@
+<div class="border border-primary">
+  <h5>Child Component</h5>
+  <p>Voter's Name: {{voter.name}}</p>
+  <button class="mr-3" (click)="vote(true)">Agree</button>
+  <button class="mr-3" (click)="vote(false)">Disagree</button>
+  
+  <button class="mr-3" (click)="voteObs(true)">Agree (observable)</button>
+  <button (click)="voteObs(false)">Disagree (observable)</button>
+</div>

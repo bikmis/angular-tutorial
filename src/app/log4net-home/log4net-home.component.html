@@ -1,0 +1,82 @@
+<h1>Log4Net</h1>
+<p> This is a tutorial on Log4Net.</p>
+<br>
+<ul>
+  <li>
+    Step 1: Right-click on References and click on Manage NuGet Packages... and then search
+    log4net by The Apache Software Foundation and install it.
+  </li>
+  <li>
+    Step 2: In app.config / web.config, write the following code. Or Create a file
+    Log4Net.config with the following code.
+    <br>
+    <code>
+            &lt;configuration> <br>
+                &nbsp;&nbsp;&lt;configSections> <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net" />
+                &nbsp;&nbsp;&lt;/configSections> <br>
+            &lt;/configuration> <br>
+            &lt;system.web> <br>
+                &nbsp;&nbsp;&lt;log4net debug="true"> <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;appender name= "" type=""> <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;bufferSize value="" /> <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .... <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;/appender> <br>
+                &nbsp;&nbsp;&lt;/log4net> <br>
+            &lt;system.web>
+        </code>
+  </li>
+  <br>
+  <li>
+    Step 3: If a new file (Log4Net.config) is created, for MVC write the following code in
+    global.asax <br>
+    <code>
+            log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(Server.MapPath("~/Log4Net.config"))); <br>
+            log4net.Util.LogLog.InternalDebugging = true;
+        </code>
+    <br>
+    <br>
+    For console application, write the following outside the namespace that contains the
+    Main method. Assumption is the configuration is written inside app.config or web.config: <br>
+    <code>[assembly: log4net.Config.XmlConfigurator(Watch = true)]</code>
+    <br>
+    If the configuration is outside the app.config or web.config file, then use the following code: <br>
+    <code>
+            [assembly: log4net.Config.XmlConfigurator(ConfigFile = "Log4Net.config", Watch = true)]
+        </code>
+  </li>
+  <br>
+  <li>
+    Step 4: In console application, inside the Program class, write the following code: <br>
+    <code>
+            private static readonly log4net.ILog log = log4net.LogManager.GetLogger("Program.cs"); <br>
+            or <br>
+            // use the following reflection to get the class name, but reflections make your app slow. <br>
+            private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType) <br>
+            or <br>
+            //use the following with LogHelper class <br>
+            private static readonly log4net.ILog log = LogHelper.GetLogger();
+        </code>
+    <br>
+    <br>
+    To remove reflection, create a LogHelper class as follows.
+    <br>
+    <code>
+            public class LogHelper <br>
+            {{'{'}} <br>
+                &nbsp;&nbsp;public log4net.Ilog GetLogger([CallerFilePath] string filename = "")  <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;{{'{'}} <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return log4net.LogManager.GetLogger(filename); <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;} <br>
+            }
+        </code>
+  </li>
+  <br>
+  <li>
+    Step 5: Write logging method inside the Main method. If you want log.Error during exception, then call it inside the
+    catch block, or call it inside global exception filter for MVC for unhandled exception. <br>
+    <code>
+            log.Error("This is my error message");
+        </code>
+  </li>
+</ul>

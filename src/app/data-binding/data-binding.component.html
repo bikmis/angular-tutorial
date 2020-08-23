@@ -1,0 +1,221 @@
+<h1>Data Binding</h1>
+<br>
+<h3>Interpolation with {{'{{'}}......}}</h3>
+Interpolation allows you to include data into the the text between HTML element tags <br>
+chapter is a public property of type {{'{'}} title: string } in the component class. currentPrice is public property
+in the component class.
+<br>
+<br>
+In the component class we declare and assign properties as follows:
+<br>
+<code>
+      public chapter: {{'{'}} title: string } = {{'{'}} title: 'Component'}; <br>
+      public currentPrice: number = 2.3;
+    </code>
+<br>
+<br>
+In the template we bind data as follows:
+<br>
+<code>
+    &lt;span>Title of this chpater is "{{'{{'}}chapter.title}}".&lt;/span><br>
+    &lt;span>Current price is ${{'{{'}}currentPrice}}.&lt;/span> <br>
+</code>
+<br>
+Example: <br>
+<span>Title of this chpater is "{{chapter.title}}".</span> <br>
+<span>Current price is ${{currentPrice}}.</span>
+<br>
+<br>
+<h3>Property Binding with [ ] & {{'{{'}}......}}</h3>
+We will code the following in the component. <br>
+<code>
+  public imageUrl: string = "https://source.unsplash.com/wgq4eit198Q/700x400"; <br>
+  public homeTitle: string = "You will land on the home page.";
+</code>
+<br>
+<br>
+We will code the following in the template. <br>
+<code>
+  &lt;img src="{{'{{'}}imageUrl}}" alt="random_image">
+  <br>
+  &lt;a title="{{'{{'}}homeTitle}}" routerLink="/home">Home&lt;/a>  //title will be set to the value of homeTitle - a property in the component
+  <br>
+  &lt;a [title]="homeTitle" routerLink="/home">Home&lt;/a>  //title will be set to the value of the homeTitle - a property in the component
+  <br>
+  &lt;a [title]="'home'" routerLink="/home">Home&lt;/a> //title will be set to the string 'home'
+  <br>
+  <br>
+  <br>
+</code>
+Example: <br>
+<img src="{{imageUrl}}" alt="random_image">
+<br><br>
+<a title="{{homeTitle}}" routerLink="/home">Home</a>
+<br><br>
+<h3>Event Binding with ( )</h3>
+<h5>Button: click event</h5>
+The parentheses on the "click" event binds it to the method sayHello(). We will code the following in the component
+class.
+<br>
+<code>
+  public sayHello() {{'{'}} <br>
+    &nbsp;&nbsp;this.helloMessage = "Hello"; <br>
+    &nbsp;&nbsp;setTimeout(() => {{'{'}} <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;this.helloMessage = null; <br>
+    &nbsp;&nbsp;}, 1000); <br>
+  {{'{'}} <br>
+</code>
+<br>
+We will code the following in the template.
+<br>
+<code>
+  &lt;button (click)="sayHello()">Say Hello&lt;/button>
+</code>
+<br>
+<br>
+Example:
+<button (click)="sayHello()">Say Hello</button>
+<p *ngIf="helloMessage">{{helloMessage}}</p>
+<br>
+<br>
+<h5>Radio Button: change event</h5>
+You will code the following in the component class: <br>
+<code>
+  public selectedGender: string = null; <br> <br>
+  public chooseGender(event) {{'{'}} <br>
+    &nbsp;&nbsp;this.selectedGender = event.target.value; <br>
+  }
+</code>
+<br> <br>
+You will code the following in the template: <br>
+<code>
+  Select your gender: <br>
+&lt;input id="male" name="gender" type="radio" value="male" #male (change)="chooseGender(male.value)" class="mr-1"> <br>
+&lt;label for="male" class="mr-3">Male&lt;/label> <br>
+&lt;input id="female" name="gender" type="radio" value="female" #female (change)="chooseGender(female.value)" class="mr-1"> <br>
+&lt;label for="female">Female&lt;/label> <br>
+&lt;p *ngIf="selectedGender">You selected {{'{{'}}selectedGender}}.&lt;/p>
+</code>
+<br><br>
+Example: <br>
+Select your gender:
+<input id="male" name="gender" type="radio" value="male" #male (change)="chooseGender(male.value)" class="mr-1">
+<label for="male" class="mr-3">Male</label>
+<input id="female" name="gender" type="radio" value="female" #female (change)="chooseGender(female.value)" class="mr-1">
+<label for="female">Female</label>
+<p *ngIf="selectedGender" class="mb-0">You selected {{selectedGender}}.</p>
+<br>
+<br>
+<h5>Select Element / Dropdown: change event</h5>
+We will code the following in the component class.
+<br>
+<code>
+  public months: string[] = ['January','February', 'March', 'April', 'May', 'June', 'July',
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'August', 'September', 'October', 'November', 'December']; <br>
+  public selectedMonth: string = null; <br>
+  <br>
+  public changeMonths(event) {{'{'}} <br>
+  &nbsp;&nbsp;if (event.target.options.selectedIndex === 0) {{'{'}} <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;this.selectedMonth = null; <br>
+  &nbsp;&nbsp;} else {{'{'}} <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;this.selectedMonth = event.target.value; <br>
+  &nbsp;&nbsp;} <br>
+  }
+</code>
+<br>
+<br>
+We will code the following in the template. <br>
+<code>
+  &lt;select (change)= "changeMonths($event)"> <br>
+  &nbsp;&nbsp;&lt;option *ngFor="let month of months" value="{{'{{'}}month.toLowerCase()}}"> <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{'{{'}}month}} <br>
+  &nbsp;&nbsp;&lt;/option> <br>
+&lt;/select> <br>
+&lt;p *ngIf="selectedMonth">You selected {{'{{'}}selectedMonth}}.&lt;/p>
+</code>
+<br>
+<br>
+Example:
+<select (change)="changeMonths($event)">
+  <option>Select a month</option>
+  <option *ngFor="let month of months" value="{{month.toLowerCase()}}">
+    {{month}}
+  </option>
+</select>
+<p *ngIf="selectedMonth">You selected {{selectedMonth}}.</p>
+<br>
+<br>
+<h3>Two-way Binding with [(ngModel)]</h3>
+The two-way binding syntax is just syntatic sugar for a property binding and an event binding. The NgModel directive
+allows you to display a data property and update that property when the user makes changes. You need to import
+FormsModule in the AppModule to make the [(ngModule)] available in the application.
+<br>
+<br>
+<code>
+  import {{'{'}} FormsModule } from '@angular/forms';" <br>
+  &nbsp;&nbsp;.... <br>
+  &nbsp;&nbsp;.... <br>
+  @NgModule({{'{'}} <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;.... <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;imports: [ <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.... <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;FormsModule, <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.... <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;] <br>
+  )} <br>
+  export class AppModule{{'{'}} }
+</code>
+<br>
+<br>
+Example 1: <br>
+We will write the following code in the component.
+<br>
+<code>
+  public firstName: string = "Michael";
+</code>
+<br>
+<br>
+We will write the following code in the template.
+<br>
+<code>
+  &lt;input [(ngModel)]="firstName" type="text"> <br>
+  &lt;p *ngIf="firstName">You first name is {{'{{'}}firstName}}.&lt;/p>
+</code>
+<br>
+<br>
+<input [(ngModel)]="firstName" type="text">
+<p *ngIf="firstName">You first name is {{firstName}}.</p>
+
+Example 2:
+<br>
+We will write the following code in the component.
+<br>
+<code>
+  public selected_month: string = "Select a month";
+</code>
+<br>
+<br>
+In the following code, ngModel is set to selected_month in a two way binding in the template. Whenever the
+selected_month's value changes in the component, it will be reflected in the template and vice versa.
+<br>
+<code>
+  &lt;select [(ngModel)] = "selected_month"> <br>
+  &nbsp;&nbsp;&lt;option value="Select a month">Select a month&lt;/option> <br>
+  &nbsp;&nbsp;&lt;option *ngFor="let month of months" value="{{'{{'}}month.toLowerCase()}}"> <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;{{'{{'}}month}} <br>
+  &nbsp;&nbsp;&lt;/option> <br>
+  &lt;/select> <br>
+  &lt;p *ngIf="selected_month && selected_month != 'Select a month'">You selected {{'{{'}}selected_month}}.&lt;/p> <br>
+</code>
+<br>
+<br>
+
+<select [(ngModel)]="selected_month">
+  <option value="Select a month">Select a month</option>
+  <option *ngFor="let month of months" value="{{month.toLowerCase()}}">
+    {{month}}
+  </option>
+</select>
+<p *ngIf="selected_month && selected_month != 'Select a month'">You selected {{selected_month}}.</p>
+<br>
+<br>
