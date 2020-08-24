@@ -14,5 +14,5 @@ export class UserService {
 
   constructor(private httpClientService: HttpClientService) { }
 
-  users$ = this.httpClientService.get(this.url);
+  get users$() { return this.httpClientService.get(this.url); }
 }
