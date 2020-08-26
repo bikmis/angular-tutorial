@@ -401,7 +401,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'login'    // local redirect as there is not slash(/) before login
+    redirectTo: 'login'    // local redirect as there is no slash(/) before login
   },
   {
     path: '**',
