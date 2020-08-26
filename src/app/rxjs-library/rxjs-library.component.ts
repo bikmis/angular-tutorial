@@ -196,33 +196,23 @@ export class RxjsLibraryComponent implements OnInit, AfterViewInit {
     });
   }
 
-  dataArray = [1, 2, 3];
-  myObs1$ = new Observable(observer => {
-    this.dataArray.forEach(x => {
-      if(x === 2){
-        setTimeout(() => observer.next(x), 6000);
-      } else {
-        observer.next(x);
-      }
-    })
-  });
+  myObs1$ = of(1, 2, 3);
+  getMyObs2(x: number) {
+    let myArray = [1, 2, 3];
+    let myArray2 = [];
 
-  myFunc1(x: number) {
-    return of(x * 2).pipe(delay(3000));
-  }
+    myArray.forEach(e => { 
+      myArray2.push(e * x) 
+    });
 
-  myFunc2(x: number) {
-    return of(x * 2);
-  }
+    return from(myArray2);
+  };
+
 
   testObs() {
     let obs = this.myObs1$
-      .pipe(mergeMap((x: number) => {
-        return this.myFunc1(x)
-          .pipe(
-            mergeMap((x: number) => {
-              return this.myFunc2(x)
-            }));
+      .pipe(switchMap((x: number) => {
+        return this.getMyObs2(x)
       }));
 
     obs.subscribe(x => console.log(x));
