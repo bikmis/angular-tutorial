@@ -394,14 +394,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/angular/home',
+        redirectTo: '/angular/home',  // absolute redirect as there is a slash(/) before angular/home
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '**',
-    redirectTo: '/login'
+    redirectTo: 'login'    // local redirect as there is not slash(/) before login
   },
   {
     path: '**',
