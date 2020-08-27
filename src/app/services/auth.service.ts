@@ -22,7 +22,8 @@ export class AuthService {
     };
 
     this.httpClient.post(url, body).subscribe(tokenObj => {
-      this.saveToken(tokenObj);
+      this.saveRefreshToken(tokenObj);
+      this.token = tokenObj['token'];
       this.router.navigate(['/']);
     },
       error => console.log('Error: ', error)
@@ -30,7 +31,6 @@ export class AuthService {
   }
 
   logoutUser(): void {
-    localStorage.removeItem('token');
     localStorage.removeItem('refresh_token');
     this.router.navigate(['/login']);
   }
@@ -46,8 +46,7 @@ export class AuthService {
     );
   }
 
-  private saveToken(tokenObj): void {
-    this.token = tokenObj['token'];
+  private saveRefreshToken(tokenObj): void {
     localStorage.setItem('refresh_token', tokenObj['refresh_token']);
   }
 
@@ -85,7 +84,8 @@ export class AuthService {
       let token$ = this.httpClient.get<any>(tokenUrl, { headers: { 'Authorization': refreshToken } });
 
       token$.subscribe(tokenObj => {
-        this.saveToken(tokenObj);
+        this.saveRefreshToken(tokenObj);
+        this.token = tokenObj['token'];
       });
 
       return token$.pipe(map(tokenObj => { return tokenObj['token'] }));
