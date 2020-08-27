@@ -11,12 +11,16 @@ import { AuthService } from '../services/auth.service';
 export class LoginComponent implements OnInit {
   username: string = null;
   password: string = null;
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   login(): void {
-    this.authService.loginUser(this.username, this.password);
+    this.authService.loginUser(this.username, this.password).subscribe(isLoggedIn => {
+      if (isLoggedIn) {
+        this.router.navigate(['/']);
+      }
+    });
   }
 }

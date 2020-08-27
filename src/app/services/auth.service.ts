@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { HttpClientService } from './http-client.service';
 import { of, Observable, throwError } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, catchError } from 'rxjs/operators';
 
 
 @Injectable({
@@ -14,19 +14,20 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
-  loginUser(username: string, password: string): void {
+  loginUser(username: string, password: string): Observable<boolean> {
     let url = 'http://localhost:3000/api/login';
     let body = {
       'username': username,
       'password': password
     };
 
-    this.httpClient.post(url, body).subscribe(tokenObj => {
-      this.saveRefreshToken(tokenObj);
-      this.token = tokenObj['token'];
-      this.router.navigate(['/']);
-    },
-      error => console.log('Error: ', error)
+    return this.httpClient.post(url, body).pipe(
+      map(tokenObj => {
+        this.saveRefreshToken(tokenObj);
+        this.token = tokenObj['token'];
+        return true;
+      }),
+      catchError((error) => { return throwError(error) })
     );
   }
 
