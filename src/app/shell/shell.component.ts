@@ -32,4 +32,5 @@ export class ShellComponent implements OnInit {
     this.authService.logoutUser();
   }
 
+  email$ = this.authService.getEmail();
 }

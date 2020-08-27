@@ -56,6 +56,13 @@ export class AuthService {
     return (+payload.exp * 1000 - 2000) < Date.now();
   }
 
+  getEmail(): Observable<string> {
+    return this.supplyToken().pipe(map(token => {
+      let payload: {email: string} = JSON.parse(atob(token.split('.')[1]));
+      return payload.email;
+    }));  
+  }
+
   supplyToken(): Observable<any> {
     let token = localStorage.getItem('token') ? localStorage.getItem('token') : '';
     let refreshToken = localStorage.getItem('refresh_token') ? localStorage.getItem('refresh_token') : '';
