@@ -13,7 +13,7 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
-  loginUser(username: string, password: string) {
+  loginUser(username: string, password: string): void {
     let url = 'http://localhost:3000/api/login';
     let body = {
       'username': username,
@@ -28,7 +28,7 @@ export class AuthService {
     );
   }
 
-  logoutUser() {
+  logoutUser(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('refresh_token');
     this.router.navigate(['/login']);
@@ -45,7 +45,7 @@ export class AuthService {
     );
   }
 
-  private saveToken(token) {
+  private saveToken(token): void {
     localStorage.setItem('token', token['token']);
     localStorage.setItem('refresh_token', token['refresh_token']);
   }
