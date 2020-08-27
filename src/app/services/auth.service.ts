@@ -10,6 +10,7 @@ import { map, mergeMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
+  private token: string = null;
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
@@ -20,8 +21,8 @@ export class AuthService {
       'password': password
     };
 
-    this.httpClient.post(url, body).subscribe(token => {
-      this.saveToken(token);
+    this.httpClient.post(url, body).subscribe(tokenObj => {
+      this.saveToken(tokenObj);
       this.router.navigate(['/']);
     },
       error => console.log('Error: ', error)
@@ -45,9 +46,9 @@ export class AuthService {
     );
   }
 
-  private saveToken(token): void {
-    localStorage.setItem('token', token['token']);
-    localStorage.setItem('refresh_token', token['refresh_token']);
+  private saveToken(tokenObj): void {
+    this.token = tokenObj['token'];
+    localStorage.setItem('refresh_token', tokenObj['refresh_token']);
   }
 
   private isTokenExpired(token: string) {
@@ -58,23 +59,20 @@ export class AuthService {
 
   getEmail(): Observable<string> {
     return this.supplyToken().pipe(map(token => {
-      let payload: {email: string} = JSON.parse(atob(token.split('.')[1]));
+      let payload: { email: string } = JSON.parse(atob(token.split('.')[1]));
       return payload.email;
-    }));  
+    }));
   }
 
   supplyToken(): Observable<any> {
-    let token = localStorage.getItem('token') ? localStorage.getItem('token') : '';
     let refreshToken = localStorage.getItem('refresh_token') ? localStorage.getItem('refresh_token') : '';
     let tokenUrl = 'http://localhost:3000/api/token';
 
-    if (!token || !refreshToken || this.isTokenExpired(refreshToken)) {
+    if (!refreshToken || this.isTokenExpired(refreshToken)) {
       this.logoutUser();
       let error_message: string = null;
 
-      if (!token) {
-        error_message = 'token missing from storage';
-      } else if (!refreshToken) {
+      if (!refreshToken) {
         error_message = 'refresh token missing from storage';
       } else if (this.isTokenExpired(refreshToken)) {
         error_message = 'refresh token expired';
@@ -83,16 +81,16 @@ export class AuthService {
       return throwError({ 'error_message': error_message });
     }
 
-    if (this.isTokenExpired(token)) {
+    if (!this.token || this.isTokenExpired(this.token)) {
       let token$ = this.httpClient.get<any>(tokenUrl, { headers: { 'Authorization': refreshToken } });
 
-      token$.subscribe(token => {
-        this.saveToken(token);
+      token$.subscribe(tokenObj => {
+        this.saveToken(tokenObj);
       });
 
-      return token$.pipe(map(token => { return token['token'] }));
+      return token$.pipe(map(tokenObj => { return tokenObj['token'] }));
     } else {
-      return of(token);
+      return of(this.token);
     }
   }
 
