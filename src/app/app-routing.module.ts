@@ -71,7 +71,7 @@ import { ExpressjsComponent } from './expressjs/expressjs.component';
 import { NodeApiComponent } from './node-api/node-api.component';
 
 
-const routes: Routes = [
+const ROUTES: Routes = [
   {
     path: 'login',
     component: LoginComponent
@@ -418,7 +418,7 @@ const extraOptions: ExtraOptions = {
 };
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, extraOptions)],
+  imports: [RouterModule.forRoot(ROUTES, extraOptions)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
