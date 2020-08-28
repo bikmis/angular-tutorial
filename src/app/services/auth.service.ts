@@ -51,7 +51,7 @@ export class AuthService {
     localStorage.setItem('refresh_token', tokenObj['refresh_token']);
   }
 
-  private isTokenExpired(token: string) {
+  private isTokenExpired(token: string): boolean {
     //token exp is in seconds. Convert that to milliseconds by multiplying it with 1000. Subtract the exp by 2000 milliseconds before comparing to the current time in milliseconds i.e. to get a new token 2 seconds earlier than the actual token expiration.  
     let payload = JSON.parse(atob(token.split('.')[1]));
     return (+payload.exp * 1000 - 2000) < Date.now();
