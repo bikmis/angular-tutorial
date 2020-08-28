@@ -30,15 +30,17 @@ export class ContactDetailComponent implements OnInit {
   getContactDetail() {
     this.activatedRoute.params.pipe(mergeMap(p => {
       return this.activatedRoute.queryParams.pipe(map(qp => {
-        return {
+        let contact: Contact = {
           id: p.id,
           firstName: qp.firstName,
           lastName: qp.lastName
-        }
+        };
+        return contact;
       }))
-    })).subscribe(x => { this.contact = x });
-
-    this.contactDetail = this.contactDetails.find(c => c.id === +this.contact.id);
+    })).subscribe(c => {
+      this.contact = c;
+      this.contactDetail = this.contactDetails.find(c => c.id === +this.contact.id);
+    });
   }
 
   onBackToContactList() {
