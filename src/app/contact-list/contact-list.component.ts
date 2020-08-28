@@ -23,7 +23,7 @@ export class ContactListComponent implements OnInit {
   ]
 
   public getDetail(contact: Contact) {
-    this.router.navigate(['/angular/contact-detail/' + contact.id], { queryParams: { firstName: contact.firstName, lastName: contact.lastName } });
+    this.router.navigate(['/angular/contact-detail', contact.id], { queryParams: { firstName: contact.firstName, lastName: contact.lastName } });
   }
 
 }
