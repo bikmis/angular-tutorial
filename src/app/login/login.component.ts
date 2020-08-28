@@ -9,6 +9,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  error: string = null;
   username: string = null;
   password: string = null;
   constructor(private authService: AuthService, private router: Router) { }
@@ -17,10 +18,15 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.authService.loginUser(this.username, this.password).subscribe(isLoggedIn => {
-      if (isLoggedIn) {
-        this.router.navigate(['/']);
-      }
-    });
+    this.authService.loginUser(this.username, this.password).subscribe(
+      isLoggedIn => {
+        if (isLoggedIn) {
+          this.router.navigate(['/']);
+        }
+      },
+      (errorObj) => { this.error = errorObj.error.error;}
+    )
   }
+
+
 }
