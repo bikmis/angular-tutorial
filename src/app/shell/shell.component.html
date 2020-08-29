@@ -10,24 +10,7 @@
       <a mat-tab-link *ngIf="email$ | async as email">{{email}}</a>
     </nav>
   </div>
-  <div [ngSwitch]="selectedTab" fxLayout="row" class="min-height-95vh">
-    <div *ngSwitchCase="'angular'">
-      <app-angular-menu></app-angular-menu>
-    </div>
-    <div *ngSwitchCase="'log4net'">
-      <app-log4net-menu></app-log4net-menu>
-    </div>
-    <div *ngSwitchCase="'js'">
-      <app-js-menu></app-js-menu>
-    </div>
-    <div *ngSwitchCase="'sass'">
-      <app-sass-menu></app-sass-menu>
-    </div>
-    <div *ngSwitchCase="'css'">
-      <app-css-menu></app-css-menu>
-    </div>
-    <div class="p-15 border-left-gray max-width-60pct">
-      <router-outlet></router-outlet>
-    </div>
+  <div>
+    <router-outlet></router-outlet>
   </div>
 </div>

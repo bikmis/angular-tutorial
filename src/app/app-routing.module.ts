@@ -46,7 +46,7 @@ import { NodejsComponent } from './nodejs/nodejs.component';
 import { CssHomeComponent } from './css/css-home/css-home.component';
 import { CssFunctionComponent } from './css/css-function/css-function.component';
 import { CssVariableComponent } from './css/css-variable/css-variable.component';
-import { Log4netHomeComponent } from './log4net-home/log4net-home.component';
+import { Log4netHomeComponent } from './log4net/log4net-home/log4net-home.component';
 import { SassHomeComponent } from './sass/sass-home/sass-home.component';
 import { SassCompilationComponent } from './sass/sass-compilation/sass-compilation.component';
 import { SassFunctionComponent } from './sass/sass-function/sass-function.component';
@@ -69,6 +69,11 @@ import { JsJsonpComponent } from './js/js-jsonp/js-jsonp.component';
 import { AngularMaterialComponent } from './angular-material/angular-material.component';
 import { ExpressjsComponent } from './expressjs/expressjs.component';
 import { NodeApiComponent } from './node-api/node-api.component';
+import { JsShellComponent } from './js/js-shell/js-shell.component';
+import { AngularShellComponent } from './angular-shell/angular-shell.component';
+import { Log4netShellComponent } from './log4net/log4net-shell/log4net-shell.component';
+import { CssShellComponent } from './css/css-shell/css-shell.component';
+import { SassShellComponent } from './sass/sass-shell/sass-shell.component';
 
 
 const ROUTES: Routes = [
@@ -83,6 +88,7 @@ const ROUTES: Routes = [
     children: [      
       {
         path: 'js',
+        component: JsShellComponent,
         children: [
           {
             path: 'home',
@@ -133,6 +139,7 @@ const ROUTES: Routes = [
       },
       {
         path: 'sass',
+        component: SassShellComponent,
         children: [
           {
             path: 'home',
@@ -187,6 +194,7 @@ const ROUTES: Routes = [
       },
       {
         path: 'log4net',
+        component: Log4netShellComponent,
         children: [
           {
             path: 'home',
@@ -201,6 +209,7 @@ const ROUTES: Routes = [
       },
       {
         path: 'css',
+        component: CssShellComponent,
         children: [
           {
             path: 'home',
@@ -223,6 +232,7 @@ const ROUTES: Routes = [
       },
       {
         path: 'angular',
+        component: AngularShellComponent,
         children: [
           {
             path: 'home',

@@ -68,7 +68,7 @@ import { CssFunctionComponent } from './css/css-function/css-function.component'
 import { CssHomeComponent } from './css/css-home/css-home.component';
 import { CssVariableComponent } from './css/css-variable/css-variable.component';
 import { CssMenuComponent } from './menu/css-menu/css-menu.component';
-import { Log4netHomeComponent } from './log4net-home/log4net-home.component';
+import { Log4netHomeComponent } from './log4net/log4net-home/log4net-home.component';
 import { Log4netMenuComponent } from './menu/log4net-menu/log4net-menu.component';
 import { SassMenuComponent } from './menu/sass-menu/sass-menu.component';
 import { SassHomeComponent } from './sass/sass-home/sass-home.component';
@@ -94,6 +94,11 @@ import { JsJsonpComponent } from './js/js-jsonp/js-jsonp.component';
 import { AngularMaterialComponent } from './angular-material/angular-material.component';
 import { ExpressjsComponent } from './expressjs/expressjs.component';
 import { NodeApiComponent } from './node-api/node-api.component';
+import { JsShellComponent } from './js/js-shell/js-shell.component';
+import { AngularShellComponent } from './angular-shell/angular-shell.component';
+import { Log4netShellComponent } from './log4net/log4net-shell/log4net-shell.component';
+import { CssShellComponent } from './css/css-shell/css-shell.component';
+import { SassShellComponent } from './sass/sass-shell/sass-shell.component';
 
 
 
@@ -174,7 +179,12 @@ import { NodeApiComponent } from './node-api/node-api.component';
     JsJsonpComponent,
     AngularMaterialComponent,
     ExpressjsComponent,
-    NodeApiComponent
+    NodeApiComponent,
+    JsShellComponent,
+    AngularShellComponent,
+    Log4netShellComponent,
+    CssShellComponent,
+    SassShellComponent
   ],
   imports: [
     BrowserModule,
