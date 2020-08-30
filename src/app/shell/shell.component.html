@@ -1,11 +1,11 @@
 <div fxLayout="column" class="container-70pct">
   <div class="min-height-5vh">
     <nav mat-tab-nav-bar [backgroundColor]="background" [color]="color">
-      <a mat-tab-link routerLink="/css/home" routerLinkActive="active-link" [active]="selectedTab==='css'">CSS</a>
-      <a mat-tab-link routerLink="/sass/home" routerLinkActive="active-link" [active]="selectedTab==='sass'">Sass</a>
-      <a mat-tab-link routerLink="/js/home" routerLinkActive="active-link" [active]="selectedTab==='js'">JavaScript</a>
-      <a mat-tab-link routerLink="/log4net/home" routerLinkActive="active-link" [active]="selectedTab==='log4net'">Log4Net</a>
-      <a mat-tab-link routerLink="/angular/home" routerLinkActive="active-link" [active]="selectedTab==='angular'">Angular</a>
+      <a mat-tab-link routerLink="/css/home" [active]="selectedTab==='css'">CSS</a>
+      <a mat-tab-link routerLink="/sass/home" [active]="selectedTab==='sass'">Sass</a>
+      <a mat-tab-link routerLink="/js/home" [active]="selectedTab==='js'">JavaScript</a>
+      <a mat-tab-link routerLink="/log4net/home" [active]="selectedTab==='log4net'">Log4Net</a>
+      <a mat-tab-link routerLink="/angular/home" [active]="selectedTab==='angular'">Angular</a>
       <a mat-tab-link (click)="logout()">Logout</a>
       <a mat-tab-link *ngIf="email$ | async as email">{{email}}</a>
     </nav>
