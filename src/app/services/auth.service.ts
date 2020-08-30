@@ -71,7 +71,6 @@ export class AuthService {
     let tokenUrl = 'http://localhost:3000/api/token';
 
     if (!refreshToken || this.isTokenExpired(refreshToken)) {
-      this.router.navigate(['/login']);
       let error_message: string = null;
 
       if (!refreshToken) {

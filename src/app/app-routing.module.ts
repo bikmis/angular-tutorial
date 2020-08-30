@@ -392,30 +392,31 @@ const ROUTES: Routes = [
             component: NodeApiComponent
           },
           {
-            path: '',
+            path: '', // http://localhost:4200/angular/ 
             redirectTo: '/angular/home',
             pathMatch: 'full'
           },
           {
-            path: '**',
+            path: '**',  //http://localhost:4200/angular/xfdfydf 
             component: PageNotFoundComponent
           }
         ]
       },
       {
-        path: '',
-        redirectTo: '/angular/home',  // absolute redirect as there is a slash(/) before angular/home
+        path: '',  //http://localhost:4200/
+        redirectTo: '/angular/data-binding',  // absolute redirect as there is a slash(/) before angular/home
+        pathMatch: 'full'
+      },
+      {
+        path: '**', //http://localhost:4200/ffdfd
+        redirectTo: '/angular/routing',  // absolute redirect as there is a slash(/) before angular/home
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '**',
-    redirectTo: 'login'    // local redirect as there is no slash(/) before login
-  },
-  {
-    path: '**',
-    component: PageNotFoundComponent
+    redirectTo: '/login'
   }
 ];
 
