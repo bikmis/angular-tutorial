@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     this.authService.loginUser(this.username, this.password).subscribe(
       isLoggedIn => {
         if (isLoggedIn) {
-          this.router.navigate(['/']);
+          this.router.navigate(['/angular/home']);
         }
       },
       (errorObj) => { this.error = errorObj.error.error;}
