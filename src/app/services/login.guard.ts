@@ -13,6 +13,8 @@ export class LoginGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) { }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    this.authService.redirectUrl = state.url;
+
     return this.authService.getLoginStatus()
       .pipe(
         map(isLoggedIn => {

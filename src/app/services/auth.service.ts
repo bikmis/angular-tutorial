@@ -11,6 +11,7 @@ import { map, mergeMap, catchError } from 'rxjs/operators';
 })
 export class AuthService {
   private token: string = null;
+  redirectUrl: string = null;
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
@@ -32,6 +33,7 @@ export class AuthService {
   }
 
   logoutUser(): void {
+    this.redirectUrl =  null;
     localStorage.removeItem('refresh_token');
     this.router.navigate(['/login']);
   }
