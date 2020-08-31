@@ -1,9 +1,10 @@
-<div>
-  <input class="mb-2" type="text" placeholder="Username" [(ngModel)]="username">
+<div class="center">
+  <input class="big m-b-15" type="text" placeholder="Username" [(ngModel)]="username">
   <br>
-  <input class="mb-2" type="password" placeholder="Password" [(ngModel)]="password">
+  <input class="big m-b-15" type="password" placeholder="Password" [(ngModel)]="password">
   <br>
-  <button class="btn btn-primary" (click) = login()>Login</button>
+  <br>
+  <button class="big-button" (click) = login()>Login</button>
   <br>
   <br>
   <span style="color:red">{{error}}</span>
