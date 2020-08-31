@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { HttpClientService } from './http-client.service';
-import { of, Observable, throwError } from 'rxjs';
+import { of, Observable, throwError, EMPTY } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 
 
@@ -28,12 +28,12 @@ export class AuthService {
         this.token = tokenObj['token'];
         return true;
       }),
-      catchError((error) => { return throwError(error) })
+      catchError(this.handleError)
     );
   }
 
   logoutUser(): void {
-    this.redirectUrl =  null;
+    this.redirectUrl = null;
     localStorage.removeItem('refresh_token');
     this.router.navigate(['/login']);
   }
@@ -45,7 +45,8 @@ export class AuthService {
       mergeMap(token => {
         let loginStatus$ = this.httpClient.get(url, { headers: { 'Authorization': token } });
         return loginStatus$.pipe(map(loginStatus => { return loginStatus['isLoggedIn'] }))
-      })
+      }),
+      catchError(this.handleError)
     );
   }
 
@@ -74,25 +75,37 @@ export class AuthService {
       let error_message: string = null;
 
       if (!refreshToken) {
-        error_message = 'refresh token missing from storage';
+        error_message = 'Refresh token missing from local storage.';
       } else if (this.isTokenExpired(refreshToken)) {
-        error_message = 'refresh token expired';
+        error_message = 'Refresh token expired.';
       }
-
-      return throwError({ 'error_message': error_message });
+      console.error(error_message);
+      this.router.navigate(['/login']);
+      return EMPTY;
     }
 
     if (!this.token || this.isTokenExpired(this.token)) {
-      let token$ = this.httpClient.get<any>(tokenUrl, { headers: { 'Authorization': refreshToken } });
+      let token$ = this.httpClient.get<any>(tokenUrl, { headers: { 'Authorization': refreshToken } })
+        .pipe(catchError(this.handleError));
 
       token$.subscribe(tokenObj => {
         this.saveRefreshToken(tokenObj);
         this.token = tokenObj['token'];
-      });
+      },
+        error => { console.error(error); }
+      );
 
       return token$.pipe(map(tokenObj => { return tokenObj['token'] }));
     } else {
       return of(this.token);
+    }
+  }
+
+  handleError(errorObj: any) {
+    if (errorObj instanceof HttpErrorResponse) {
+      return throwError(errorObj.error.error);
+    } else {
+      return throwError(errorObj);
     }
   }
 

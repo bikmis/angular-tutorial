@@ -19,8 +19,8 @@ export class LoginGuard implements CanActivate {
         map(isLoggedIn => {
           return isLoggedIn;
         }),
-        catchError(err => {
-          console.log(err);
+        catchError(error => {
+          console.error(error);
           this.router.navigate(['/login']);
           return EMPTY;
         })

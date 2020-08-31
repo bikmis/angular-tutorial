@@ -20,7 +20,7 @@ export class NodeApiComponent implements OnInit {
     this.nodeUserService.usersFromNodeApi$.subscribe((users: any) => {
       this.users = users;
     },
-      error => console.log(error)
+      error => console.error(error)
     )
   }
 
