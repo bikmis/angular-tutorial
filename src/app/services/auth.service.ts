@@ -68,23 +68,13 @@ export class AuthService {
   }
 
   supplyToken(): Observable<any> {
-    let refreshToken = localStorage.getItem('refresh_token') ? localStorage.getItem('refresh_token') : '';
-    let tokenUrl = 'http://localhost:3000/api/token';
-
-    if (!refreshToken || this.isTokenExpired(refreshToken)) {
-      let error_message: string = null;
-
-      if (!refreshToken) {
-        error_message = 'Refresh token missing from local storage.';
-      } else if (this.isTokenExpired(refreshToken)) {
-        error_message = 'Refresh token expired.';
-      }
-      console.error(error_message);
-      this.router.navigate(['/login']);
-      return EMPTY;
-    }
-
     if (!this.token || this.isTokenExpired(this.token)) {
+      let refreshToken: string = null;
+      this.supplyRefreshToken().subscribe(refToken => refreshToken = refToken);
+      if (!refreshToken) {
+        return EMPTY;
+      }
+      let tokenUrl = 'http://localhost:3000/api/token';
       let token$ = this.httpClient.get<any>(tokenUrl, { headers: { 'Authorization': refreshToken } })
         .pipe(catchError(this.handleError));
 
@@ -99,6 +89,24 @@ export class AuthService {
     } else {
       return of(this.token);
     }
+  }
+
+  supplyRefreshToken(): Observable<any> {
+    let refreshToken = localStorage.getItem('refresh_token') ? localStorage.getItem('refresh_token') : '';
+
+    if (!refreshToken || this.isTokenExpired(refreshToken)) {
+      let error_message: string = null;
+
+      if (!refreshToken) {
+        error_message = 'Refresh token missing from local storage.';
+      } else if (this.isTokenExpired(refreshToken)) {
+        error_message = 'Refresh token expired.';
+      }
+      console.error(error_message);
+      this.router.navigate(['/login']);
+      return EMPTY;
+    }
+    return of(refreshToken);
   }
 
   handleError(errorObj: any) {
