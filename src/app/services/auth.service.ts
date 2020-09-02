@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { HttpClientService } from './http-client.service';
 import { of, Observable, throwError, EMPTY } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 
@@ -70,10 +69,15 @@ export class AuthService {
   supplyToken(): Observable<any> {
     if (!this.token || this.isTokenExpired(this.token)) {
       let refreshToken: string = null;
-      this.supplyRefreshToken().subscribe(refToken => refreshToken = refToken);
+      this.supplyRefreshToken().subscribe(
+        refToken => refreshToken = refToken,
+        error => console.error(error)
+        );
+
       if (!refreshToken) {
         return EMPTY;
       }
+
       let tokenUrl = 'http://localhost:3000/api/token';
       let token$ = this.httpClient.get<any>(tokenUrl, { headers: { 'Authorization': refreshToken } })
         .pipe(catchError(this.handleError));
@@ -102,9 +106,8 @@ export class AuthService {
       } else if (this.isTokenExpired(refreshToken)) {
         error_message = 'Refresh token expired.';
       }
-      console.error(error_message);
       this.router.navigate(['/login']);
-      return EMPTY;
+      return this.handleError(error_message);
     }
     return of(refreshToken);
   }
