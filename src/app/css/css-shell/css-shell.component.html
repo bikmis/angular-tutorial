@@ -1,5 +1,9 @@
 <div fxLayout="row" class="min-height-95vh">
-  <app-css-menu></app-css-menu>
+  <mat-nav-list class="min-width-200px">
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/css/home">Home</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/css/variable">Variable</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/css/function">Function</a>
+  </mat-nav-list>
   <div class="p-15 border-left-gray max-width-60pct">
     <router-outlet></router-outlet>
   </div>

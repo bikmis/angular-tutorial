@@ -1,5 +1,16 @@
 <div fxLayout="row" class="min-height-95vh">
-  <app-js-menu></app-js-menu>
+  <mat-nav-list class="min-width-200px">
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/js/home">Home</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/js/location">Location</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/js/comment">Comment</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/js/variable">Variable</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/js/function">Function</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/js/window">Window</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/js/datatype">Data Type</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/js/jsonp">jsonp</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/js/map-method">map Method (JS)</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/js/spread-syntax">Spread Syntax</a>
+  </mat-nav-list>
   <div class="p-15 border-left-gray max-width-60pct">
     <router-outlet></router-outlet>
   </div>

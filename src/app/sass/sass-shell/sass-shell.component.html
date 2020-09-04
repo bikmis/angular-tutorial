@@ -1,5 +1,17 @@
 <div fxLayout="row" class="min-height-95vh">
-  <app-sass-menu></app-sass-menu>
+  <mat-nav-list class="min-width-200px">
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/sass/home">Home</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/sass/installation">Installation</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/sass/compilation">Compilation</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/sass/sourcemap">Source Map</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/sass/nesting">Nesting</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/sass/module">Module</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/sass/inheritance">Inheritance</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/sass/list">List, @each</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/sass/map">Map</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/sass/function">Function</a>
+    <a mat-list-item routerLinkActive="active-nav" routerLink="/sass/mixin">Mixin</a>
+  </mat-nav-list>
   <div class="p-15 border-left-gray max-width-60pct">
     <router-outlet></router-outlet>
   </div>

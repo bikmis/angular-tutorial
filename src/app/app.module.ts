@@ -54,7 +54,6 @@ import { NpmCommandComponent } from './npm-command/npm-command.component';
 import { TypeScriptComponent } from './type-script/type-script.component';
 import { RegularExpressionComponent } from './regular-expression/regular-expression.component';
 import { Html5ValidationComponent } from './html5-validation/html5-validation.component';
-import { AngularMenuComponent } from './menu/angular-menu/angular-menu.component';
 import { ShellComponent } from './shell/shell.component';
 import { HeroEditComponent } from './hero-edit/hero-edit.component';
 import { ForbiddenValidatorDirective } from './forms/directives/forbidden-validator.directive';
@@ -67,10 +66,7 @@ import { NodejsComponent } from './nodejs/nodejs.component';
 import { CssFunctionComponent } from './css/css-function/css-function.component';
 import { CssHomeComponent } from './css/css-home/css-home.component';
 import { CssVariableComponent } from './css/css-variable/css-variable.component';
-import { CssMenuComponent } from './menu/css-menu/css-menu.component';
 import { Log4netHomeComponent } from './log4net/log4net-home/log4net-home.component';
-import { Log4netMenuComponent } from './menu/log4net-menu/log4net-menu.component';
-import { SassMenuComponent } from './menu/sass-menu/sass-menu.component';
 import { SassHomeComponent } from './sass/sass-home/sass-home.component';
 import { SassCompilationComponent } from './sass/sass-compilation/sass-compilation.component';
 import { SassFunctionComponent } from './sass/sass-function/sass-function.component';
@@ -83,7 +79,6 @@ import { SassListComponent } from './sass/sass-list/sass-list.component';
 import { SassMapComponent } from './sass/sass-map/sass-map.component';
 import { SassMixinComponent } from './sass/sass-mixin/sass-mixin.component';
 import { JsHomeComponent } from './js/js-home/js-home.component';
-import { JsMenuComponent } from './menu/js-menu/js-menu.component';
 import { JsLocationComponent } from './js/js-location/js-location.component';
 import { JsCommentComponent } from './js/js-comment/js-comment.component';
 import { JsVariableComponent } from './js/js-variable/js-variable.component';
@@ -140,7 +135,6 @@ import { SassShellComponent } from './sass/sass-shell/sass-shell.component';
     TypeScriptComponent,
     RegularExpressionComponent,
     Html5ValidationComponent,
-    AngularMenuComponent,
     ShellComponent,
     HeroEditComponent,
     ForbiddenValidatorDirective,
@@ -153,10 +147,7 @@ import { SassShellComponent } from './sass/sass-shell/sass-shell.component';
     CssFunctionComponent,
     CssHomeComponent,
     CssVariableComponent,
-    CssMenuComponent,
     Log4netHomeComponent,
-    Log4netMenuComponent,
-    SassMenuComponent,
     SassHomeComponent,
     SassCompilationComponent,
     SassFunctionComponent,
@@ -169,7 +160,6 @@ import { SassShellComponent } from './sass/sass-shell/sass-shell.component';
     SassMapComponent,
     SassMixinComponent,
     JsHomeComponent,
-    JsMenuComponent,
     JsLocationComponent,
     JsCommentComponent,
     JsVariableComponent,
