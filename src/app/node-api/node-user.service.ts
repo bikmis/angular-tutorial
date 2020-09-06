@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClientService } from '../services/http-client.service';
 import { of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,7 @@ export class NodeUserService {
       return of(this.userList);
     }
 
-    let users = this.httpClientService.getProtectedApi(this.url)
-    users.subscribe((users: any) => this.userList = users);
+    let users = this.httpClientService.getProtectedApi(this.url).pipe(tap(data => this.userList = data));
     return users;
   }
 
