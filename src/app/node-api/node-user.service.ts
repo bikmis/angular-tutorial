@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators';
 })
 export class NodeUserService {
 
-  private userList;
+  private userList: any | null;
 
   private url = 'http://localhost:3000/api/users';
 
