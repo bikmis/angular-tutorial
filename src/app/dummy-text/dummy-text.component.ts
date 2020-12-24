@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FragmentService } from '../services/fragment.service';
 
 @Component({
   selector: 'app-dummy-text',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DummyTextComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fragmentService: FragmentService) { }
 
   ngOnInit(): void {
+    this.fragmentService.scroll();
   }
 
 }
