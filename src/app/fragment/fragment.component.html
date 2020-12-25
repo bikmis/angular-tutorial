@@ -22,6 +22,29 @@ Make the following changes in the AppRoutingModule and add an anchor link with f
     <br>
     <br>
 &lt;a [routerLink]="['/dummy-text']" fragment="text2">Go to #Text2 on a different page (dummy text)&lt;/a>
+<br>
+<br>
+Service (inject it in all the components where fragments are used):
+<br>
+@Injectable({{'{'}} <br>
+&nbsp;&nbsp;providedIn: 'root' <br>
+}) <br>
+export class FragmentService {{'{'}}
+<br>
+&nbsp;&nbsp;constructor(private route: ActivatedRoute, private viewportScroller: ViewportScroller) {{'{'}} } <br>
+  <br>
+  &nbsp;&nbsp;//when the page is refreshed or landed upon from outside of it with a url with a fragment 
+  &nbsp;&nbsp;//(http://localhost:4200/angular/dummy-text#text2), the following code will scroll to fragment 
+  &nbsp;&nbsp;//mentioned in the url. <br>
+  <br>
+  &nbsp;&nbsp;public scroll(){{'{'}} <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;this.route.fragment.subscribe((fragment: string) => {{'{'}} <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setTimeout(() => {{'{'}} <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.viewportScroller.scrollToAnchor(fragment); <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}, 0) <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;}) <br>
+  &nbsp;&nbsp;} <br>
+}
 </code>
 
 <br>
