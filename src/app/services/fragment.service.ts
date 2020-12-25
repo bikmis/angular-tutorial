@@ -1,6 +1,5 @@
-import { ViewportRuler } from '@angular/cdk/scrolling';
 import { ViewportScroller } from '@angular/common';
-import { ElementRef, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
