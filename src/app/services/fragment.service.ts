@@ -1,3 +1,5 @@
+import { ViewportRuler } from '@angular/cdk/scrolling';
+import { ViewportScroller } from '@angular/common';
 import { ElementRef, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -6,16 +8,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FragmentService {
 
-  constructor(private route: ActivatedRoute) { }
-  //If the url has a fragment e.g. http://localhost:4200/angular/dummy-text#text2, the following code will scroll the page to that fragment if the page is refreshed or landed upon from outside of it. 
-  public scroll(elements: ElementRef[]){
+  constructor(private route: ActivatedRoute, private viewportScroller: ViewportScroller) { }
+  //when the page is refreshed or landed upon from outside of it with a url with a fragment (http://localhost:4200/angular/dummy-text#text2), the following code will scroll to fragment mentioned in the url.
+  public scroll(){
     this.route.fragment.subscribe((fragment: string) => {
-      elements.forEach(element => {
-        if (element.nativeElement.id === fragment) {
           setTimeout(() => {
-            element.nativeElement.scrollIntoView();
+            this.viewportScroller.scrollToAnchor(fragment);
           }, 0)
-      }})
     })
   }
 
