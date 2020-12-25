@@ -13,8 +13,7 @@ export class FragmentComponent implements OnInit, AfterViewInit {
   @ViewChild('text3') text3: ElementRef;
 
   ngAfterViewInit(): void {
-    this.fragmentService.scroll(this.text1);
-    this.fragmentService.scroll(this.text3);
+    this.fragmentService.scroll([this.text1, this.text3]);
   }
 
   ngOnInit(): void { }

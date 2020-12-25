@@ -15,7 +15,7 @@ export class DummyTextComponent implements OnInit, AfterViewInit {
   ngOnInit(): void { }
 
   ngAfterViewInit(){
-    this.fragmentService.scroll(this.text2);
+    this.fragmentService.scroll([this.text2]);
   }
 
 }
