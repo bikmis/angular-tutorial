@@ -10,7 +10,7 @@ export class FragmentService {
 
   public scroll(element: ElementRef){
     this.route.fragment.subscribe((fragment: string) => {
-      if (fragment) {
+      if (element.nativeElement.id === fragment) {
           setTimeout(() => {
             element.nativeElement.scrollIntoView();
           }, 0)
