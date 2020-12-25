@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FragmentService } from '../services/fragment.service';
 
 @Component({
@@ -6,12 +6,16 @@ import { FragmentService } from '../services/fragment.service';
   templateUrl: './dummy-text.component.html',
   styleUrls: ['./dummy-text.component.scss']
 })
-export class DummyTextComponent implements OnInit {
+export class DummyTextComponent implements OnInit, AfterViewInit {
 
   constructor(private fragmentService: FragmentService) { }
 
-  ngOnInit(): void {
-    this.fragmentService.scroll();
+  @ViewChild('text2') text2: ElementRef;
+
+  ngOnInit(): void { }
+
+  ngAfterViewInit(){
+    this.fragmentService.scroll(this.text2);
   }
 
 }

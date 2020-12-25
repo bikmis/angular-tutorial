@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
@@ -8,15 +8,12 @@ export class FragmentService {
 
   constructor(private route: ActivatedRoute) { }
 
-  public scroll(){
+  public scroll(element: ElementRef){
     this.route.fragment.subscribe((fragment: string) => {
       if (fragment) {
-        const element = document.querySelector("#"+fragment)
-        if(element){
           setTimeout(() => {
-            element.scrollIntoView();
+            element.nativeElement.scrollIntoView();
           }, 0)
-        }
       }
     })
   }
