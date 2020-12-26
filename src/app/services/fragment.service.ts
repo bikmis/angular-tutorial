@@ -11,9 +11,11 @@ export class FragmentService {
   //when the page is refreshed or landed upon from outside of it with a url with a fragment (http://localhost:4200/angular/dummy-text#text2), the following code will scroll to fragment mentioned in the url.
   public scroll(){
     this.route.fragment.subscribe((fragment: string) => {
-          setTimeout(() => {
-            this.viewportScroller.scrollToAnchor(fragment);
-          }, 0)
+      if(fragment){
+        setTimeout(() => {
+          this.viewportScroller.scrollToAnchor(fragment);
+        }, 0)
+      }
     })
   }
 
