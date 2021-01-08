@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FragmentService } from '../services/fragment.service';
 
 @Component({
   selector: 'app-directive',
@@ -12,10 +13,11 @@ export class DirectiveComponent implements OnInit {
   programingLanguage = ['c', 'c++', 'c#', 'Java', 'JavaScript', 'Python'];
   selectedLanguage: string = "Select a Language";
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute, private fragmentService: FragmentService) { }
 
   ngOnInit(): void {
     this.activatedRoute.fragment.subscribe(x => this.selectedFragment = x);
+    this.fragmentService.scroll();
   }
 
   toggleText(event) {
