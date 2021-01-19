@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SassCompilationComponent } from './sass-compilation.component';
 
@@ -6,7 +6,7 @@ describe('SassCompilationComponent', () => {
   let component: SassCompilationComponent;
   let fixture: ComponentFixture<SassCompilationComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SassCompilationComponent ]
     })

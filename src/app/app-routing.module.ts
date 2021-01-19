@@ -418,10 +418,11 @@ const ROUTES: Routes = [
 
 
 const extraOptions: ExtraOptions = {
-  anchorScrolling: 'enabled',
-  onSameUrlNavigation: 'reload'
-  //scrollPositionRestoration: 'enabled',
-  //scrollOffset: [0, 0]
+    anchorScrolling: 'enabled',
+    onSameUrlNavigation: 'reload',
+    //scrollPositionRestoration: 'enabled',
+    //scrollOffset: [0, 0]
+    relativeLinkResolution: 'legacy'
 };
 
 @NgModule({

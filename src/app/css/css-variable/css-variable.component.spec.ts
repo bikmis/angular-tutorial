@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CssVariableComponent } from './css-variable.component';
 
@@ -6,7 +6,7 @@ describe('CssVariableComponent', () => {
   let component: CssVariableComponent;
   let fixture: ComponentFixture<CssVariableComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CssVariableComponent ]
     })

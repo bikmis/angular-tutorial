@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { JsJsonpComponent } from './js-jsonp.component';
 
@@ -6,7 +6,7 @@ describe('JsJsonpComponent', () => {
   let component: JsJsonpComponent;
   let fixture: ComponentFixture<JsJsonpComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ JsJsonpComponent ]
     })

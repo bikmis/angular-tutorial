@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SassInheritanceComponent } from './sass-inheritance.component';
 
@@ -6,7 +6,7 @@ describe('SassInheritanceComponent', () => {
   let component: SassInheritanceComponent;
   let fixture: ComponentFixture<SassInheritanceComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SassInheritanceComponent ]
     })

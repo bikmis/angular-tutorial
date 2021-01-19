@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { Log4netHomeComponent } from './log4net-home.component';
 
@@ -6,7 +6,7 @@ describe('Log4netHomeComponent', () => {
   let component: Log4netHomeComponent;
   let fixture: ComponentFixture<Log4netHomeComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ Log4netHomeComponent ]
     })

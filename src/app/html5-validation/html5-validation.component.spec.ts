@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { Html5ValidationComponent } from './html5-validation.component';
 
@@ -6,7 +6,7 @@ describe('Html5ValidationComponent', () => {
   let component: Html5ValidationComponent;
   let fixture: ComponentFixture<Html5ValidationComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ Html5ValidationComponent ]
     })

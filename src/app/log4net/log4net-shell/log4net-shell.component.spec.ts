@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { Log4netShellComponent } from './log4net-shell.component';
 
@@ -6,7 +6,7 @@ describe('Log4netShellComponent', () => {
   let component: Log4netShellComponent;
   let fixture: ComponentFixture<Log4netShellComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ Log4netShellComponent ]
     })

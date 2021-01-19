@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { JsShellComponent } from './js-shell.component';
 
@@ -6,7 +6,7 @@ describe('JsShellComponent', () => {
   let component: JsShellComponent;
   let fixture: ComponentFixture<JsShellComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ JsShellComponent ]
     })

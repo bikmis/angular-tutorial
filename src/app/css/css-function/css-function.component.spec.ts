@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CssFunctionComponent } from './css-function.component';
 
@@ -6,7 +6,7 @@ describe('CssFunctionComponent', () => {
   let component: CssFunctionComponent;
   let fixture: ComponentFixture<CssFunctionComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CssFunctionComponent ]
     })

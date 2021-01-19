@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { RegularExpressionComponent } from './regular-expression.component';
 
@@ -6,7 +6,7 @@ describe('RegularExpressionComponent', () => {
   let component: RegularExpressionComponent;
   let fixture: ComponentFixture<RegularExpressionComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ RegularExpressionComponent ]
     })

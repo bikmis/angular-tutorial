@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SassInstallationComponent } from './sass-installation.component';
 
@@ -6,7 +6,7 @@ describe('SassInstallationComponent', () => {
   let component: SassInstallationComponent;
   let fixture: ComponentFixture<SassInstallationComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SassInstallationComponent ]
     })
